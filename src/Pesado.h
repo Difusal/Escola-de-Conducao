@@ -1,19 +1,17 @@
-/*
- * Pesado.h
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #ifndef PESADO_H_
 #define PESADO_H_
-
 #include "Automovel.h"
 
 class Pesado: public Automovel {
+protected:
+	int cargaMaxima;
 public:
-	Pesado(string Matricula, int Ano, string Marca);
-	virtual ~Pesado();
+	Pesado(string Matricula, int Ano, string Marca, int CargaMaxima) : Automovel(Matricula, Ano, Marca), cargaMaxima(CargaMaxima) {}
+	virtual ~Pesado() {}
+
+	int info() const;
+
+	int getCargaMaxima() { return cargaMaxima; }
 };
 
-#endif /* PESADO_H_ */
+#endif

@@ -1,18 +1,7 @@
-/*
- * Ligeiro.cpp
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #include "Ligeiro.h"
 
-Ligeiro::Ligeiro(string Matricula, int Ano, string Marca) : Automovel(Matricula, Ano, Marca) {
-	// TODO Auto-generated constructor stub
-
+int Ligeiro::info() const {
+	int prevInfo = Automovel::info();
+	//cout << "Carga Maxima: " << cargaMaxima << endl;
+	return prevInfo + 0;
 }
-
-Ligeiro::~Ligeiro() {
-	// TODO Auto-generated destructor stub
-}
-

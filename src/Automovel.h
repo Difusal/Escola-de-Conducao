@@ -1,19 +1,13 @@
-/*
- * Automovel.h
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #ifndef AUTOMOVEL_H_
 #define AUTOMOVEL_H_
-
 #include "Viatura.h"
 
 class Automovel: public Viatura {
 public:
-	Automovel(string Matricula, int Ano, string Marca);
-	virtual ~Automovel();
+	Automovel(string Matricula, int Ano, string Marca) : Viatura(Matricula, Ano, Marca) {}
+	virtual ~Automovel() {}
+
+	int info() const;
 };
 
-#endif /* AUTOMOVEL_H_ */
+#endif

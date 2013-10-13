@@ -1,5 +1,6 @@
 #ifndef VIATURA_H_
 #define VIATURA_H_
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -13,7 +14,7 @@ public:
 	Viatura(string Matricula, int Ano, string Marca) : matricula(Matricula), anoFabrico(Ano), marca(Marca) {}
 	virtual ~Viatura() {}
 
-	virtual int info() const = 0;
+	virtual int info() const;
 
 	// Getters e Setters
 	string getMatricula() { return matricula; }

@@ -1,18 +1,7 @@
-/*
- * Pesado.cpp
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #include "Pesado.h"
 
-Pesado::Pesado(string Matricula, int Ano, string Marca) : Automovel(Matricula, Ano, Marca) {
-	// TODO Auto-generated constructor stub
-
+int Pesado::info() const {
+	int prevInfo = Automovel::info();
+	cout << "Carga Maxima: " << cargaMaxima << endl;
+	return prevInfo + 1;
 }
-
-Pesado::~Pesado() {
-	// TODO Auto-generated destructor stub
-}
-

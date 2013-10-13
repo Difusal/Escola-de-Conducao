@@ -1,18 +1,10 @@
-/*
- * Automovel.cpp
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #include "Automovel.h"
 
-Automovel::Automovel(string Matricula, int Ano, string Marca) : Viatura(Matricula, Ano, Marca) {
-	// TODO Auto-generated constructor stub
-
+int Automovel::info() const {
+	int infoV = Viatura::info();
+	/*
+	cout << "Combustivel: " << combustivel << endl;
+	cout << "Cilindrada: " << cilindrada << endl;
+	*/
+	return infoV + 0;
 }
-
-Automovel::~Automovel() {
-	// TODO Auto-generated destructor stub
-}
-
