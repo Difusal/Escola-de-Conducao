@@ -22,6 +22,7 @@ public:
 
 	int numViaturas() const { return viaturas.size(); }
 	void adicionaViatura(Viatura *viatura) { viaturas.push_back(viatura); }
+	void visualizaViaturas();
 	/*
 	int menorAno() const;
 	void info() const;

@@ -15,6 +15,7 @@ void Escola::showMainMenu() {
 
 	bool done = false;
 	while (!done) {
+		cout << endl;
 		cout << "**********************" << endl;
 		cout << "* Escola de Conducao *" << endl;
 		cout << "**********************" << endl;
@@ -73,12 +74,14 @@ void Escola::showManutencaoViaturas() {
 		cout << endl;
 		cout << "> Escolha o que pretende fazer:" << endl;
 		cout << "> ";
-		cin >> input;
+		cin >> input; cin.ignore();
 
 		input = tolower(input);
 		done = true;
 		switch (input) {
 		case '1':
+			visualizaViaturas();
+			done = false;
 			break;
 		case '2':
 			showAdicionarViaturaUI();
@@ -173,4 +176,22 @@ void Escola::showManutencaoAlunos() {
 
 void Escola::showManutencaoAulas() {
 
+}
+
+void Escola::visualizaViaturas() {
+	cout << endl;
+	cout << "------------------------" << endl;
+	cout << "- Listagem de viaturas -" << endl;
+	cout << "------------------------" << endl;
+	int size = viaturas.size();
+	if (size == 0)
+		cout << ".: Nao existe nenhuma viatura :." << endl;
+	for (int i = 0; i < size; i++) {
+		cout << endl;
+		cout << "> Viatura " << i+1 << ":" << endl;
+		viaturas[i]->info();
+	}
+	cout << endl;
+	cout << "Pressione enter para continuar... ";
+	cin.get();
 }
