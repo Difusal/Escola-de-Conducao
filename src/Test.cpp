@@ -31,6 +31,11 @@ void runSuite(){
 }
 
 int main(){
-    runSuite();
+	// ucomment next line for cute tests
+    //runSuite();
+
+	Escola Viriato;
+	Viriato.showMainMenu();
+
     return 0;
 }
