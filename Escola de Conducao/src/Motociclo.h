@@ -4,10 +4,11 @@
 
 class Motociclo: public Viatura {
 public:
-	Motociclo(string Matricula, int Ano, string Marca) : Viatura(Matricula, Ano, Marca) {}
+	Motociclo(string Matricula, int Ano, string Marca, int Periodicidade) : Viatura(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Motociclo() {}
 
-	int info() const;
+	string getTipo() const { return "motociclo"; }
+	int info();
 };
 
 #endif

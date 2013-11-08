@@ -10,16 +10,23 @@
 class Escola {
 private:
 	string nome;
+	int abertura, fecho;
 	vector<Viatura*> viaturas;
 public:
 	Escola();
 	virtual ~Escola();
 
+	int createFileStructure();
+	int saveSchoolData();
 	int loadSchoolData();
 
 	void showLoginScreen();
 	void showLoginUI();
 	void showSignUpUI();
+	int setHorarioUI();
+	void showRenameSchoolUI();
+	void showRemoveSchoolUI();
+
 	void showMainMenu();
 	void showManutencaoViaturas();
 	void showAdicionarViaturaUI();
@@ -30,7 +37,7 @@ public:
 	void visualizaViaturas();
 	void adicionaViatura(Viatura *viatura) { viaturas.push_back(viatura); }
 
-	int numViaturas() const { return viaturas.size(); }
+	unsigned int numViaturas() const { return viaturas.size(); }
 
 	/*
 	int menorAno() const;

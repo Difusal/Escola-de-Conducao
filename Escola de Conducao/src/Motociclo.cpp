@@ -1,6 +1,6 @@
 #include "Motociclo.h"
 
-int Motociclo::info() const {
+int Motociclo::info() {
 	int infoV = Viatura::info();
 	/*
 	cout << "Combustivel: " << combustivel << endl;

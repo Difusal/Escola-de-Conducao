@@ -4,10 +4,10 @@
 
 class Automovel: public Viatura {
 public:
-	Automovel(string Matricula, int Ano, string Marca) : Viatura(Matricula, Ano, Marca) {}
+	Automovel(string Matricula, int Ano, string Marca, int Periodicidade) : Viatura(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Automovel() {}
 
-	int info() const;
+	virtual int info();
 };
 
 #endif

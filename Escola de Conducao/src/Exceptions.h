@@ -47,4 +47,36 @@ public:
 	}
 };
 
+class InputEsperadoEraInt: public exception {
+	int *num;
+	int start, end;
+public:
+	InputEsperadoEraInt(int &Numero, int Start, int End): num(&Numero), start(Start), end(End) {}
+	virtual ~InputEsperadoEraInt() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tInput Invalido: \'int\' type era esperado." << endl;
+		cout << "\tInput tambem tem que pertencer ao intervalo: [" << start << ", " << end << "]" << endl;
+		cout << "\t----------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class InputEsperadoEraString: public exception {
+	string *str;
+public:
+	InputEsperadoEraString(string &String): str(&String) {}
+	virtual ~InputEsperadoEraString() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tInput Invalido: \'string\' type era esperado." << endl;
+		cout << "\t-------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
 #endif /* EXCEPTIONS_H_ */

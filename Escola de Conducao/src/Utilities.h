@@ -15,9 +15,12 @@ using namespace std;
 #define ALL(v) (v).begin(), (v).end()
 #define foreach(v, it) for(typeof((v).begin()) it = (v).begin(); it != (v).end(); it++ )
 
+struct tm *getTimeInfo();
+int getAnoActual();
+
 bool fileExists(const string &fileName);
 int parseFilename(string &fileName);
 
-int processMatricula(string Matricula);
+int processMatricula(string &Matricula);
 
 #endif /* UTILITIES_H_ */

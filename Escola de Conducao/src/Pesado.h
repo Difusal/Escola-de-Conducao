@@ -6,10 +6,11 @@ class Pesado: public Automovel {
 protected:
 	int cargaMaxima;
 public:
-	Pesado(string Matricula, int Ano, string Marca, int CargaMaxima) : Automovel(Matricula, Ano, Marca), cargaMaxima(CargaMaxima) {}
+	Pesado(string Matricula, int Ano, string Marca, int Periodicidade, int CargaMaxima) : Automovel(Matricula, Ano, Marca, Periodicidade), cargaMaxima(CargaMaxima) {}
 	virtual ~Pesado() {}
 
-	int info() const;
+	string getTipo() const { return "pesado"; }
+	int info();
 
 	int getCargaMaxima() { return cargaMaxima; }
 };

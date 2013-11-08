@@ -1,4 +1,4 @@
-Escola-de-Conducao
+Escola de Conducao
 ==================
 1.º Trabalho de Grupo de AEDA, FEUP.
 
@@ -20,7 +20,7 @@ Main file:
 ----------
 = Dados dos Veiculos =
 > n
-> matricula anoFabrico marca dataUltimaInspec periodicidadeInspec
+> matricula anoFabrico marca tipo dataUltimaInspec periodicidadeInspec
 
 = Dados dos Instrutores =
 > n

@@ -4,10 +4,11 @@
 
 class Ligeiro: public Automovel {
 public:
-	Ligeiro(string Matricula, int Ano, string Marca) : Automovel(Matricula, Ano, Marca) {}
+	Ligeiro(string Matricula, int Ano, string Marca, int Periodicidade) : Automovel(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Ligeiro() {}
 
-	int info() const;
+	string getTipo() const { return "ligeiro"; }
+	int info();
 };
 
 #endif
