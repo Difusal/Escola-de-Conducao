@@ -1,8 +1,8 @@
 #include "Viatura.h"
 
 int Viatura::info() const {
-	cout << "Matricula: " << matricula << endl;
-	cout << "Ano de Fabrico: " << anoFabrico << endl;
-	cout << "Marca: " << marca << endl;
+	cout << "\tMatricula: " << matricula << endl;
+	cout << "\tAno de Fabrico: " << anoFabrico << endl;
+	cout << "\tMarca: " << marca << endl;
 	return 3;
 }
