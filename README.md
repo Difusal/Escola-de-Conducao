@@ -25,7 +25,7 @@ Main file:
 
 = Dados dos Instrutores =
 > n
-> nome
+> nome qualifLig qualifPes qualifMoto
 
 = Dados dos Alunos =
 > n

@@ -94,6 +94,7 @@ int Escola::loadSchoolData() {
 	ifstream fin(escola.c_str());
 
 	cout << "> A carregar viaturas... ";
+	viaturas.clear();
 	string matricula, marca, tipo, dataUltimaInspec;
 	int anoFabrico, periodicidade;
 
@@ -481,16 +482,16 @@ void Escola::showMainMenu() {
 		done = true;
 		switch (input) {
 		case '1':
-			showManutencaoViaturas();
+			showManutencaoViaturasUI();
 			break;
 		case '2':
-			showManutencaoInstrutores();
+			showManutencaoInstrutoresUI();
 			break;
 		case '3':
-			showManutencaoAlunos();
+			showManutencaoAlunosUI();
 			break;
 		case '4':
-			showManutencaoAulas();
+			showManutencaoAulasUI();
 			break;
 		case 'x':
 			cout << "A terminar sessao..." << endl;
@@ -503,7 +504,7 @@ void Escola::showMainMenu() {
 	}
 }
 
-void Escola::showManutencaoViaturas() {
+void Escola::showManutencaoViaturasUI() {
 	char input;
 
 	bool done = false;
@@ -550,15 +551,58 @@ void Escola::showManutencaoViaturas() {
 	}
 }
 
-void Escola::showManutencaoInstrutores() {
+void Escola::showManutencaoInstrutoresUI() {
+	char input;
+
+	bool done = false;
+	while (!done) {
+		cout << endl;
+		cout << "-----------------------------" << endl;
+		cout << "- Manutencao de Instrutores -" << endl;
+		cout << "-----------------------------" << endl;
+		cout << "1. Visualizar instrutores" << endl;
+		cout << "2. Adicionar instrutor" << endl;
+		cout << "3. Editar dados de instrutor" << endl;
+		cout << "4. Remover instrutor" << endl;
+		cout << endl;
+		cout << "X. Voltar ao menu inicial" << endl;
+		cout << endl;
+		cout << "> Escolha o que pretende fazer:" << endl;
+		cout << "> ";
+		cin >> input;
+		cin.ignore();
+
+		input = tolower(input);
+
+		done = false;
+		switch (input) {
+		case '1':
+			showVisualizaInstrutoresUI();
+			break;
+		case '2':
+			showAdicionarInstrutorUI();
+			break;
+		case '3':
+			showEditarInstrutorUI();
+			break;
+		case '4':
+			showRemoverInstrutorUI();
+			break;
+		case 'x':
+			showMainMenu();
+			done = true;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Escola::showManutencaoAlunosUI() {
 	//TODO asdads
 }
 
-void Escola::showManutencaoAlunos() {
-	//TODO asdads
-}
-
-void Escola::showManutencaoAulas() {
+void Escola::showManutencaoAulasUI() {
 	//TODO asdads
 }
 
@@ -622,7 +666,6 @@ void Escola::showAdicionarViaturaUI() {
 	string matricula;
 	int anoFabrico;
 	string marca;
-	int cargaMaxima;
 	int periodicidade;
 
 	char input;
@@ -652,7 +695,7 @@ void Escola::showAdicionarViaturaUI() {
 			done = true;
 			break;
 		case 'x':
-			showManutencaoViaturas();
+			showManutencaoViaturasUI();
 			return;
 		default:
 			done = false;
@@ -746,11 +789,6 @@ void Escola::showAdicionarViaturaUI() {
 		}
 	}
 
-	if (input == '2') {
-		cout << "\ta carga maxima: ";
-		cin >> cargaMaxima;
-	}
-
 	Viatura *temp;
 	switch (input) {
 	case '1':
@@ -769,7 +807,7 @@ void Escola::showAdicionarViaturaUI() {
 	cout << "* Viatura adicionada com sucesso *" << endl;
 
 	saveSchoolData();
-	showManutencaoViaturas();
+	showManutencaoViaturasUI();
 }
 
 void Escola::showEditarViaturaUI() {
@@ -797,7 +835,7 @@ void Escola::showEditarViaturaUI() {
 			e.what();
 		}
 	}
-	posViatura = input-1;
+	posViatura = input - 1;
 
 	cout << "Editar:" << endl;
 	cout << "1. Periodicidade de inspecoes" << endl;
@@ -888,6 +926,198 @@ void Escola::showRemoverViaturaUI() {
 
 	cout << "* Viatura removida com sucesso *" << endl;
 	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
+}
+
+void Escola::showVisualizaInstrutoresUI() {
+	try {
+		if (numInstrutores() == 0)
+			throw ColecaoVazia("Instrutores");
+
+		cout << endl;
+		cout << "---------------------------" << endl;
+		cout << "- Listagem de instrutores -" << endl;
+		cout << "---------------------------" << endl;
+		cout << "1. Nome" << endl;
+		cout << "2. Numero de qualificacoes" << endl;
+		cout << "3. Numero de alunos" << endl;
+		cout << "4. Numero de aulas" << endl;
+		cout << endl;
+
+		bool done = false;
+		while (!done) {
+			cout << "> Escolha o metodo de ordenacao da lista:" << endl;
+			cout << "> ";
+			char input;
+			cin >> input;
+			cin.ignore();
+
+			done = true;
+			switch (input) {
+			case '1':
+				visualizaInstrutores(NOME);
+				break;
+			case '2':
+				visualizaInstrutores(NQUALIFICACOES);
+				break;
+			case '3':
+				visualizaInstrutores(NALUNOS);
+				break;
+			case '4':
+				visualizaInstrutores(NAULAS);
+				break;
+			default:
+				done = false;
+				break;
+			}
+		}
+	} catch (ColecaoVazia &e) {
+		e = ColecaoVazia("Instrutores");
+		e.what();
+	}
+}
+
+void Escola::showAdicionarInstrutorUI() {
+	string nome;
+	bool qualifLig, qualifPes, qualifMoto;
+
+	cout << endl;
+	cout << "-----------------------" << endl;
+	cout << "- Adicionar Instrutor -" << endl;
+	cout << "-----------------------" << endl;
+	cout << endl;
+	cout << "Insira:" << endl;
+
+	bool done = false;
+	while (!done) {
+		try {
+			cout << "\to nome: ";
+			cin >> nome;
+			//processMatricula(matricula);
+			break;
+		} catch (MatriculaInvalida &e) {
+			//e = MatriculaInvalida(matricula);
+			//e.what();
+		}
+	}
+
+	while (1) {
+		try {
+			cout << "\tqualificacao de ligeiro: ";
+			cin >> qualifLig;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(qualifLig, 0, 1));
+			} else if (0 <= qualifLig && qualifLig <= 1)
+				break;
+			else
+				throw(InputEsperadoEraInt(qualifLig, 0, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(qualifLig, 0, 1);
+			e.what();
+		}
+	}
+	while (1) {
+		try {
+			cout << "\tqualificacao de pesado: ";
+			cin >> qualifPes;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(qualifPes, 0, 1));
+			} else if (0 <= qualifPes && qualifPes <= 1)
+				break;
+			else
+				throw(InputEsperadoEraInt(qualifPes, 0, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(qualifPes, 0, 1);
+			e.what();
+		}
+	}
+	while (1) {
+		try {
+			cout << "\tqualificacao de motociclo: ";
+			cin >> qualifMoto;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(qualifMoto, 0, 1));
+			} else if (0 <= qualifMoto && qualifMoto <= 1)
+				break;
+			else
+				throw(InputEsperadoEraInt(qualifMoto, 0, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(qualifMoto, 0, 1);
+			e.what();
+		}
+	}
+
+	Instrutor *temp;
+	temp = new Instrutor(nome, qualifLig, qualifPes, qualifMoto);
+	adicionaInstrutor(temp);
+
+	cout << endl;
+	cout << "* Instrutor adicionado com sucesso *" << endl;
+
+	saveSchoolData();
+	showManutencaoInstrutoresUI();
+}
+
+void Escola::showEditarInstrutorUI() {
+	// TODO sdadsasd
+}
+
+void Escola::showRemoverInstrutorUI() {
+	// TODO sdadsasd
+}
+
+bool menorNome(Instrutor *x1, Instrutor *x2) {
+	return (x1->getNome() < x2->getNome());
+}
+bool menorNQualificacoes(Instrutor *x1, Instrutor *x2) {
+	return (x1->numQualificacoes() < x2->numQualificacoes());
+}
+bool menorNAlunos(Instrutor *x1, Instrutor *x2) {
+	return (x1->numAlunos() < x2->numAlunos());
+}
+bool menorNAulas(Instrutor *x1, Instrutor *x2) {
+	return (x1->numAulas() < x2->numAulas());
+}
+
+void Escola::visualizaInstrutores(MetodoDeSortDeInstrutores metodo) {
+	switch (metodo) {
+	case NOME:
+		sort(ALL(instrutores), menorNome);
+		break;
+	case NQUALIFICACOES:
+		sort(ALL(instrutores), menorNQualificacoes);
+		break;
+	case NALUNOS:
+		sort(ALL(instrutores), menorNAlunos);
+		break;
+	case NAULAS:
+		sort(ALL(instrutores), menorNAulas);
+		break;
+	}
+
+	FOR(i, 0, numInstrutores()) {
+		cout << endl;
+		cout << "> Instrutor " << i + 1 << ":" << endl;
+		instrutores[i]->info();
+	}
+
+	cout << endl;
+	cout << "Pressione enter para continuar... ";
 	cin.get();
 }
 

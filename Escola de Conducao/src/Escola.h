@@ -11,6 +11,7 @@
 #include "Aula.h"
 
 enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PERIODICIDADE };
+enum MetodoDeSortDeInstrutores { NOME, NQUALIFICACOES, NALUNOS, NAULAS };
 
 class Escola {
 private:
@@ -36,10 +37,10 @@ public:
 	void showRemoveSchoolUI();
 
 	void showMainMenu();
-	void showManutencaoViaturas();
-	void showManutencaoInstrutores();
-	void showManutencaoAlunos();
-	void showManutencaoAulas();
+	void showManutencaoViaturasUI();
+	void showManutencaoInstrutoresUI();
+	void showManutencaoAlunosUI();
+	void showManutencaoAulasUI();
 
 	void showVisualizaViaturasUI();
 	void showAdicionarViaturaUI();
@@ -48,6 +49,14 @@ public:
 
 	void visualizaViaturas(MetodoDeSortDeViaturas metodo);
 	void adicionaViatura(Viatura *viatura) { viaturas.push_back(viatura); }
+
+	void showVisualizaInstrutoresUI();
+	void showAdicionarInstrutorUI();
+	void showEditarInstrutorUI();
+	void showRemoverInstrutorUI();
+
+	void visualizaInstrutores(MetodoDeSortDeInstrutores metodo);
+	void adicionaInstrutor(Instrutor *instrutor) { instrutores.push_back(instrutor); }
 
 	unsigned int numViaturas() const { return viaturas.size(); }
 	unsigned int numInstrutores() const { return instrutores.size(); }

@@ -1,13 +1,12 @@
-/*
- * Pessoa.cpp
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #include "Pessoa.h"
+#include <iostream>
 
 Pessoa::~Pessoa() {
 	// TODO Auto-generated destructor stub
+}
+
+int Pessoa::info() {
+	cout << "\tNome: " << nome << endl;
+	return 1;
 }
 
