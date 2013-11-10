@@ -1,10 +1,3 @@
-/*
- * Utilities.h
- *
- *  Created on: Nov 6, 2013
- *      Author: henrique
- */
-
 #ifndef UTILITIES_H_
 #define UTILITIES_H_
 

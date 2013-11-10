@@ -73,6 +73,8 @@ int Escola::saveSchoolData() {
 
 	// A guardar alunos
 	fout << numAlunos() << endl;
+	FOR(i, 0, numAlunos())
+		fout << alunos[i]->printToFile() << endl;
 
 	// A guardar aulas
 	foutAulas << abertura << " " << fecho << endl;
@@ -138,6 +140,18 @@ int Escola::loadSchoolData() {
 	cout << "OK!" << endl;
 
 	cout << "> A carregar alunos... ";
+	alunos.clear();
+	int tipoCarta;
+
+	fin >> n;
+	FOR(i, 0, n)
+	{
+		fin >> nome >> tipoCarta;
+
+		Aluno *temp;
+		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta);
+		alunos.push_back(temp);
+	}
 	cout << "OK!" << endl;
 
 	cout << "> A carregar aulas... ";
@@ -614,11 +628,98 @@ void Escola::showManutencaoInstrutoresUI() {
 }
 
 void Escola::showManutencaoAlunosUI() {
-	//TODO asdads
+	char input;
+
+	bool done = false;
+	while (!done) {
+		cout << endl;
+		cout << "------------------------" << endl;
+		cout << "- Manutencao de Alunos -" << endl;
+		cout << "------------------------" << endl;
+		cout << "1. Visualizar alunos" << endl;
+		cout << "2. Adicionar aluno" << endl;
+		cout << "3. Editar dados de aluno" << endl;
+		cout << "4. Remover aluno" << endl;
+		cout << endl;
+		cout << "X. Voltar ao menu inicial" << endl;
+		cout << endl;
+		cout << "> Escolha o que pretende fazer:" << endl;
+		cout << "> ";
+		cin >> input;
+		cin.ignore();
+
+		input = tolower(input);
+
+		done = false;
+		switch (input) {
+		case '1':
+			showVisualizaAlunosUI();
+			break;
+		case '2':
+			showAdicionarAlunoUI();
+			break;
+		case '3':
+			showEditarAlunoUI();
+			break;
+		case '4':
+			showRemoverAlunoUI();
+			break;
+		case 'x':
+			showMainMenu();
+			done = true;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Escola::showManutencaoAulasUI() {
-	//TODO asdads
+	// TODO this method
+	char input;
+
+	bool done = false;
+	while (!done) {
+		cout << endl;
+		cout << "-----------------------" << endl;
+		cout << "- Manutencao de Aulas -" << endl;
+		cout << "-----------------------" << endl;
+		cout << "1. Visualizar alunos" << endl;
+		cout << "2. Adicionar aluno" << endl;
+		cout << "3. Editar dados de aluno" << endl;
+		cout << "4. Remover aluno" << endl;
+		cout << endl;
+		cout << "X. Voltar ao menu inicial" << endl;
+		cout << endl;
+		cout << "> Escolha o que pretende fazer:" << endl;
+		cout << "> ";
+		cin >> input;
+		cin.ignore();
+
+		input = tolower(input);
+
+		done = false;
+		switch (input) {
+		case '1':
+			showVisualizaAlunosUI();
+			break;
+		case '2':
+			showAdicionarAlunoUI();
+			break;
+		case '3':
+			showEditarAlunoUI();
+			break;
+		case '4':
+			showRemoverAlunoUI();
+			break;
+		case 'x':
+			showMainMenu();
+			done = true;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Escola::showVisualizaViaturasUI() {
@@ -944,6 +1045,59 @@ void Escola::showRemoverViaturaUI() {
 	cin.get();
 }
 
+bool menorMatricula(Viatura *v1, Viatura *v2) {
+	return (v1->getMatricula() < v2->getMatricula());
+}
+bool menorAnoFabrico(Viatura *v1, Viatura *v2) {
+	return (v1->getAnoFabrico() < v2->getAnoFabrico());
+}
+bool menorMarca(Viatura *v1, Viatura *v2) {
+	return (v1->getMarca() < v2->getMarca());
+}
+bool menorTipo(Viatura *v1, Viatura *v2) {
+	return (v1->getTipo() < v2->getTipo());
+}
+bool menorDataInspec(Viatura *v1, Viatura *v2) {
+	return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao());
+}
+bool menorPeriodicidade(Viatura *v1, Viatura *v2) {
+	return (v1->getPeriodicidade() < v2->getPeriodicidade());
+}
+
+void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
+	switch (metodo) {
+	case MATRICULA:
+		sort(ALL(viaturas), menorMatricula);
+		break;
+	case ANOFABRICO:
+		sort(ALL(viaturas), menorAnoFabrico);
+		break;
+	case MARCA:
+		sort(ALL(viaturas), menorMarca);
+		break;
+	case TIPO:
+		sort(ALL(viaturas), menorTipo);
+		break;
+	case DATAULTIMAINSPECAO:
+		sort(ALL(viaturas), menorDataInspec);
+		break;
+	case PERIODICIDADE:
+		sort(ALL(viaturas), menorPeriodicidade);
+		break;
+	}
+
+	FOR(i, 0, numViaturas())
+	{
+		cout << endl;
+		cout << "> Viatura " << i + 1 << ":" << endl;
+		viaturas[i]->info();
+	}
+
+	cout << endl;
+	cout << "Pressione enter para continuar... ";
+	cin.get();
+}
+
 void Escola::showVisualizaInstrutoresUI() {
 	try {
 		if (numInstrutores() == 0)
@@ -970,7 +1124,7 @@ void Escola::showVisualizaInstrutoresUI() {
 			done = true;
 			switch (input) {
 			case '1':
-				visualizaInstrutores(NOME);
+				visualizaInstrutores(NOMEINSTRUTOR);
 				break;
 			case '2':
 				visualizaInstrutores(NQUALIFICACOES);
@@ -1249,7 +1403,7 @@ void Escola::showRemoverInstrutorUI() {
 	cin.get();
 }
 
-bool menorNome(Instrutor *x1, Instrutor *x2) {
+bool menorNomeInstrutor(Instrutor *x1, Instrutor *x2) {
 	return (x1->getNome() < x2->getNome());
 }
 bool menorNQualificacoes(Instrutor *x1, Instrutor *x2) {
@@ -1264,8 +1418,8 @@ bool menorNAulas(Instrutor *x1, Instrutor *x2) {
 
 void Escola::visualizaInstrutores(MetodoDeSortDeInstrutores metodo) {
 	switch (metodo) {
-	case NOME:
-		sort(ALL(instrutores), menorNome);
+	case NOMEINSTRUTOR:
+		sort(ALL(instrutores), menorNomeInstrutor);
 		break;
 	case NQUALIFICACOES:
 		sort(ALL(instrutores), menorNQualificacoes);
@@ -1290,52 +1444,181 @@ void Escola::visualizaInstrutores(MetodoDeSortDeInstrutores metodo) {
 	cin.get();
 }
 
-bool menorMatricula(Viatura *v1, Viatura *v2) {
-	return (v1->getMatricula() < v2->getMatricula());
-}
-bool menorAnoFabrico(Viatura *v1, Viatura *v2) {
-	return (v1->getAnoFabrico() < v2->getAnoFabrico());
-}
-bool menorMarca(Viatura *v1, Viatura *v2) {
-	return (v1->getMarca() < v2->getMarca());
-}
-bool menorTipo(Viatura *v1, Viatura *v2) {
-	return (v1->getTipo() < v2->getTipo());
-}
-bool menorDataInspec(Viatura *v1, Viatura *v2) {
-	return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao());
-}
-bool menorPeriodicidade(Viatura *v1, Viatura *v2) {
-	return (v1->getPeriodicidade() < v2->getPeriodicidade());
+void Escola::showVisualizaAlunosUI() {
+	try {
+		if (numAlunos() == 0)
+			throw ColecaoVazia("Alunos");
+
+		cout << endl;
+		cout << "----------------------" << endl;
+		cout << "- Listagem de alunos -" << endl;
+		cout << "----------------------" << endl;
+		cout << "1. Nome" << endl;
+		cout << "2. Numero de aulas marcadas" << endl;
+		cout << endl;
+
+		bool done = false;
+		while (!done) {
+			cout << "> Escolha o metodo de ordenacao da lista:" << endl;
+			cout << "> ";
+			char input;
+			cin >> input;
+			cin.ignore();
+
+			done = true;
+			switch (input) {
+			case '1':
+				visualizaAlunos(NOMEALUNO);
+				break;
+			case '2':
+				visualizaAlunos(NAULASMARCADAS);
+				break;
+			default:
+				done = false;
+				break;
+			}
+		}
+	} catch (ColecaoVazia &e) {
+		e = ColecaoVazia("Alunos");
+		e.what();
+	}
 }
 
-void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
+void Escola::showAdicionarAlunoUI() {
+	string nome;
+
+	cout << endl;
+	cout << "-------------------" << endl;
+	cout << "- Adicionar Aluno -" << endl;
+	cout << "-------------------" << endl;
+	cout << endl;
+	cout << "Insira:" << endl;
+
+	bool done = false;
+	while (!done) {
+		try {
+			cout << "\to nome: ";
+			cin >> nome;
+			//processMatricula(matricula);
+			break;
+		} catch (MatriculaInvalida &e) {
+			//e = MatriculaInvalida(matricula);
+			//e.what();
+		}
+	}
+
+	cout << endl;
+	cout << "Tipo de carta de conducao:" << endl;
+	cout << "\t1. Ligeiro" << endl;
+	cout << "\t2. Pesado" << endl;
+	cout << "\t3. Motociclo" << endl;
+	cout << endl;
+
+	int input;
+	while (1) {
+		try {
+			cout << "> Insira o tipo de carta:" << endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 3));
+			} else if (1 <= input && input <= 3)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 3));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 3);
+			e.what();
+		}
+	}
+
+	Aluno *temp;
+	switch (input) {
+	case 1:
+		temp = new Aluno(nome, LIGEIRO);
+		break;
+	case 2:
+		temp = new Aluno(nome, PESADO);
+		break;
+	case 3:
+		temp = new Aluno(nome, MOTOCICLO);
+		break;
+	}
+	adicionaAluno(temp);
+
+	cout << endl;
+	cout << "* Aluno adicionado com sucesso *" << endl;
+
+	saveSchoolData();
+	showManutencaoAlunosUI();
+}
+
+void Escola::showEditarAlunoUI() {
+
+}
+
+void Escola::showRemoverAlunoUI() {
+	showVisualizaAlunosUI();
+
+	unsigned int input;
+	while (1) {
+		try {
+			cout << "> Insira o numero do aluno que pretende remover:" << endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, numAlunos()));
+			} else if (1 <= input && input <= numAlunos())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, numAlunos()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, numAlunos());
+			e.what();
+		}
+	}
+
+	alunos.erase(alunos.begin() + input - 1);
+	saveSchoolData();
+
+	cout << "* Aluno removido com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
+}
+
+bool menorNomeAluno(Aluno *x1, Aluno *x2) {
+	return (x1->getNome() < x2->getNome());
+}
+
+bool tipoCarta(Aluno *x1, Aluno *x2) {
+	return (x1->getTipoDeCarta() < x2->getTipoDeCarta());
+}
+
+void Escola::visualizaAlunos(MetodoDeSortDeAlunos metodo) {
 	switch (metodo) {
-	case MATRICULA:
-		sort(ALL(viaturas), menorMatricula);
+	case NOMEALUNO:
+		sort(ALL(alunos), menorNomeAluno);
 		break;
-	case ANOFABRICO:
-		sort(ALL(viaturas), menorAnoFabrico);
-		break;
-	case MARCA:
-		sort(ALL(viaturas), menorMarca);
-		break;
-	case TIPO:
-		sort(ALL(viaturas), menorTipo);
-		break;
-	case DATAULTIMAINSPECAO:
-		sort(ALL(viaturas), menorDataInspec);
-		break;
-	case PERIODICIDADE:
-		sort(ALL(viaturas), menorPeriodicidade);
+	case NAULASMARCADAS:
+		sort(ALL(alunos), tipoCarta);
 		break;
 	}
 
-	FOR(i, 0, numViaturas())
+	FOR(i, 0, numAlunos())
 	{
 		cout << endl;
-		cout << "> Viatura " << i + 1 << ":" << endl;
-		viaturas[i]->info();
+		cout << "> Aluno " << i + 1 << ":" << endl;
+		alunos[i]->info();
 	}
 
 	cout << endl;

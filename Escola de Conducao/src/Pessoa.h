@@ -1,14 +1,9 @@
-/*
- * Pessoa.h
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #ifndef PESSOA_H_
 #define PESSOA_H_
 #include <string>
 using namespace std;
+#include "Viatura.h"
+#include "Utilities.h"
 
 class Pessoa {
 protected:
@@ -23,4 +18,4 @@ public:
 	string getNome() { return nome; }
 };
 
-#endif /* PESSOA_H_ */
+#endif

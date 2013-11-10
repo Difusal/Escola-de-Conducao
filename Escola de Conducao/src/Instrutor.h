@@ -1,31 +1,17 @@
-/*
- * Instrutor.h
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #ifndef INSTRUTOR_H_
 #define INSTRUTOR_H_
 
 #include "Pessoa.h"
-#include "Aluno.h"
-#include "Aula.h"
-#include "Utilities.h"
 #include <vector>
 
 class Instrutor: public Pessoa {
 private:
 	bool qualificacoes[3];
-	vector<Aluno*> alunos;
-	vector<Aula*> aulas;
 public:
 	Instrutor(string Nome, bool qualifLig, bool qualifPes, bool qualifMoto) : Pessoa(Nome) {
 		qualificacoes[0] = qualifLig;
 		qualificacoes[1] = qualifPes;
 		qualificacoes[2] = qualifMoto;
-		alunos.clear();
-		aulas.clear();
 	}
 	virtual ~Instrutor();
 
@@ -40,8 +26,9 @@ public:
 		}
 		return x;
 	}
-	int numAlunos() { return alunos.size(); }
-	int numAulas() { return aulas.size(); }
+	// TODO implement these methods
+	int numAlunos() { return 0;}//alunos.size(); }
+	int numAulas() { return 0;}//aulas.size(); }
 
 	void setQualificacoes(bool Lig, bool Pes, bool Moto);
 };

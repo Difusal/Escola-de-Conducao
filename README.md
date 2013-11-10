@@ -5,7 +5,7 @@ Escola de Conducao
 Requisitos Obrigatórios:
 ------------------------
 - [x] Manutenção de viaturas
-- [..] Manutenção de instrutores
+- [x] Manutenção de instrutores
 - [..] Manutenção de alunos
 - [..] Manutenção de aulas
 - [..] Associar aulas a alunos
@@ -29,7 +29,7 @@ Main file:
 
 = Dados dos Alunos =
 > n
-> nome
+> nome tipoCarta
 
 Lessons file:
 -------------

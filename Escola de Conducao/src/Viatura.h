@@ -8,6 +8,8 @@
 #include "Utilities.h"
 using namespace std;
 
+enum TipoCartaConducao { LIGEIRO, PESADO, MOTOCICLO };
+
 class Viatura {
 protected:
 	string matricula;
