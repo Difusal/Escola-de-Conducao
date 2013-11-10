@@ -11,7 +11,7 @@
 #include "Exceptions.h"
 using namespace std;
 
-struct tm *getTimeInfo() {
+struct tm *getLocalTimeInfo() {
 	time_t rawtime;
 	struct tm * timeinfo;
 
@@ -22,7 +22,7 @@ struct tm *getTimeInfo() {
 }
 
 int getAnoActual() {
-	return (1900 + getTimeInfo()->tm_year);
+	return (1900 + getLocalTimeInfo()->tm_year);
 }
 
 

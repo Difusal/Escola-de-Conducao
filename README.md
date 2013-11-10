@@ -6,6 +6,7 @@ Requisitos Obrigatórios:
 ------------------------
 - [x] Manutenção de viaturas
 - [..] Manutenção de instrutores
+- [..] Manutenção de alunos
 - [..] Manutenção de aulas
 - [..] Associar aulas a alunos
 - [..] Associar aulas a instrutores

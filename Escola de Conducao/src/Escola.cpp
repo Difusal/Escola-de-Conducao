@@ -64,7 +64,7 @@ int Escola::saveSchoolData() {
 	// A guardar viaturas
 	fout << numViaturas() << endl;
 	FOR(i, 0, numViaturas())
-	fout << viaturas[i]->printToFile() << endl;
+		fout << viaturas[i]->printToFile() << endl;
 
 	// A guardar instrutores
 	fout << numInstrutores() << endl;
@@ -80,6 +80,8 @@ int Escola::saveSchoolData() {
 }
 
 int Escola::loadSchoolData() {
+	unsigned int n;
+	string escola, escolaAulas;
 	// TODO this func
 
 	cout << endl;
@@ -87,7 +89,33 @@ int Escola::loadSchoolData() {
 	cout << "- A carregar dados da escola -" << endl;
 	cout << "------------------------------" << endl;
 
+	escola = nome;
+	parseFilename(escola);
+	ifstream fin(escola.c_str());
+
 	cout << "> A carregar viaturas... ";
+	string matricula, marca, tipo, dataUltimaInspec;
+	int anoFabrico, periodicidade;
+
+	fin >> n;
+	FOR(i, 0, n)
+	{
+		fin >> matricula >> anoFabrico >> marca >> tipo >> dataUltimaInspec
+				>> periodicidade;
+
+		Viatura *temp;
+		if (tipo == "ligeiro") {
+			temp = new Ligeiro(matricula, anoFabrico, marca, periodicidade);
+		} else if (tipo == "pesado") {
+			temp = new Pesado(matricula, anoFabrico, marca, periodicidade);
+		} else if (tipo == "motociclo") {
+			temp = new Motociclo(matricula, anoFabrico, marca, periodicidade);
+		} else {
+			// TODO exception here
+		}
+		temp->setDataUltimaInspecao(dataUltimaInspec);
+		viaturas.push_back(temp);
+	}
 	cout << "OK!" << endl;
 
 	cout << "> A carregar instrutores... ";
@@ -252,7 +280,8 @@ void Escola::showRenameSchoolUI() {
 			parseFilename(tempNameEscolaAulas);
 
 			if (rename(oldNameEscola.c_str(), tempNameEscola.c_str()) == 0
-					&& rename(oldNameEscolaAulas.c_str(), tempNameEscolaAulas.c_str()) == 0) {
+					&& rename(oldNameEscolaAulas.c_str(),
+							tempNameEscolaAulas.c_str()) == 0) {
 				// a inserir novo nome para a escola
 				cout << "> Nome novo da escola: ";
 				cin.clear();
@@ -261,10 +290,11 @@ void Escola::showRenameSchoolUI() {
 				parseFilename(nomeNovo);
 
 				cout << "A alterar o nome da escola... ";
-				if(fileExists(nomeNovo)) {
+				if (fileExists(nomeNovo)) {
 					cout << endl;
 					cout << "* Erro ao alterar o nome da escola *" << endl;
-					cout << "Ja existe uma escola com o novo nome que escolheu." << endl;
+					cout << "Ja existe uma escola com o novo nome que escolheu."
+							<< endl;
 					cout << "A cancelar operacao... ";
 
 					escola = nome;
@@ -289,7 +319,8 @@ void Escola::showRenameSchoolUI() {
 					parseFilename(newNameEscolaAulas);
 
 					rename(tempNameEscola.c_str(), newNameEscola.c_str());
-					rename(tempNameEscolaAulas.c_str(), newNameEscolaAulas.c_str());
+					rename(tempNameEscolaAulas.c_str(),
+							newNameEscolaAulas.c_str());
 
 					cout << "OK!" << endl;
 					cout << "* Nome da escola alterado com sucesso *" << endl;
@@ -424,7 +455,6 @@ void Escola::showRemoveSchoolUI() {
 	}
 }
 
-
 void Escola::showMainMenu() {
 	char input;
 
@@ -532,7 +562,6 @@ void Escola::showManutencaoAulas() {
 	//TODO asdads
 }
 
-
 void Escola::showVisualizaViaturasUI() {
 	try {
 		if (numViaturas() == 0)
@@ -573,7 +602,7 @@ void Escola::showVisualizaViaturasUI() {
 				visualizaViaturas(TIPO);
 				break;
 			case '5':
-				visualizaViaturas(ULTIMADATAINSPECAO);
+				visualizaViaturas(DATAULTIMAINSPECAO);
 				break;
 			case '6':
 				visualizaViaturas(PERIODICIDADE);
@@ -728,8 +757,7 @@ void Escola::showAdicionarViaturaUI() {
 		temp = new Ligeiro(matricula, anoFabrico, marca, periodicidade);
 		break;
 	case '2':
-		temp = new Pesado(matricula, anoFabrico, marca, periodicidade,
-				cargaMaxima);
+		temp = new Pesado(matricula, anoFabrico, marca, periodicidade);
 		break;
 	case '3':
 		temp = new Motociclo(matricula, anoFabrico, marca, periodicidade);
@@ -745,49 +773,170 @@ void Escola::showAdicionarViaturaUI() {
 }
 
 void Escola::showEditarViaturaUI() {
-	//TODO asdads
-}
+	showVisualizaViaturasUI();
 
-void Escola::showRemoverViaturaUI() {
-	//TODO asdads
-}
+	unsigned int input, posViatura, valorNovo;
+	while (1) {
+		try {
+			cout << "> Insira o numero da viatura que pretende editar:" << endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
 
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
 
-bool menorMatricula(Viatura *v1, Viatura *v2) { return (v1->getMatricula() < v2->getMatricula()); }
-bool menorAnoFabrico(Viatura *v1, Viatura *v2) { return (v1->getAnoFabrico() < v2->getAnoFabrico()); }
-bool menorMarca(Viatura *v1, Viatura *v2) { return (v1->getMarca() < v2->getMarca()); }
-bool menorTipo(Viatura *v1, Viatura *v2) { return (v1->getTipo() < v2->getTipo()); }
-bool menorDataInspec(Viatura *v1, Viatura *v2) { return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao()); }
-bool menorPeriodicidade(Viatura *v1, Viatura *v2) { return (v1->getPeriodicidade() < v2->getPeriodicidade()); }
+				throw(InputEsperadoEraInt(input, 1, numViaturas()));
+			} else if (1 <= input && input <= numViaturas())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, numViaturas()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, numViaturas());
+			e.what();
+		}
+	}
+	posViatura = input-1;
 
-void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
-	vector<Viatura*> viaturasParaMostrar = viaturas;
+	cout << "Editar:" << endl;
+	cout << "1. Periodicidade de inspecoes" << endl;
+	cout << endl;
+	while (1) {
+		try {
+			cout << "> O que pretende editar?" << endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
 
-	switch (metodo) {
-	case MATRICULA:
-		sort(ALL(viaturasParaMostrar), menorMatricula);
-		break;
-	case ANOFABRICO:
-		sort(ALL(viaturasParaMostrar), menorAnoFabrico);
-		break;
-	case MARCA:
-		sort(ALL(viaturasParaMostrar), menorMarca);
-		break;
-	case TIPO:
-		sort(ALL(viaturasParaMostrar), menorTipo);
-		break;
-	case ULTIMADATAINSPECAO:
-		sort(ALL(viaturasParaMostrar), menorDataInspec);
-		break;
-	case PERIODICIDADE:
-		sort(ALL(viaturasParaMostrar), menorPeriodicidade);
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 1));
+			} else if (1 <= input && input <= 1)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 1);
+			e.what();
+		}
+	}
+	switch (input) {
+	case 1:
+		while (1) {
+			try {
+				cout << "\tNova periodicidade (meses): ";
+				cin >> valorNovo;
+				cin.ignore();
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+
+					throw(InputEsperadoEraInt(valorNovo, 1, 24));
+				} else if (1 <= valorNovo && valorNovo <= 24)
+					break;
+				else
+					throw(InputEsperadoEraInt(valorNovo, 1, 24));
+			} catch (InputEsperadoEraInt &e) {
+				e = InputEsperadoEraInt(valorNovo, 1, 24);
+				e.what();
+			}
+		}
 		break;
 	}
 
-	FOR(i, 0, viaturasParaMostrar.size()) {
+	viaturas[posViatura]->setPeriodicidade(valorNovo);
+	saveSchoolData();
+
+	cout << "* Viatura editada com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu anterior." << endl;
+	cin.get();
+}
+
+void Escola::showRemoverViaturaUI() {
+	showVisualizaViaturasUI();
+
+	unsigned int input;
+	while (1) {
+		try {
+			cout << "> Insira o numero da viatura que pretende remover:"
+					<< endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, numViaturas()));
+			} else if (1 <= input && input <= numViaturas())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, numViaturas()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, numViaturas());
+			e.what();
+		}
+	}
+
+	viaturas.erase(viaturas.begin() + input - 1);
+	saveSchoolData();
+
+	cout << "* Viatura removida com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
+}
+
+bool menorMatricula(Viatura *v1, Viatura *v2) {
+	return (v1->getMatricula() < v2->getMatricula());
+}
+bool menorAnoFabrico(Viatura *v1, Viatura *v2) {
+	return (v1->getAnoFabrico() < v2->getAnoFabrico());
+}
+bool menorMarca(Viatura *v1, Viatura *v2) {
+	return (v1->getMarca() < v2->getMarca());
+}
+bool menorTipo(Viatura *v1, Viatura *v2) {
+	return (v1->getTipo() < v2->getTipo());
+}
+bool menorDataInspec(Viatura *v1, Viatura *v2) {
+	return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao());
+}
+bool menorPeriodicidade(Viatura *v1, Viatura *v2) {
+	return (v1->getPeriodicidade() < v2->getPeriodicidade());
+}
+
+void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
+	switch (metodo) {
+	case MATRICULA:
+		sort(ALL(viaturas), menorMatricula);
+		break;
+	case ANOFABRICO:
+		sort(ALL(viaturas), menorAnoFabrico);
+		break;
+	case MARCA:
+		sort(ALL(viaturas), menorMarca);
+		break;
+	case TIPO:
+		sort(ALL(viaturas), menorTipo);
+		break;
+	case DATAULTIMAINSPECAO:
+		sort(ALL(viaturas), menorDataInspec);
+		break;
+	case PERIODICIDADE:
+		sort(ALL(viaturas), menorPeriodicidade);
+		break;
+	}
+
+	FOR(i, 0, numViaturas())
+	{
 		cout << endl;
 		cout << "> Viatura " << i + 1 << ":" << endl;
-		viaturasParaMostrar[i]->info();
+		viaturas[i]->info();
 	}
 
 	cout << endl;

@@ -15,7 +15,7 @@ using namespace std;
 #define ALL(v) (v).begin(), (v).end()
 #define foreach(v, it) for(typeof((v).begin()) it = (v).begin(); it != (v).end(); it++ )
 
-struct tm *getTimeInfo();
+struct tm *getLocalTimeInfo();
 int getAnoActual();
 
 bool fileExists(const string &fileName);

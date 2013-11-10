@@ -49,10 +49,10 @@ public:
 };
 
 class InputEsperadoEraInt: public exception {
-	int *num;
+	int num;
 	int start, end;
 public:
-	InputEsperadoEraInt(int &Numero, int Start, int End): num(&Numero), start(Start), end(End) {}
+	InputEsperadoEraInt(int Numero, int Start, int End): num(Numero), start(Start), end(End) {}
 	virtual ~InputEsperadoEraInt() throw() {}
 
 	virtual const char *what () const throw() {

@@ -3,16 +3,12 @@
 #include "Automovel.h"
 
 class Pesado: public Automovel {
-protected:
-	int cargaMaxima;
 public:
-	Pesado(string Matricula, int Ano, string Marca, int Periodicidade, int CargaMaxima) : Automovel(Matricula, Ano, Marca, Periodicidade), cargaMaxima(CargaMaxima) {}
+	Pesado(string Matricula, int Ano, string Marca, int Periodicidade) : Automovel(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Pesado() {}
 
 	string getTipo() const { return "pesado"; }
 	int info();
-
-	int getCargaMaxima() { return cargaMaxima; }
 };
 
 #endif

@@ -10,7 +10,7 @@
 #include "Aluno.h"
 #include "Aula.h"
 
-enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, ULTIMADATAINSPECAO, PERIODICIDADE };
+enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PERIODICIDADE };
 
 class Escola {
 private:

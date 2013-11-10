@@ -13,10 +13,10 @@ protected:
 	string matricula;
 	int anoFabrico;
 	string marca;
-	struct tm *dataUltimaInspecao;
+	struct tm dataUltimaInspecao;
 	int periodicidade;
 public:
-	Viatura(string Matricula, int Ano, string Marca, int Periodicidade) : matricula(Matricula), anoFabrico(Ano), marca(Marca), dataUltimaInspecao(getTimeInfo()), periodicidade(Periodicidade) {}
+	Viatura(string Matricula, int Ano, string Marca, int Periodicidade) : matricula(Matricula), anoFabrico(Ano), marca(Marca), dataUltimaInspecao(*getLocalTimeInfo()), periodicidade(Periodicidade) {}
 	virtual ~Viatura() {}
 
 	virtual int info();
@@ -27,9 +27,11 @@ public:
 	int getAnoFabrico() { return anoFabrico; }
 	string getMarca() const { return marca; }
 	virtual string getTipo() const = 0;
-	struct tm *getDataUltimaInspecao() const { return dataUltimaInspecao; }
+	void setDataUltimaInspecao(string data);
+	struct tm *getDataUltimaInspecao() { return &dataUltimaInspecao; }
 	string getStringComDataUltimaInspecao() const;
-	int getPeriodicidade() const { return periodicidade; }
+	int getPeriodicidade() { return periodicidade; }
+	void setPeriodicidade(int Periodicidade) { periodicidade = Periodicidade; }
 };
 
 #endif
