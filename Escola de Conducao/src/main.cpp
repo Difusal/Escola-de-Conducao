@@ -7,8 +7,8 @@
 using namespace std;
 
 int main(){
-	Escola Viriato;
-	Viriato.showLoginScreen();
+	Escola escola;
+	escola.showLoginScreen();
 
     return 0;
 }

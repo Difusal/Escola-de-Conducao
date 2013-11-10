@@ -2,6 +2,6 @@
 
 int Pesado::info() {
 	int prevInfo = Automovel::info();
-	cout << "Carga Maxima: " << cargaMaxima << endl;
+	cout << "\tCarga Maxima: " << cargaMaxima << endl;
 	return prevInfo + 1;
 }

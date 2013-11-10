@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <algorithm>
 #include "Escola.h"
 #include "Utilities.h"
 #include "Exceptions.h"
@@ -45,6 +47,7 @@ int Escola::createFileStructure() {
 }
 
 int Escola::saveSchoolData() {
+	// TODO finish this
 	string escola, escolaAulas;
 
 	// opening output strings
@@ -61,20 +64,24 @@ int Escola::saveSchoolData() {
 	// A guardar viaturas
 	fout << numViaturas() << endl;
 	FOR(i, 0, numViaturas())
-	{
-		; //printf("%s %d %s %s %s %d",);
-	}
+	fout << viaturas[i]->printToFile() << endl;
 
 	// A guardar instrutores
+	fout << numInstrutores() << endl;
 
 	// A guardar alunos
+	fout << numAlunos() << endl;
 
 	// A guardar aulas
+	foutAulas << abertura << " " << fecho << endl;
+	foutAulas << numAulas() << endl;
 
 	return 0;
 }
 
 int Escola::loadSchoolData() {
+	// TODO this func
+
 	cout << endl;
 	cout << "------------------------------" << endl;
 	cout << "- A carregar dados da escola -" << endl;
@@ -91,54 +98,6 @@ int Escola::loadSchoolData() {
 
 	cout << "> A carregar aulas... ";
 	cout << "OK!" << endl;
-
-	return 0;
-}
-
-int Escola::setHorarioUI() {
-	cout << "> Insira o horario da escola:" << endl;
-
-	while (1) {
-		try {
-			cout << "\tAbertura: ";
-			cin >> abertura;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(HoraInvalida(abertura));
-			} else if (0 <= abertura && abertura <= 23)
-				break;
-			else
-				throw(HoraInvalida(abertura));
-		} catch (HoraInvalida &e) {
-			e = HoraInvalida(abertura);
-			e.what();
-		}
-	}
-
-	while (1) {
-		try {
-			cout << "\tFecho: ";
-			cin >> fecho;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(HoraInvalida(fecho));
-			} else if (0 <= fecho && fecho <= 23)
-				break;
-			else
-				throw(HoraInvalida(fecho));
-		} catch (HoraInvalida &e) {
-			e = HoraInvalida(fecho);
-			e.what();
-		}
-	}
 
 	return 0;
 }
@@ -356,6 +315,54 @@ void Escola::showRenameSchoolUI() {
 	}
 }
 
+int Escola::setHorarioUI() {
+	cout << "> Insira o horario da escola:" << endl;
+
+	while (1) {
+		try {
+			cout << "\tAbertura: ";
+			cin >> abertura;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(HoraInvalida(abertura));
+			} else if (0 <= abertura && abertura <= 23)
+				break;
+			else
+				throw(HoraInvalida(abertura));
+		} catch (HoraInvalida &e) {
+			e = HoraInvalida(abertura);
+			e.what();
+		}
+	}
+
+	while (1) {
+		try {
+			cout << "\tFecho: ";
+			cin >> fecho;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(HoraInvalida(fecho));
+			} else if (0 <= fecho && fecho <= 23)
+				break;
+			else
+				throw(HoraInvalida(fecho));
+		} catch (HoraInvalida &e) {
+			e = HoraInvalida(fecho);
+			e.what();
+		}
+	}
+
+	return 0;
+}
+
 void Escola::showRemoveSchoolUI() {
 	bool done = false;
 	while (!done) {
@@ -417,6 +424,7 @@ void Escola::showRemoveSchoolUI() {
 	}
 }
 
+
 void Escola::showMainMenu() {
 	char input;
 
@@ -476,7 +484,7 @@ void Escola::showManutencaoViaturas() {
 		cout << "--------------------------" << endl;
 		cout << "1. Visualizar viaturas" << endl;
 		cout << "2. Adicionar viatura" << endl;
-		cout << "3. Alterar viatura" << endl;
+		cout << "3. Editar viatura" << endl;
 		cout << "4. Remover viatura" << endl;
 		cout << endl;
 		cout << "X. Voltar ao menu inicial" << endl;
@@ -491,14 +499,16 @@ void Escola::showManutencaoViaturas() {
 		done = false;
 		switch (input) {
 		case '1':
-			visualizaViaturas();
+			showVisualizaViaturasUI();
 			break;
 		case '2':
 			showAdicionarViaturaUI();
 			break;
 		case '3':
+			showEditarViaturaUI();
 			break;
 		case '4':
+			showRemoverViaturaUI();
 			break;
 		case 'x':
 			showMainMenu();
@@ -507,6 +517,75 @@ void Escola::showManutencaoViaturas() {
 		default:
 			break;
 		}
+	}
+}
+
+void Escola::showManutencaoInstrutores() {
+	//TODO asdads
+}
+
+void Escola::showManutencaoAlunos() {
+	//TODO asdads
+}
+
+void Escola::showManutencaoAulas() {
+	//TODO asdads
+}
+
+
+void Escola::showVisualizaViaturasUI() {
+	try {
+		if (numViaturas() == 0)
+			throw ColecaoVazia("Viaturas");
+
+		cout << endl;
+		cout << "------------------------" << endl;
+		cout << "- Listagem de viaturas -" << endl;
+		cout << "------------------------" << endl;
+		cout << "1. Matricula" << endl;
+		cout << "2. Ano de fabrico" << endl;
+		cout << "3. Marca" << endl;
+		cout << "4. Tipo" << endl;
+		cout << "5. Ultima data de inspecao" << endl;
+		cout << "6. Periodicidade de inspecoes" << endl;
+		cout << endl;
+
+		bool done = false;
+		while (!done) {
+			cout << "> Escolha o metodo de ordenacao da lista:" << endl;
+			cout << "> ";
+			char input;
+			cin >> input;
+			cin.ignore();
+
+			done = true;
+			switch (input) {
+			case '1':
+				visualizaViaturas(MATRICULA);
+				break;
+			case '2':
+				visualizaViaturas(ANOFABRICO);
+				break;
+			case '3':
+				visualizaViaturas(MARCA);
+				break;
+			case '4':
+				visualizaViaturas(TIPO);
+				break;
+			case '5':
+				visualizaViaturas(ULTIMADATAINSPECAO);
+				break;
+			case '6':
+				visualizaViaturas(PERIODICIDADE);
+				break;
+			default:
+				done = false;
+				break;
+			}
+		}
+	} catch (ColecaoVazia &e) {
+		e = ColecaoVazia("Viaturas");
+		e.what();
 	}
 }
 
@@ -660,34 +739,57 @@ void Escola::showAdicionarViaturaUI() {
 
 	cout << endl;
 	cout << "* Viatura adicionada com sucesso *" << endl;
+
+	saveSchoolData();
 	showManutencaoViaturas();
 }
 
-void Escola::showManutencaoInstrutores() {
-
+void Escola::showEditarViaturaUI() {
+	//TODO asdads
 }
 
-void Escola::showManutencaoAlunos() {
-
+void Escola::showRemoverViaturaUI() {
+	//TODO asdads
 }
 
-void Escola::showManutencaoAulas() {
 
-}
+bool menorMatricula(Viatura *v1, Viatura *v2) { return (v1->getMatricula() < v2->getMatricula()); }
+bool menorAnoFabrico(Viatura *v1, Viatura *v2) { return (v1->getAnoFabrico() < v2->getAnoFabrico()); }
+bool menorMarca(Viatura *v1, Viatura *v2) { return (v1->getMarca() < v2->getMarca()); }
+bool menorTipo(Viatura *v1, Viatura *v2) { return (v1->getTipo() < v2->getTipo()); }
+bool menorDataInspec(Viatura *v1, Viatura *v2) { return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao()); }
+bool menorPeriodicidade(Viatura *v1, Viatura *v2) { return (v1->getPeriodicidade() < v2->getPeriodicidade()); }
 
-void Escola::visualizaViaturas() {
-	cout << endl;
-	cout << "------------------------" << endl;
-	cout << "- Listagem de viaturas -" << endl;
-	cout << "------------------------" << endl;
-	int size = viaturas.size();
-	if (size == 0)
-		cout << ".: Nao existe nenhuma viatura :." << endl;
-	for (int i = 0; i < size; i++) {
+void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
+	vector<Viatura*> viaturasParaMostrar = viaturas;
+
+	switch (metodo) {
+	case MATRICULA:
+		sort(ALL(viaturasParaMostrar), menorMatricula);
+		break;
+	case ANOFABRICO:
+		sort(ALL(viaturasParaMostrar), menorAnoFabrico);
+		break;
+	case MARCA:
+		sort(ALL(viaturasParaMostrar), menorMarca);
+		break;
+	case TIPO:
+		sort(ALL(viaturasParaMostrar), menorTipo);
+		break;
+	case ULTIMADATAINSPECAO:
+		sort(ALL(viaturasParaMostrar), menorDataInspec);
+		break;
+	case PERIODICIDADE:
+		sort(ALL(viaturasParaMostrar), menorPeriodicidade);
+		break;
+	}
+
+	FOR(i, 0, viaturasParaMostrar.size()) {
 		cout << endl;
 		cout << "> Viatura " << i + 1 << ":" << endl;
-		viaturas[i]->info();
+		viaturasParaMostrar[i]->info();
 	}
+
 	cout << endl;
 	cout << "Pressione enter para continuar... ";
 	cin.get();

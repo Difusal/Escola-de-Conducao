@@ -9,8 +9,9 @@
 #define EXCEPTIONS_H_
 
 #include <iostream>
-#include "Utilities.h"
 #include <exception>
+#include <string>
+#include "Utilities.h"
 using namespace std;
 
 class MatriculaInvalida: public exception {
@@ -74,6 +75,23 @@ public:
 		cout << endl;
 		cout << "Erro:\tInput Invalido: \'string\' type era esperado." << endl;
 		cout << "\t-------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class ColecaoVazia: public exception {
+	string name;
+public:
+	ColecaoVazia(string Nome): name(Nome) {}
+	virtual ~ColecaoVazia() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tA colecao de nome " << name << " encontra-se vazia." << endl;
+		cout << "\t------------------------------------------------" << endl;
+		cout << "Pressione enter para continuar... ";
+		cin.get();
 
 		return "";
 	}

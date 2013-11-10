@@ -6,12 +6,20 @@
 #include "Ligeiro.h"
 #include "Pesado.h"
 #include "Motociclo.h"
+#include "Instrutor.h"
+#include "Aluno.h"
+#include "Aula.h"
+
+enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, ULTIMADATAINSPECAO, PERIODICIDADE };
 
 class Escola {
 private:
 	string nome;
 	int abertura, fecho;
 	vector<Viatura*> viaturas;
+	vector<Instrutor*> instrutores;
+	vector<Aluno*> alunos;
+	vector<Aula*> aulas;
 public:
 	Escola();
 	virtual ~Escola();
@@ -29,15 +37,22 @@ public:
 
 	void showMainMenu();
 	void showManutencaoViaturas();
-	void showAdicionarViaturaUI();
 	void showManutencaoInstrutores();
 	void showManutencaoAlunos();
 	void showManutencaoAulas();
 
-	void visualizaViaturas();
+	void showVisualizaViaturasUI();
+	void showAdicionarViaturaUI();
+	void showEditarViaturaUI();
+	void showRemoverViaturaUI();
+
+	void visualizaViaturas(MetodoDeSortDeViaturas metodo);
 	void adicionaViatura(Viatura *viatura) { viaturas.push_back(viatura); }
 
 	unsigned int numViaturas() const { return viaturas.size(); }
+	unsigned int numInstrutores() const { return instrutores.size(); }
+	unsigned int numAlunos() const { return alunos.size(); }
+	unsigned int numAulas() const { return aulas.size(); }
 
 	/*
 	int menorAno() const;

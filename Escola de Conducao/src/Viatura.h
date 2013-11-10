@@ -27,7 +27,9 @@ public:
 	int getAnoFabrico() { return anoFabrico; }
 	string getMarca() const { return marca; }
 	virtual string getTipo() const = 0;
-	string getDataUltimaInspecao();
+	struct tm *getDataUltimaInspecao() const { return dataUltimaInspecao; }
+	string getStringComDataUltimaInspecao() const;
+	int getPeriodicidade() const { return periodicidade; }
 };
 
 #endif
