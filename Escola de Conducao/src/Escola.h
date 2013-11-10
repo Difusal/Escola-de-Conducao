@@ -62,11 +62,6 @@ public:
 	unsigned int numInstrutores() const { return instrutores.size(); }
 	unsigned int numAlunos() const { return alunos.size(); }
 	unsigned int numAulas() const { return aulas.size(); }
-
-	/*
-	int menorAno() const;
-	void info() const;
-	*/
 };
 
 #endif

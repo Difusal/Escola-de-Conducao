@@ -68,6 +68,8 @@ int Escola::saveSchoolData() {
 
 	// A guardar instrutores
 	fout << numInstrutores() << endl;
+	FOR(i, 0, numInstrutores())
+		fout << instrutores[i]->printToFile() << endl;
 
 	// A guardar alunos
 	fout << numAlunos() << endl;
@@ -120,6 +122,19 @@ int Escola::loadSchoolData() {
 	cout << "OK!" << endl;
 
 	cout << "> A carregar instrutores... ";
+	instrutores.clear();
+	string nome;
+	bool lig, pes, moto;
+
+	fin >> n;
+	FOR(i, 0, n)
+	{
+		fin >> nome >> lig >> pes >> moto;
+
+		Instrutor *temp;
+		temp = new Instrutor(nome, lig, pes, moto);
+		instrutores.push_back(temp);
+	}
 	cout << "OK!" << endl;
 
 	cout << "> A carregar alunos... ";
@@ -434,10 +449,10 @@ void Escola::showRemoveSchoolUI() {
 			if (remove(escola.c_str()) != 0
 					|| remove(escolaAulas.c_str()) != 0) {
 				cout << endl;
-				cout << "* Error deleting file! *" << endl;
+				cout << "* Erro a apagar escola *" << endl;
 			} else {
 				cout << "OK!" << endl;
-				cout << "* School deleted successfully *" << endl;
+				cout << "* Escola apagada com sucesso *" << endl;
 			}
 
 			cout << "Prima <enter> para voltar ao menu inicial." << endl;
@@ -1074,11 +1089,164 @@ void Escola::showAdicionarInstrutorUI() {
 }
 
 void Escola::showEditarInstrutorUI() {
-	// TODO sdadsasd
+	showVisualizaInstrutoresUI();
+
+	unsigned int input, pos;
+	bool qualifLig, qualifPes, qualifMoto;
+	while (1) {
+		try {
+			cout << "> Insira o numero do instrutor que pretende editar:"
+					<< endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
+			} else if (1 <= input && input <= numInstrutores())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, numInstrutores());
+			e.what();
+		}
+	}
+	pos = input - 1;
+
+	cout << "Editar:" << endl;
+	cout << "1. Qualificacoes" << endl;
+	cout << endl;
+	while (1) {
+		try {
+			cout << "> O que pretende editar?" << endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 1));
+			} else if (1 <= input && input <= 1)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 1);
+			e.what();
+		}
+	}
+	switch (input) {
+	case 1:
+		while (1) {
+			try {
+				cout << "\tqualificacao de ligeiro: ";
+				cin >> qualifLig;
+				cin.ignore();
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+
+					throw(InputEsperadoEraInt(qualifLig, 0, 1));
+				} else if (0 <= qualifLig && qualifLig <= 1)
+					break;
+				else
+					throw(InputEsperadoEraInt(qualifLig, 0, 1));
+			} catch (InputEsperadoEraInt &e) {
+				e = InputEsperadoEraInt(qualifLig, 0, 1);
+				e.what();
+			}
+		}
+		while (1) {
+			try {
+				cout << "\tqualificacao de pesado: ";
+				cin >> qualifPes;
+				cin.ignore();
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+
+					throw(InputEsperadoEraInt(qualifPes, 0, 1));
+				} else if (0 <= qualifPes && qualifPes <= 1)
+					break;
+				else
+					throw(InputEsperadoEraInt(qualifPes, 0, 1));
+			} catch (InputEsperadoEraInt &e) {
+				e = InputEsperadoEraInt(qualifPes, 0, 1);
+				e.what();
+			}
+		}
+		while (1) {
+			try {
+				cout << "\tqualificacao de motociclo: ";
+				cin >> qualifMoto;
+				cin.ignore();
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+
+					throw(InputEsperadoEraInt(qualifMoto, 0, 1));
+				} else if (0 <= qualifMoto && qualifMoto <= 1)
+					break;
+				else
+					throw(InputEsperadoEraInt(qualifMoto, 0, 1));
+			} catch (InputEsperadoEraInt &e) {
+				e = InputEsperadoEraInt(qualifMoto, 0, 1);
+				e.what();
+			}
+		}
+		break;
+	}
+
+	instrutores[pos]->setQualificacoes(qualifLig, qualifPes, qualifMoto);
+	saveSchoolData();
+
+	cout << "* Instrutor editado com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu anterior." << endl;
+	cin.get();
 }
 
 void Escola::showRemoverInstrutorUI() {
-	// TODO sdadsasd
+	showVisualizaInstrutoresUI();
+
+	unsigned int input;
+	while (1) {
+		try {
+			cout << "> Insira o numero do instrutor que pretende remover:"
+					<< endl;
+			cout << "> ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
+			} else if (1 <= input && input <= numInstrutores())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, numInstrutores());
+			e.what();
+		}
+	}
+
+	instrutores.erase(instrutores.begin() + input - 1);
+	saveSchoolData();
+
+	cout << "* Instrutor removido com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
 }
 
 bool menorNome(Instrutor *x1, Instrutor *x2) {
@@ -1110,7 +1278,8 @@ void Escola::visualizaInstrutores(MetodoDeSortDeInstrutores metodo) {
 		break;
 	}
 
-	FOR(i, 0, numInstrutores()) {
+	FOR(i, 0, numInstrutores())
+	{
 		cout << endl;
 		cout << "> Instrutor " << i + 1 << ":" << endl;
 		instrutores[i]->info();

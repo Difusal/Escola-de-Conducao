@@ -1,10 +1,3 @@
-/*
- * Instrutor.cpp
- *
- *  Created on: Oct 12, 2013
- *      Author: henrique
- */
-
 #include "Instrutor.h"
 #include <sstream>
 
@@ -21,7 +14,7 @@ int Instrutor::info() {
 		cout << "\tLigeiro";
 	if (qualificacoes[1])
 		cout << "\tPesado";
-	if (qualificacoes[3])
+	if (qualificacoes[2])
 		cout << "\tMotociclo";
 	if (numQualificacoes() != 0)
 		cout << endl;
@@ -34,4 +27,10 @@ string Instrutor::printToFile() const {
 	stringstream ss;
 	ss << nome << " " << qualificacoes[0] << " " << qualificacoes[1] << " " << qualificacoes[2];
 	return ss.str();
+}
+
+void Instrutor::setQualificacoes(bool Lig, bool Pes, bool Moto) {
+	qualificacoes[0] = Lig;
+	qualificacoes[1] = Pes;
+	qualificacoes[2] = Moto;
 }

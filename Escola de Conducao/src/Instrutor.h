@@ -42,6 +42,8 @@ public:
 	}
 	int numAlunos() { return alunos.size(); }
 	int numAulas() { return aulas.size(); }
+
+	void setQualificacoes(bool Lig, bool Pes, bool Moto);
 };
 
 #endif /* INSTRUTOR_H_ */
