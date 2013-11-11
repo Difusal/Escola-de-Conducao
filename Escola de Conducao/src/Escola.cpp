@@ -1393,15 +1393,28 @@ void Escola::showRemoverInstrutorUI() {
 			// a guardar alunos do instrutor
 			vector<Aluno*> alunos = it->second;
 
+			Instrutor *tempInst = it->first;
+
 			// deleting instrutor
 			comunidade.erase(it);
 
 			// a distribuir alunos por outros instrutores
 			FOR(i, 0, alunos.size()) {
+				if (getInstrutorComMenosAlunos(alunos[i]->getTipoDeCarta()) == NULL) {
+					comunidade[tempInst] = alunos;
+					cout << "Error:\tNao e possivel remover o ultimo instrutor de um tipo" << endl;
+					cout << "\t--------------------------------------------------" << endl;
+					cout << "Pressione enter para continuar... ";
+					cin.get();
+					return;
+				}
+
 				Instrutor *instrutor = getInstrutorComMenosAlunos(alunos[i]->getTipoDeCarta());
 				comunidade[instrutor].push_back(alunos[i]);
 				alunos[i]->setNomeInstrutor(instrutor->getNome());
 			}
+
+			break;
 		}
 	}
 	saveSchoolData();
