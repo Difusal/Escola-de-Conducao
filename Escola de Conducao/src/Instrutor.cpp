@@ -18,9 +18,7 @@ int Instrutor::info() {
 		cout << "\tMotociclo";
 	if (numQualificacoes() != 0)
 		cout << endl;
-	cout << "\tNumero de alunos: " << numAlunos() << endl;
-	cout << "\tNumero de aulas: " << numAulas() << endl;
-	return num + 3;
+	return num + 1;
 }
 
 string Instrutor::printToFile() const {

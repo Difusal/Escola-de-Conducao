@@ -1,16 +1,19 @@
 Escola de Conducao
 ==================
-1.º Trabalho de Grupo de AEDA, FEUP.
+1.º Trabalho de Grupo de AEDA, FEUP
+AEDA1314_2MIEIC5_C
 
 Requisitos Obrigatórios:
 ------------------------
 - [x] Manutenção de viaturas
 - [x] Manutenção de instrutores
 - [x] Manutenção de alunos
-- [..] Manutenção de aulas
-- [..] Associar aulas a alunos
-- [..] Associar aulas a instrutores
-- [..] Associar aulas a viaturas
+- [x] Manutenção de aulas
+- [x] Associar aulas a alunos
+- [x] Associar aulas a instrutores
+- [x] Associar aulas a viaturas
+- [..] Distribuir alunos de instrutor removido
+- [..] Controlar marcação de aulas
 
 ---
 

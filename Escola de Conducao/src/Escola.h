@@ -21,10 +21,8 @@ private:
 	string nome;
 	int abertura, fecho;
 	vector<Viatura*> viaturas;
-	vector<Instrutor*> instrutores;
-	vector<Aluno*> alunos;
+	map<Instrutor*, vector<Aluno*> > comunidade;
 	vector<Aula*> aulas;
-	map<Instrutor*, vector<Aluno*> > instrutores2;
 public:
 	Escola();
 	virtual ~Escola();
@@ -60,7 +58,7 @@ public:
 	void showRemoverInstrutorUI();
 
 	void visualizaInstrutores(MetodoDeSortDeInstrutores metodo);
-	void adicionaInstrutor(Instrutor *instrutor) { instrutores.push_back(instrutor); }
+	void adicionaInstrutor(Instrutor *instrutor) { comunidade[instrutor]; }
 
 	void showVisualizaAlunosUI();
 	void showAdicionarAlunoUI();
@@ -68,7 +66,7 @@ public:
 	void showRemoverAlunoUI();
 
 	void visualizaAlunos(MetodoDeSortDeAlunos metodo);
-	void adicionaAluno(Aluno *aluno) { alunos.push_back(aluno); }
+	void adicionaAluno(Aluno *aluno, Instrutor *instrutor) { comunidade[instrutor].push_back(aluno); }
 
 	void showVisualizaAulasUI();
 	void showMarcarAulaUI();
@@ -79,10 +77,30 @@ public:
 	void marcaAula(Aula *aula) { aulas.push_back(aula); }
 
 	unsigned int numViaturas() const { return viaturas.size(); }
-	unsigned int numInstrutores() const { return instrutores.size(); }
-	unsigned int numAlunos() const { return alunos.size(); }
+	unsigned int numInstrutores() const { return comunidade.size(); }
+	unsigned int numAlunos() const {
+		int sum = 0;
+		foreach(comunidade, it)
+		sum += it->second.size();
+		return sum;
+	}
 	unsigned int numAulas() const { return aulas.size(); }
+	unsigned int numAulas(Instrutor *instrutor) {
+		int count = 0;
+		FOR(i, 0, numAulas()) {
+			if (aulas[i]->getInstrutor().getNome().compare(instrutor->getNome()) == 0)
+				count++;
+		}
+		return count;
+	}
 
+	const vector<Aluno*> alunos() {
+		vector<Aluno*> temp;
+		foreach(comunidade, it)
+		FOR(i, 0, it->second.size())
+		temp.push_back(it->second[i]);
+		return temp;
+	}
 	Viatura *getViaturaComMatricula(string Matricula);
 	Aluno *getAlunoChamado(string nome);
 	Instrutor *getInstrutorChamado(string nome);

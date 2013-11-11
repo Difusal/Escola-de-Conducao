@@ -47,7 +47,6 @@ int Escola::createFileStructure() {
 }
 
 int Escola::saveSchoolData() {
-	// TODO finish this
 	string escola, escolaAulas;
 
 	// opening output strings
@@ -68,13 +67,13 @@ int Escola::saveSchoolData() {
 
 	// A guardar instrutores
 	fout << numInstrutores() << endl;
-	FOR(i, 0, numInstrutores())
-		fout << instrutores[i]->printToFile() << endl;
+	foreach(comunidade, it)
+		fout << it->first->printToFile() << endl;
 
 	// A guardar alunos
 	fout << numAlunos() << endl;
 	FOR(i, 0, numAlunos())
-		fout << alunos[i]->printToFile() << endl;
+		fout << alunos()[i]->printToFile() << endl;
 
 	// A guardar aulas
 	foutAulas << abertura << " " << fecho << endl;
@@ -134,7 +133,7 @@ int Escola::loadSchoolData() {
 	cout << "OK!" << endl;
 
 	cout << "> A carregar instrutores... ";
-	instrutores.clear();
+	comunidade.clear();
 	string nome;
 	bool lig, pes, moto;
 
@@ -145,39 +144,42 @@ int Escola::loadSchoolData() {
 
 		Instrutor *temp;
 		temp = new Instrutor(nome, lig, pes, moto);
-		instrutores.push_back(temp);
+		comunidade[temp];
 	}
 	sleep(0.2);
 	cout << "OK!" << endl;
 
+	string data, nomeAluno, nomeInstrutor, matriculaUsual;
 	cout << "> A carregar alunos... ";
-	alunos.clear();
+	//alunos.clear();
+	foreach(comunidade, it)
+		it->second.clear();
 	int tipoCarta;
-	string matriculaUsual;
 
 	fin >> n;
 	FOR(i, 0, n)
 	{
-		fin >> nome >> tipoCarta >> matriculaUsual;
+		fin >> nome >> tipoCarta >> matriculaUsual >> nomeInstrutor;
 
 		Aluno *temp;
 		Viatura *viaturaUsual;
 		viaturaUsual = getViaturaComMatricula(matriculaUsual);
-		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual);
-		alunos.push_back(temp);
+		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual, nomeInstrutor);
+		comunidade[getInstrutorChamado(nomeInstrutor)].push_back(temp);
 	}
 	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar aulas... ";
 	aulas.clear();
-	string data, nomeAluno, nomeInstrutor;
 	int hora, duracao;
 
 	finAulas >> abertura >> fecho;
 	finAulas >> n;
-	FOR(i, 0, n) {
-		finAulas >> data >> hora >> duracao >> nomeAluno >> nomeInstrutor >> matriculaUsual;
+	FOR(i, 0, n)
+	{
+		finAulas >> data >> hora >> duracao >> nomeAluno >> nomeInstrutor
+				>> matriculaUsual;
 
 		Aluno *aluno;
 		aluno = getAlunoChamado(nomeAluno);
@@ -1144,8 +1146,6 @@ void Escola::showVisualizaInstrutoresUI() {
 		cout << "---------------------------" << endl;
 		cout << "1. Nome" << endl;
 		cout << "2. Numero de qualificacoes" << endl;
-		cout << "3. Numero de alunos" << endl;
-		cout << "4. Numero de aulas" << endl;
 		cout << endl;
 
 		bool done = false;
@@ -1163,12 +1163,6 @@ void Escola::showVisualizaInstrutoresUI() {
 				break;
 			case '2':
 				visualizaInstrutores(NQUALIFICACOES);
-				break;
-			case '3':
-				visualizaInstrutores(NALUNOS);
-				break;
-			case '4':
-				visualizaInstrutores(NAULAS);
 				break;
 			default:
 				done = false;
@@ -1395,7 +1389,10 @@ void Escola::showEditarInstrutorUI() {
 		break;
 	}
 
-	instrutores[pos]->setQualificacoes(qualifLig, qualifPes, qualifMoto);
+	map<Instrutor*, vector<Aluno*> >::iterator it = comunidade.begin();
+	FOR(i, 0, pos)
+		it++;
+	it->first->setQualificacoes(qualifLig, qualifPes, qualifMoto);
 	saveSchoolData();
 
 	cout << "* Instrutor editado com sucesso *" << endl;
@@ -1430,7 +1427,10 @@ void Escola::showRemoverInstrutorUI() {
 		}
 	}
 
-	instrutores.erase(instrutores.begin() + input - 1);
+	map<Instrutor*, vector<Aluno*> >::iterator it = comunidade.begin();
+	FOR(i, 0, input-1)
+		it++;
+	comunidade.erase(it);
 	saveSchoolData();
 
 	cout << "* Instrutor removido com sucesso *" << endl;
@@ -1444,26 +1444,17 @@ bool menorNomeInstrutor(Instrutor *x1, Instrutor *x2) {
 bool menorNQualificacoes(Instrutor *x1, Instrutor *x2) {
 	return (x1->numQualificacoes() < x2->numQualificacoes());
 }
-bool menorNAlunos(Instrutor *x1, Instrutor *x2) {
-	return (x1->numAlunos() < x2->numAlunos());
-}
-bool menorNAulas(Instrutor *x1, Instrutor *x2) {
-	return (x1->numAulas() < x2->numAulas());
-}
-
 void Escola::visualizaInstrutores(MetodoDeSortDeInstrutores metodo) {
+	vector<Instrutor*> instrutores;
+	foreach(comunidade, it)
+		instrutores.push_back(it->first);
+
 	switch (metodo) {
 	case NOMEINSTRUTOR:
 		sort(ALL(instrutores), menorNomeInstrutor);
 		break;
 	case NQUALIFICACOES:
 		sort(ALL(instrutores), menorNQualificacoes);
-		break;
-	case NALUNOS:
-		sort(ALL(instrutores), menorNAlunos);
-		break;
-	case NAULAS:
-		sort(ALL(instrutores), menorNAulas);
 		break;
 	}
 
@@ -1571,24 +1562,17 @@ void Escola::showAdicionarAlunoUI() {
 			e.what();
 		}
 	}
+	input--;
 
 	Aluno *temp;
-	Viatura *viaturaUsual;
-	switch (input) {
-	case 1:
-		viaturaUsual = getViaturaComMenosAlunos(LIGEIRO);
-		temp = new Aluno(nome, LIGEIRO, viaturaUsual);
-		break;
-	case 2:
-		viaturaUsual = getViaturaComMenosAlunos(PESADO);
-		temp = new Aluno(nome, PESADO, viaturaUsual);
-		break;
-	case 3:
-		viaturaUsual = getViaturaComMenosAlunos(MOTOCICLO);
-		temp = new Aluno(nome, MOTOCICLO, viaturaUsual);
-		break;
-	}
-	adicionaAluno(temp);
+	Instrutor *instrutor;
+	instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
+	cout << "tesst" << endl;
+	temp = new Aluno(nome, (TipoCartaConducao) input,
+			getViaturaComMenosAlunos((TipoCartaConducao) input),
+			instrutor->getNome());
+	cout << "tes1212st" << endl;
+	adicionaAluno(temp, instrutor);
 
 	cout << endl;
 	cout << "* Aluno adicionado com sucesso *" << endl;
@@ -1604,30 +1588,22 @@ void Escola::showEditarAlunoUI() {
 void Escola::showRemoverAlunoUI() {
 	showVisualizaAlunosUI();
 
-	unsigned int input;
-	while (1) {
-		try {
-			cout << "> Insira o numero do aluno que pretende remover:" << endl;
-			cout << "> ";
-			cin >> input;
-			cin.ignore();
+	string input;
+	cout << "> Insira o nome do aluno que pretende remover:" << endl;
+	cout << "> ";
+	cin >> input;
+	cin.ignore();
 
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, 1, numAlunos()));
-			} else if (1 <= input && input <= numAlunos())
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, numAlunos()));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, numAlunos());
-			e.what();
-		}
+	//alunos.erase(alunos.begin() + input - 1);
+	int pos = 0;
+	FOR(i, 0, comunidade[getInstrutorDoAluno(getAlunoChamado(input))].size()) {
+		if (comunidade[getInstrutorDoAluno(getAlunoChamado(input))][i] == getAlunoChamado(input))
+			break;
+		pos++;
 	}
-
-	alunos.erase(alunos.begin() + input - 1);
+	comunidade[getInstrutorDoAluno(getAlunoChamado(input))].erase(
+			comunidade[getInstrutorDoAluno(getAlunoChamado(input))].begin()
+					+ pos);
 	saveSchoolData();
 
 	cout << "* Aluno removido com sucesso *" << endl;
@@ -1644,6 +1620,12 @@ bool tipoCarta(Aluno *x1, Aluno *x2) {
 }
 
 void Escola::visualizaAlunos(MetodoDeSortDeAlunos metodo) {
+	vector<Aluno*> alunos;
+	foreach(comunidade, it) {
+		FOR(i, 0, it->second.size())
+			alunos.push_back(it->second[i]);
+	}
+
 	switch (metodo) {
 	case NOMEALUNO:
 		sort(ALL(alunos), menorNomeAluno);
@@ -1839,7 +1821,8 @@ void Escola::showMarcarAulaUI() {
 
 	// nome aluno
 	cout << "\tnome do aluno: ";
-	cin >> nomeAluno; cin.ignore();
+	cin >> nomeAluno;
+	cin.ignore();
 	aluno = getAlunoChamado(nomeAluno);
 
 	// tipo viatura
@@ -1857,7 +1840,8 @@ void Escola::showMarcarAulaUI() {
 	data = ss.str();
 
 	Aula *temp;
-	temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor, viatura);
+	temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor,
+			viatura);
 	marcaAula(temp);
 
 	cout << endl;
@@ -1924,7 +1908,8 @@ void Escola::visualizaAulas(MetodoDeSortDeAulas metodo) {
 }
 
 Viatura *Escola::getViaturaComMatricula(string Matricula) {
-	FOR(i, 0, numViaturas()) {
+	FOR(i, 0, numViaturas())
+	{
 		if (viaturas[i]->getMatricula().compare(Matricula))
 			return viaturas[i];
 	}
@@ -1932,25 +1917,26 @@ Viatura *Escola::getViaturaComMatricula(string Matricula) {
 }
 
 Aluno *Escola::getAlunoChamado(string nome) {
-	FOR(i, 0, numAlunos()) {
-		if (alunos[i]->getNome().compare(nome) == 0)
-			return alunos[i];
+	foreach(comunidade, it) {
+		FOR(i, 0, it->second.size())
+			if (it->second[i]->getNome().compare(nome) == 0)
+				return it->second[i];
 	}
 	//TODO exception here
 	return NULL;
 }
 
 Instrutor *Escola::getInstrutorChamado(string nome) {
-	FOR(i, 0, numInstrutores()) {
-		if (instrutores[i]->getNome().compare(nome) == 0)
-			return instrutores[i];
+	foreach(comunidade, it) {
+		if (it->first->getNome().compare(nome) == 0)
+			return it->first;
 	}
 	//TODO exception here
 	return NULL;
 }
 
 Instrutor *Escola::getInstrutorDoAluno(Aluno *aluno) {
-	foreach(instrutores2, it)
+	foreach(comunidade, it)
 	{
 		FOR(i, 0, it->second.size())
 		{
@@ -1965,9 +1951,8 @@ Instrutor *Escola::getInstrutorDoAluno(Aluno *aluno) {
 int Escola::numAlunosQueUsamAViatura(Viatura *viatura) {
 	unsigned int counter = 0;
 
-	FOR(i, 0, numAlunos())
-	{
-		if (viatura == alunos[i]->getViaturaUsual())
+	FOR(i, 0, numAlunos()) {
+		if (viatura == alunos()[i]->getViaturaUsual())
 			counter++;
 	}
 
@@ -1979,7 +1964,7 @@ int Escola::numAlunosQueTemAulasComInstrutor(Instrutor *instrutor) {
 
 	FOR(i, 0, numAlunos())
 	{
-		if (instrutor == getInstrutorDoAluno(alunos[i]))
+		if (instrutor == getInstrutorDoAluno(alunos()[i]))
 			counter++;
 	}
 
@@ -2001,15 +1986,13 @@ Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
 }
 
 Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
-	int id = -1, min = -1;
-	FOR(i, 0, numInstrutores())
-	{
-		if ((id == -1 && instrutores[i]->isQualifiedFor(TipoViatura))
-				|| (id != -1 && instrutores[i]->isQualifiedFor(TipoViatura)
-						&& numAlunosQueTemAulasComInstrutor(instrutores[i]) < min)) {
-			id = i;
-			min = numAlunosQueTemAulasComInstrutor(instrutores[i]);
+	map<Instrutor*, vector<Aluno*> >::iterator instrutor;
+	int min = -1;
+	foreach(comunidade, it) {
+		if (it->first->isQualifiedFor(TipoViatura) && (min == -1 || (int)it->second.size() < min)) {
+			instrutor = it;
+			min = it->second.size();
 		}
 	}
-	return instrutores[id];
+	return instrutor->first;
 }

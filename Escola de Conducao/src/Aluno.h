@@ -9,9 +9,10 @@ class Aluno: public Pessoa {
 private:
 	TipoCartaConducao tipoDeCarta;
 	Viatura *viaturaUsual;
+	string nomeInstrutor;
 public:
-	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual) :
-			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual) {}
+	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual, string NomeInstrutor) :
+			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual), nomeInstrutor(NomeInstrutor) {}
 	virtual ~Aluno();
 
 	int info();

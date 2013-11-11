@@ -26,9 +26,6 @@ public:
 		}
 		return x;
 	}
-	// TODO implement these methods
-	int numAlunos() { return 0;}//alunos.size(); }
-	int numAulas() { return 0;}//aulas.size(); }
 
 	void setQualificacoes(bool Lig, bool Pes, bool Moto);
 	bool isQualifiedFor(TipoCartaConducao Tipo) { return qualificacoes[Tipo]; }
