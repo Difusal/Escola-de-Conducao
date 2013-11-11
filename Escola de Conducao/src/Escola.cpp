@@ -534,7 +534,7 @@ void Escola::showMainMenu() {
 		cout << "\t3. Alunos" << endl;
 		cout << "\t4. Aulas" << endl;
 		cout << endl;
-		cout << "X. Terminar Sessão" << endl;
+		cout << "X. Terminar Sessao" << endl;
 		cout << endl;
 		cout << "> Escolha o que pretende fazer:" << endl;
 		cout << "> ";
@@ -871,25 +871,7 @@ void Escola::showAdicionarViaturaUI() {
 		}
 	}
 
-	while (1) {
-		try {
-			cout << "\to ano de fabrico: ";
-			cin >> anoFabrico;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(anoFabrico, 1885, getAnoActual()));
-			} else if (0 <= anoFabrico && anoFabrico <= getAnoActual())
-				break;
-			else
-				throw(InputEsperadoEraInt(anoFabrico, 1885, getAnoActual()));
-		} catch (InputEsperadoEraInt &e) {
-			e.what();
-		}
-	}
+	waitForValidInt(anoFabrico, 1885, getAnoActual(), "ano de fabrico");
 
 	while (1) {
 		try {
@@ -919,26 +901,7 @@ void Escola::showAdicionarViaturaUI() {
 		}
 	}
 
-	while (1) {
-		try {
-			cout << "\tperiodicidade (meses): ";
-			cin >> periodicidade;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(periodicidade, 1, 24));
-			} else if (1 <= periodicidade && periodicidade <= 24)
-				break;
-			else
-				throw(InputEsperadoEraInt(periodicidade, 1, 24));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(periodicidade, 1, 24);
-			e.what();
-		}
-	}
+	waitForValidInt(periodicidade, 1, 24, "periodicidade");
 
 	Viatura *temp;
 	switch (input) {
@@ -1836,159 +1799,65 @@ void Escola::showVisualizaAulasUI() {
 }
 
 void Escola::showMarcarAulaUI() {
-	string data;
-	int dia, mes, ano;
-	int hora, duracao;
-	string nomeAluno;
-	TipoCartaConducao tipoViatura;
-	Aluno *aluno;
-	Instrutor *instrutor;
-	Viatura *viatura;
+	try {
+		if (numAlunos() == 0)
+			throw ColecaoVazia("Alunos");
+		if (numInstrutores() == 0)
+			throw ColecaoVazia("Instrutores");
 
-	cout << endl;
-	cout << "---------------" << endl;
-	cout << "- Marcar Aula -" << endl;
-	cout << "---------------" << endl;
-	cout << endl;
-	cout << "Insira:" << endl;
+		string data;
+		int dia, mes, ano;
+		int hora, duracao;
+		string nomeAluno;
+		TipoCartaConducao tipoViatura;
+		Aluno *aluno;
+		Instrutor *instrutor;
+		Viatura *viatura;
 
-	int input;
-	while (1) {
-		try {
-			cout << "\tdia: ";
-			cin >> input;
-			cin.ignore();
+		cout << endl;
+		cout << "---------------" << endl;
+		cout << "- Marcar Aula -" << endl;
+		cout << "---------------" << endl;
+		cout << endl;
+		cout << "Insira:" << endl;
 
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
+		waitForValidInt(dia, 1, 31, "dia");
+		waitForValidInt(mes, 1, 12, "mes");
+		waitForValidInt(ano, getAnoActual(), getAnoActual() + 1, "ano");
+		waitForValidInt(duracao, 1, 2, "duracao");
+		waitForValidInt(hora, abertura, fecho - duracao, "hora");
 
-				throw(InputEsperadoEraInt(input, 1, 31));
-			} else if (1 <= input && input <= 31)
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, 31));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, 31);
-			e.what();
-		}
+		// nome aluno
+		waitForValidAluno(nomeAluno);
+		aluno = getAlunoChamado(nomeAluno);
+
+		// tipo viatura
+		tipoViatura = aluno->getTipoDeCarta();
+
+		// instrutor
+		instrutor = getInstrutorComMenosAlunos(tipoViatura);
+
+		// viatura usual
+		viatura = getViaturaComMenosAlunos(tipoViatura);
+
+		// a processar data
+		stringstream ss;
+		ss << dia << "/" << mes << "/" << ano;
+		data = ss.str();
+
+		Aula *temp;
+		temp = new Aula(convertStringToDate(data), hora, duracao, aluno,
+				instrutor, viatura);
+		marcaAula(temp);
+
+		cout << endl;
+		cout << "* Aula marcada com sucesso *" << endl;
+
+		saveSchoolData();
+		showManutencaoAulasUI();
+	} catch (ColecaoVazia &e) {
+		e.what();
 	}
-	dia = input;
-	while (1) {
-		try {
-			cout << "\tmes: ";
-			cin >> input;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, 1, 12));
-			} else if (1 <= input && input <= 12)
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, 12));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, 12);
-			e.what();
-		}
-	}
-	mes = input;
-	while (1) {
-		try {
-			cout << "\tano: ";
-			cin >> input;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, 1, getAnoActual()));
-			} else if (1 <= input && input <= getAnoActual())
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, getAnoActual()));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, getAnoActual());
-			e.what();
-		}
-	}
-	ano = input;
-	while (1) {
-		try {
-			cout << "\tduracao: ";
-			cin >> input;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, 1, 2));
-			} else if (1 <= input && input <= 2)
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, 2));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, 2);
-			e.what();
-		}
-	}
-	duracao = input;
-	while (1) {
-		try {
-			cout << "\thora: ";
-			cin >> input;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, abertura, fecho - duracao));
-			} else if (abertura <= input && input <= fecho - duracao)
-				break;
-			else
-				throw(InputEsperadoEraInt(input, abertura, fecho - duracao));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, abertura, fecho - duracao);
-			e.what();
-		}
-	}
-	hora = input;
-
-	// nome aluno
-	cout << "\tnome do aluno: ";
-	cin >> nomeAluno;
-	cin.ignore();
-	aluno = getAlunoChamado(nomeAluno);
-
-	// tipo viatura
-	tipoViatura = aluno->getTipoDeCarta();
-
-	// instrutor
-	instrutor = getInstrutorComMenosAlunos(tipoViatura);
-
-	// viatura usual
-	viatura = getViaturaComMenosAlunos(tipoViatura);
-
-	// a processar data
-	stringstream ss;
-	ss << dia << "/" << mes << "/" << ano;
-	data = ss.str();
-
-	Aula *temp;
-	temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor,
-			viatura);
-	marcaAula(temp);
-
-	cout << endl;
-	cout << "* Aula marcada com sucesso *" << endl;
-
-	saveSchoolData();
-	showManutencaoAulasUI();
 }
 
 void Escola::showEditarAulaUI() {
@@ -2164,4 +2033,30 @@ Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
 	if (min != -1)
 		return instrutor->first;
 	else return NULL;
+}
+
+void Escola::waitForValidAluno(string &nomeAluno) {
+	while (1) {
+		try {
+			cout << "> Insira o nome do aluno:" << endl;
+			cout << "> ";
+			cin >> nomeAluno;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraString(nomeAluno));
+			} else {
+				if (getAlunoChamado(nomeAluno) == NULL)
+					throw AlunoNaoExiste(nomeAluno);
+				break;
+			}
+		} catch (InputEsperadoEraString &e) {
+			e.what();
+		} catch (AlunoNaoExiste &e) {
+			e.what();
+		}
+	}
 }

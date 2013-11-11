@@ -94,3 +94,24 @@ int processMatricula(string &Matricula) {
 	return 0;
 }
 
+void waitForValidInt(int &num, int min, int max, string descricao) {
+	while (1) {
+		try {
+			cout << "\t" << descricao << ": ";
+			cin >> num;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(num, min, max));
+			} else if (min <= num && num <= max)
+				return;
+			else
+				throw(InputEsperadoEraInt(num, min, max));
+		} catch (InputEsperadoEraInt &e) {
+			e.what();
+		}
+	}
+}

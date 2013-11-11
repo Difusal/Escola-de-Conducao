@@ -19,4 +19,6 @@ int parseFilename(string &fileName);
 
 int processMatricula(string &Matricula);
 
+void waitForValidInt(int &num, int min, int max, string descricao);
+
 #endif /* UTILITIES_H_ */

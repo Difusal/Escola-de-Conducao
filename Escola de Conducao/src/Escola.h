@@ -93,6 +93,8 @@ public:
 	Instrutor *getInstrutorChamado(string nome);
 	Instrutor *getInstrutorDoAluno(Aluno *aluno);
 	Instrutor *getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura);
+
+	void waitForValidAluno(string &nomeAluno);
 };
 
 #endif
