@@ -90,4 +90,66 @@ public:
 	}
 };
 
+class ViaturaJaExiste: public exception {
+	string matricula;
+public:
+	ViaturaJaExiste(string Matricula): matricula(Matricula) {}
+	virtual ~ViaturaJaExiste() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tA viatura com matricula " << matricula << " ja existe." << endl;
+		cout << "\t------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class InstrutorJaExiste: public exception {
+	string str;
+public:
+	InstrutorJaExiste(string Str): str(Str) {}
+	virtual ~InstrutorJaExiste() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tO instutor " << str << " ja existe." << endl;
+		cout << "\t------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class AlunoJaExiste: public exception {
+	string str;
+public:
+	AlunoJaExiste(string Str): str(Str) {}
+	virtual ~AlunoJaExiste() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tO aluno " << str << " ja existe." << endl;
+		cout << "\t------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class EscolaComRecursosInsuficientes: public exception {
+	string str;
+public:
+	EscolaComRecursosInsuficientes(string Str): str(Str) {}
+	virtual ~EscolaComRecursosInsuficientes() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tA escola nao tem os recursos necessarios para o aluno " << str << "." << endl;
+		cout << "\t---------------------------------------------------------------" << endl;
+		cout << "Pressione enter para continuar... ";
+		cin.get();
+
+		return "";
+	}
+};
+
 #endif /* EXCEPTIONS_H_ */

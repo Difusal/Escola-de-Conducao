@@ -12,7 +12,7 @@
 #include <map>
 
 enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PERIODICIDADE };
-enum MetodoDeSortDeInstrutores { NOMEINSTRUTOR, NQUALIFICACOES, NALUNOS, NAULAS };
+enum MetodoDeSortDeInstrutores { NOMEINSTRUTOR, NQUALIFICACOES };
 enum MetodoDeSortDeAlunos { NOMEALUNO, NAULASMARCADAS };
 enum MetodoDeSortDeAulas { DATA, ALUNO, INSTRUTOR, TIPOVIATURA };
 
@@ -78,38 +78,20 @@ public:
 
 	unsigned int numViaturas() const { return viaturas.size(); }
 	unsigned int numInstrutores() const { return comunidade.size(); }
-	unsigned int numAlunos() const {
-		int sum = 0;
-		foreach(comunidade, it)
-		sum += it->second.size();
-		return sum;
-	}
+	unsigned int numAlunos() const;
 	unsigned int numAulas() const { return aulas.size(); }
-	unsigned int numAulas(Instrutor *instrutor) {
-		int count = 0;
-		FOR(i, 0, numAulas()) {
-			if (aulas[i]->getInstrutor().getNome().compare(instrutor->getNome()) == 0)
-				count++;
-		}
-		return count;
-	}
-
-	const vector<Aluno*> alunos() {
-		vector<Aluno*> temp;
-		foreach(comunidade, it)
-		FOR(i, 0, it->second.size())
-		temp.push_back(it->second[i]);
-		return temp;
-	}
-	Viatura *getViaturaComMatricula(string Matricula);
-	Aluno *getAlunoChamado(string nome);
-	Instrutor *getInstrutorChamado(string nome);
-	Instrutor *getInstrutorDoAluno(Aluno *aluno);
-
+	unsigned int numAulasDoInstrutor(Instrutor *instrutor);
 	int numAlunosQueUsamAViatura(Viatura *viatura);
 	int numAlunosQueTemAulasComInstrutor(Instrutor *instrutor);
 
+	Viatura *getViaturaComMatricula(string Matricula);
 	Viatura *getViaturaComMenosAlunos(TipoCartaConducao TipoViatura);
+
+	const vector<Aluno*> getTodosAlunos();
+	Aluno *getAlunoChamado(string nome);
+
+	Instrutor *getInstrutorChamado(string nome);
+	Instrutor *getInstrutorDoAluno(Aluno *aluno);
 	Instrutor *getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura);
 };
 

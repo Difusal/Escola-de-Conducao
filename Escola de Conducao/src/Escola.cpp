@@ -73,7 +73,7 @@ int Escola::saveSchoolData() {
 	// A guardar alunos
 	fout << numAlunos() << endl;
 	FOR(i, 0, numAlunos())
-		fout << alunos()[i]->printToFile() << endl;
+		fout << getTodosAlunos()[i]->printToFile() << endl;
 
 	// A guardar aulas
 	foutAulas << abertura << " " << fecho << endl;
@@ -865,9 +865,12 @@ void Escola::showAdicionarViaturaUI() {
 			cout << "\ta matricula: ";
 			cin >> matricula;
 			processMatricula(matricula);
+			if (getViaturaComMatricula(matricula) != NULL)
+				throw ViaturaJaExiste(matricula);
 			break;
 		} catch (MatriculaInvalida &e) {
-			e = MatriculaInvalida(matricula);
+			e.what();
+		} catch (ViaturaJaExiste &e) {
 			e.what();
 		}
 	}
@@ -882,13 +885,12 @@ void Escola::showAdicionarViaturaUI() {
 				cin.clear();
 				cin.ignore(10000, '\n');
 
-				throw(InputEsperadoEraInt(anoFabrico, 0, getAnoActual()));
+				throw(InputEsperadoEraInt(anoFabrico, 1885, getAnoActual()));
 			} else if (0 <= anoFabrico && anoFabrico <= getAnoActual())
 				break;
 			else
-				throw(InputEsperadoEraInt(anoFabrico, 0, getAnoActual()));
+				throw(InputEsperadoEraInt(anoFabrico, 1885, getAnoActual()));
 		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(anoFabrico, 0, getAnoActual());
 			e.what();
 		}
 	}
@@ -1191,11 +1193,11 @@ void Escola::showAdicionarInstrutorUI() {
 		try {
 			cout << "\to nome: ";
 			cin >> nome;
-			//processMatricula(matricula);
+			if(getInstrutorChamado(nome) != NULL)
+				throw InstrutorJaExiste(nome);
 			break;
-		} catch (MatriculaInvalida &e) {
-			//e = MatriculaInvalida(matricula);
-			//e.what();
+		} catch (InstrutorJaExiste &e) {
+			e.what();
 		}
 	}
 
@@ -1525,11 +1527,11 @@ void Escola::showAdicionarAlunoUI() {
 		try {
 			cout << "\to nome: ";
 			cin >> nome;
-			//processMatricula(matricula);
+			if(getAlunoChamado(nome) != NULL)
+				throw AlunoJaExiste(nome);
 			break;
-		} catch (MatriculaInvalida &e) {
-			//e = MatriculaInvalida(matricula);
-			//e.what();
+		} catch (AlunoJaExiste &e) {
+			e.what();
 		}
 	}
 
@@ -1558,26 +1560,35 @@ void Escola::showAdicionarAlunoUI() {
 			else
 				throw(InputEsperadoEraInt(input, 1, 3));
 		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, 3);
 			e.what();
 		}
 	}
 	input--;
 
-	Aluno *temp;
-	Instrutor *instrutor;
-	instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
-	cout << "tesst" << endl;
-	temp = new Aluno(nome, (TipoCartaConducao) input,
-			getViaturaComMenosAlunos((TipoCartaConducao) input),
-			instrutor->getNome());
-	cout << "tes1212st" << endl;
-	adicionaAluno(temp, instrutor);
+	try {
+		Aluno *temp;
 
-	cout << endl;
-	cout << "* Aluno adicionado com sucesso *" << endl;
+		Viatura *viatura;
+		viatura = getViaturaComMenosAlunos((TipoCartaConducao) input);
+		if (viatura == NULL)
+			throw EscolaComRecursosInsuficientes(nome);
 
-	saveSchoolData();
+		Instrutor *instrutor;
+		instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
+		if (instrutor == NULL)
+			throw EscolaComRecursosInsuficientes(nome);
+
+		temp = new Aluno(nome, (TipoCartaConducao) input, viatura, instrutor->getNome());
+		adicionaAluno(temp, instrutor);
+
+		cout << endl;
+		cout << "* Aluno adicionado com sucesso *" << endl;
+
+		saveSchoolData();
+	} catch (EscolaComRecursosInsuficientes &e) {
+		e.what();
+	}
+
 	showManutencaoAlunosUI();
 }
 
@@ -1587,6 +1598,8 @@ void Escola::showEditarAlunoUI() {
 
 void Escola::showRemoverAlunoUI() {
 	showVisualizaAlunosUI();
+	if(getTodosAlunos().size() == 0)
+		return;
 
 	string input;
 	cout << "> Insira o nome do aluno que pretende remover:" << endl;
@@ -1594,7 +1607,6 @@ void Escola::showRemoverAlunoUI() {
 	cin >> input;
 	cin.ignore();
 
-	//alunos.erase(alunos.begin() + input - 1);
 	int pos = 0;
 	FOR(i, 0, comunidade[getInstrutorDoAluno(getAlunoChamado(input))].size()) {
 		if (comunidade[getInstrutorDoAluno(getAlunoChamado(input))][i] == getAlunoChamado(input))
@@ -1907,13 +1919,79 @@ void Escola::visualizaAulas(MetodoDeSortDeAulas metodo) {
 	cin.get();
 }
 
-Viatura *Escola::getViaturaComMatricula(string Matricula) {
-	FOR(i, 0, numViaturas())
+unsigned int Escola::numAlunos() const {
+	int sum = 0;
+	foreach(comunidade, it)
+		sum += it->second.size();
+	return sum;
+}
+
+unsigned int Escola::numAulasDoInstrutor(Instrutor *instrutor) {
+	int count = 0;
+	FOR(i, 0, numAulas())
 	{
-		if (viaturas[i]->getMatricula().compare(Matricula))
+		if (aulas[i]->getInstrutor().getNome().compare(instrutor->getNome())
+				== 0)
+			count++;
+	}
+	return count;
+}
+
+int Escola::numAlunosQueUsamAViatura(Viatura *viatura) {
+	unsigned int counter = 0;
+
+	FOR(i, 0, numAlunos()) {
+		if (viatura == getTodosAlunos()[i]->getViaturaUsual())
+			counter++;
+	}
+
+	return counter;
+}
+
+int Escola::numAlunosQueTemAulasComInstrutor(Instrutor *instrutor) {
+	unsigned int counter = 0;
+
+	FOR(i, 0, numAlunos())
+	{
+		if (instrutor == getInstrutorDoAluno(getTodosAlunos()[i]))
+			counter++;
+	}
+
+	return counter;
+}
+
+
+Viatura *Escola::getViaturaComMatricula(string Matricula) {
+	FOR(i, 0, numViaturas()) {
+		if (viaturas[i]->getMatricula().compare(Matricula) == 0)
 			return viaturas[i];
 	}
 	return NULL;
+}
+
+Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
+	int min = -1, id = -1;
+	FOR(i, 0, numViaturas()) {
+		if ((id == -1 && viaturas[i]->getTipo() == TipoViatura)
+				|| (id != -1 && viaturas[i]->getTipo() == TipoViatura
+						&& numAlunosQueUsamAViatura(viaturas[i]) < min)) {
+			id = i;
+			min = numAlunosQueUsamAViatura(viaturas[i]);
+		}
+	}
+	if (id != -1)
+		return viaturas[id];
+	else
+		return NULL;
+}
+
+
+const vector<Aluno*> Escola::getTodosAlunos() {
+	vector<Aluno*> temp;
+	foreach(comunidade, it)
+		FOR(i, 0, it->second.size())
+			temp.push_back(it->second[i]);
+	return temp;
 }
 
 Aluno *Escola::getAlunoChamado(string nome) {
@@ -1922,16 +2000,15 @@ Aluno *Escola::getAlunoChamado(string nome) {
 			if (it->second[i]->getNome().compare(nome) == 0)
 				return it->second[i];
 	}
-	//TODO exception here
 	return NULL;
 }
+
 
 Instrutor *Escola::getInstrutorChamado(string nome) {
 	foreach(comunidade, it) {
 		if (it->first->getNome().compare(nome) == 0)
 			return it->first;
 	}
-	//TODO exception here
 	return NULL;
 }
 
@@ -1944,45 +2021,7 @@ Instrutor *Escola::getInstrutorDoAluno(Aluno *aluno) {
 				return it->first;
 		}
 	}
-
 	return NULL;
-}
-
-int Escola::numAlunosQueUsamAViatura(Viatura *viatura) {
-	unsigned int counter = 0;
-
-	FOR(i, 0, numAlunos()) {
-		if (viatura == alunos()[i]->getViaturaUsual())
-			counter++;
-	}
-
-	return counter;
-}
-
-int Escola::numAlunosQueTemAulasComInstrutor(Instrutor *instrutor) {
-	unsigned int counter = 0;
-
-	FOR(i, 0, numAlunos())
-	{
-		if (instrutor == getInstrutorDoAluno(alunos()[i]))
-			counter++;
-	}
-
-	return counter;
-}
-
-Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
-	int min = -1, id = -1;
-	FOR(i, 0, numViaturas())
-	{
-		if ((id == -1 && viaturas[i]->getTipo() == TipoViatura)
-				|| (id != -1 && viaturas[i]->getTipo() == TipoViatura
-						&& numAlunosQueUsamAViatura(viaturas[i]) < min)) {
-			id = i;
-			min = numAlunosQueUsamAViatura(viaturas[i]);
-		}
-	}
-	return viaturas[id];
 }
 
 Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
@@ -1994,5 +2033,7 @@ Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
 			min = it->second.size();
 		}
 	}
-	return instrutor->first;
+	if (min != -1)
+		return instrutor->first;
+	else return NULL;
 }
