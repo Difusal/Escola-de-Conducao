@@ -9,6 +9,7 @@ int Viatura::info() {
 	cout << "\tTipo: " << getTipoNumaString() << endl;
 	cout << "\tData ultima inspecao: " << getStringComDataUltimaInspecao() << endl;
 	cout << "\tPeriodicidade: " << getPeriodicidade() << endl;
+	cout << "\tData proxima inspecao: " << convertTimeToString(getDataProximaInspecao()) << endl;
 	return 6;
 }
 
@@ -40,9 +41,9 @@ string Viatura::getStringComDataUltimaInspecao() const {
 		ss << 0;
 	ss << dataUltimaInspecao.tm_mday << "/";
 
-	if (dataUltimaInspecao.tm_mon < 10)
+	if (dataUltimaInspecao.tm_mon+1 < 10)
 		ss << 0;
-	ss << dataUltimaInspecao.tm_mon << "/";
+	ss << dataUltimaInspecao.tm_mon+1 << "/";
 
 	if (1900 + dataUltimaInspecao.tm_year < 10)
 		ss << 0;
@@ -53,4 +54,14 @@ string Viatura::getStringComDataUltimaInspecao() const {
 	ss << 1900 + dataUltimaInspecao.tm_year;
 
 	return ss.str();
+}
+
+struct tm Viatura::getDataProximaInspecao() {
+	struct tm *ultima = getDataUltimaInspecao();
+	time_t rawUltima = mktime(ultima);
+
+	time_t rawPeriod = periodicidade*31*24*60*60;
+
+	time_t rawProxima = rawUltima + rawPeriod;
+	return (*gmtime(&rawProxima));
 }

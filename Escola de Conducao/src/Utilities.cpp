@@ -41,9 +41,9 @@ string convertTimeToString(struct tm Time) {
 		ss << 0;
 	ss << Time.tm_mday << "/";
 
-	if (Time.tm_mon < 10)
+	if (Time.tm_mon+1 < 10)
 		ss << 0;
-	ss << Time.tm_mon << "/";
+	ss << Time.tm_mon+1 << "/";
 
 	if (1900 + Time.tm_year < 10)
 		ss << 0;
@@ -54,6 +54,34 @@ string convertTimeToString(struct tm Time) {
 	ss << 1900 + Time.tm_year;
 
 	return ss.str();
+}
+
+bool dataJaUltrapassada(int dia, int mes, int ano) {
+	if (ano < getAnoActual())
+		return true;
+	else if (ano == getAnoActual()) {
+		if (mes < getLocalTimeInfo()->tm_mon+1)
+			return true;
+		else if (mes == getLocalTimeInfo()->tm_mon+1)
+			if (dia <= getLocalTimeInfo()->tm_mday)
+				return true;
+	}
+
+	return false;
+}
+
+bool operator <(struct tm t1, struct tm t2) {
+	if (t1.tm_year < t2.tm_year)
+		return true;
+	else if (t1.tm_year == t2.tm_year) {
+		if (t1.tm_mon < t2.tm_mon)
+			return true;
+		else if (t1.tm_mon == t2.tm_mon)
+			if (t1.tm_mday < t2.tm_mday)
+				return true;
+	}
+
+return false;
 }
 
 bool fileExists(const string &fileName) {

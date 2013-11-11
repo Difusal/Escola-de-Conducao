@@ -35,6 +35,7 @@ public:
 	string getStringComDataUltimaInspecao() const;
 	int getPeriodicidade() { return periodicidade; }
 	void setPeriodicidade(int Periodicidade) { periodicidade = Periodicidade; }
+	struct tm getDataProximaInspecao();
 };
 
 #endif

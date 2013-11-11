@@ -769,7 +769,7 @@ void Escola::showVisualizaViaturasUI() {
 		cout << "3. Marca" << endl;
 		cout << "4. Tipo" << endl;
 		cout << "5. Ultima data de inspecao" << endl;
-		cout << "6. Periodicidade de inspecoes" << endl;
+		cout << "6. Proxima inspecao" << endl;
 		cout << endl;
 
 		bool done = false;
@@ -798,7 +798,7 @@ void Escola::showVisualizaViaturasUI() {
 				visualizaViaturas(DATAULTIMAINSPECAO);
 				break;
 			case '6':
-				visualizaViaturas(PERIODICIDADE);
+				visualizaViaturas(PROXIMAINSPECAO);
 				break;
 			default:
 				done = false;
@@ -901,7 +901,7 @@ void Escola::showAdicionarViaturaUI() {
 		}
 	}
 
-	waitForValidInt(periodicidade, 1, 24, "periodicidade");
+	waitForValidInt(periodicidade, 1, 12, "periodicidade");
 
 	Viatura *temp;
 	switch (input) {
@@ -926,8 +926,11 @@ void Escola::showAdicionarViaturaUI() {
 
 void Escola::showEditarViaturaUI() {
 	showVisualizaViaturasUI();
+	if (viaturas.size() == 0)
+		return;
 
-	unsigned int input, posViatura, valorNovo;
+	unsigned int input, posViatura;
+	int valorNovo;
 	while (1) {
 		try {
 			cout << "> Insira o numero da viatura que pretende editar:" << endl;
@@ -975,30 +978,8 @@ void Escola::showEditarViaturaUI() {
 			e.what();
 		}
 	}
-	switch (input) {
-	case 1:
-		while (1) {
-			try {
-				cout << "\tNova periodicidade (meses): ";
-				cin >> valorNovo;
-				cin.ignore();
 
-				if (cin.fail()) {
-					cin.clear();
-					cin.ignore(10000, '\n');
-
-					throw(InputEsperadoEraInt(valorNovo, 1, 24));
-				} else if (1 <= valorNovo && valorNovo <= 24)
-					break;
-				else
-					throw(InputEsperadoEraInt(valorNovo, 1, 24));
-			} catch (InputEsperadoEraInt &e) {
-				e = InputEsperadoEraInt(valorNovo, 1, 24);
-				e.what();
-			}
-		}
-		break;
-	}
+	waitForValidInt(valorNovo, 1, 12, "periodicidade");
 
 	viaturas[posViatura]->setPeriodicidade(valorNovo);
 	saveSchoolData();
@@ -1010,32 +991,43 @@ void Escola::showEditarViaturaUI() {
 
 void Escola::showRemoverViaturaUI() {
 	showVisualizaViaturasUI();
+	if (viaturas.size() == 0)
+		return;
 
-	unsigned int input;
-	while (1) {
-		try {
-			cout << "> Insira o numero da viatura que pretende remover:"
-					<< endl;
-			cout << "> ";
-			cin >> input;
-			cin.ignore();
+	int input;
+	waitForValidInt(input, 1, numViaturas(), "> Numero da viatura");
+	input--;
 
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
+	vector<Viatura*>::iterator viaturaARemover = viaturas.begin() + input;
+	string matricula = viaturas[input]->getMatricula();
+	TipoCartaConducao tipoTemp = (*viaturaARemover)->getTipo();
 
-				throw(InputEsperadoEraInt(input, 1, numViaturas()));
-			} else if (1 <= input && input <= numViaturas())
-				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, numViaturas()));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, numViaturas());
-			e.what();
-		}
+	// a guardar viatura temporariamente
+	Viatura *viaturaTemp;
+	viaturaTemp = *viaturaARemover;
+
+	// a apagar viatura
+	viaturas.erase(viaturaARemover);
+
+	if (getViaturaComMenosAlunos(tipoTemp) == NULL) {
+		viaturas.push_back(viaturaTemp);
+		cout << "Error:\tNao e possivel remover a ultima viatura de um tipo" << endl;
+		cout << "\t--------------------------------------------------" << endl;
+		cout << "Pressione enter para continuar... ";
+		cin.get();
+		return;
 	}
 
-	viaturas.erase(viaturas.begin() + input - 1);
+	// percorrer todos os alunos, a encontrar uma viatura nova
+	FOR(i, 0, numAlunos()) {
+		if (getTodosAlunos()[i]->getViaturaUsual()->getMatricula().compare(matricula) == 0)
+			getTodosAlunos()[i]->setViaturaUsual(getViaturaComMenosAlunos(tipoTemp));
+	}
+	FOR(i, 0, aulas.size()) {
+		if (aulas[i]->getViatura()->getMatricula().compare(matricula) == 0)
+			aulas[i]->setViaturaUsual(getViaturaComMenosAlunos(tipoTemp));
+	}
+
 	saveSchoolData();
 
 	cout << "* Viatura removida com sucesso *" << endl;
@@ -1055,11 +1047,11 @@ bool menorMarca(Viatura *v1, Viatura *v2) {
 bool menorTipo(Viatura *v1, Viatura *v2) {
 	return (v1->getTipoNumaString() < v2->getTipoNumaString());
 }
-bool menorDataInspec(Viatura *v1, Viatura *v2) {
+bool menorDataUltimaInspec(Viatura *v1, Viatura *v2) {
 	return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao());
 }
-bool menorPeriodicidade(Viatura *v1, Viatura *v2) {
-	return (v1->getPeriodicidade() < v2->getPeriodicidade());
+bool menorDataProxInspec(Viatura *v1, Viatura *v2) {
+	return (v1->getDataProximaInspecao() < v2->getDataProximaInspecao());
 }
 
 void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
@@ -1077,10 +1069,10 @@ void Escola::visualizaViaturas(MetodoDeSortDeViaturas metodo) {
 		sort(ALL(viaturas), menorTipo);
 		break;
 	case DATAULTIMAINSPECAO:
-		sort(ALL(viaturas), menorDataInspec);
+		sort(ALL(viaturas), menorDataUltimaInspec);
 		break;
-	case PERIODICIDADE:
-		sort(ALL(viaturas), menorPeriodicidade);
+	case PROXIMAINSPECAO:
+		sort(ALL(viaturas), menorDataProxInspec);
 		break;
 	}
 
@@ -1234,6 +1226,8 @@ void Escola::showAdicionarInstrutorUI() {
 
 void Escola::showEditarInstrutorUI() {
 	showVisualizaInstrutoresUI();
+	if (comunidade.size() == 0)
+		return;
 
 	bool qualifLig, qualifPes, qualifMoto;
 	string nomeInstrutor;
@@ -1366,6 +1360,8 @@ void Escola::showEditarInstrutorUI() {
 
 void Escola::showRemoverInstrutorUI() {
 	showVisualizaInstrutoresUI();
+	if (comunidade.size() == 0)
+		return;
 
 	string nomeInstrutor;
 	while (1) {
@@ -1393,8 +1389,20 @@ void Escola::showRemoverInstrutorUI() {
 	}
 
 	foreach(comunidade, it) {
-		if(it->first->getNome().compare(nomeInstrutor) == 0)
+		if(it->first->getNome().compare(nomeInstrutor) == 0) {
+			// a guardar alunos do instrutor
+			vector<Aluno*> alunos = it->second;
+
+			// deleting instrutor
 			comunidade.erase(it);
+
+			// a distribuir alunos por outros instrutores
+			FOR(i, 0, alunos.size()) {
+				Instrutor *instrutor = getInstrutorComMenosAlunos(alunos[i]->getTipoDeCarta());
+				comunidade[instrutor].push_back(alunos[i]);
+				alunos[i]->setNomeInstrutor(instrutor->getNome());
+			}
+		}
 	}
 	saveSchoolData();
 
@@ -1668,29 +1676,7 @@ void Escola::showRemoverAlunoUI() {
 		return;
 
 	string nomeAluno;
-	while (1) {
-		try {
-			cout << "> Insira o nome do aluno que pretende remover:" << endl;
-			cout << "> ";
-			cin >> nomeAluno;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraString(nomeAluno));
-			} else {
-				if(getAlunoChamado(nomeAluno) == NULL)
-					throw AlunoNaoExiste(nomeAluno);
-				break;
-			}
-		} catch (InputEsperadoEraString &e) {
-			e.what();
-		} catch (AlunoNaoExiste &e) {
-			e.what();
-		}
-	}
+	waitForValidAluno(nomeAluno);
 
 	Aluno *aluno;
 	aluno = getAlunoChamado(nomeAluno);
@@ -1706,7 +1692,17 @@ void Escola::showRemoverAlunoUI() {
 		}
 	}
 
+	// a apagar aulas que o aluno tinha marcado
+	FOR(i, 0, aulas.size()) {
+		if (aulas[i]->getAluno().getNome().compare(nomeAluno) == 0) {
+			aulas.erase(aulas.begin() + i);
+			i--;
+		}
+	}
+
+	// a apagar o aluno
 	comunidade[instrutor].erase(comunidade[instrutor].begin() + pos);
+
 	saveSchoolData();
 
 	cout << "* Aluno removido com sucesso *" << endl;
@@ -1823,7 +1819,18 @@ void Escola::showMarcarAulaUI() {
 
 		waitForValidInt(dia, 1, 31, "dia");
 		waitForValidInt(mes, 1, 12, "mes");
+		mes--;
 		waitForValidInt(ano, getAnoActual(), getAnoActual() + 1, "ano");
+		while(dataJaUltrapassada(dia, mes, ano)) {
+			cout << "Erro:\tas aulas tem que ser marcadas com um dia de antecedencia." << endl;
+			cout << "\t---------------------------------------------------------" << endl;
+
+			waitForValidInt(dia, 1, 31, "dia");
+			waitForValidInt(mes, 1, 12, "mes");
+			mes--;
+			waitForValidInt(ano, getAnoActual(), getAnoActual() + 1, "ano");
+		}
+
 		waitForValidInt(duracao, 1, 2, "duracao");
 		waitForValidInt(hora, abertura, fecho - duracao, "hora");
 
@@ -1861,11 +1868,38 @@ void Escola::showMarcarAulaUI() {
 }
 
 void Escola::showEditarAulaUI() {
-
+	// TODO asdjaskghf
 }
 
 void Escola::showDesmarcarAulaUI() {
+	showVisualizaAulasUI();
+	if (aulas.size() == 0)
+		return;
 
+	string nomeAluno;
+	waitForValidAluno(nomeAluno);
+
+	Aluno *aluno;
+	aluno = getAlunoChamado(nomeAluno);
+
+	Instrutor *instrutor;
+	instrutor = getInstrutorDoAluno(aluno);
+
+	int pos = 0;
+	FOR(i, 0, comunidade[instrutor].size())
+	{
+		if (comunidade[instrutor][i]->getNome().compare(nomeAluno) == 0) {
+			pos = i;
+			break;
+		}
+	}
+
+	comunidade[instrutor].erase(comunidade[instrutor].begin() + pos);
+	saveSchoolData();
+
+	cout << "* Aluno removido com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
 }
 
 bool menorData(Aula *x1, Aula *x2) {

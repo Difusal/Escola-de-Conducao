@@ -13,6 +13,8 @@ struct tm *getLocalTimeInfo();
 int getAnoActual();
 struct tm convertStringToDate(string data);
 string convertTimeToString(struct tm Time);
+bool dataJaUltrapassada(int dia, int mes, int ano);
+bool operator <(struct tm t1, struct tm t2);
 
 bool fileExists(const string &fileName);
 int parseFilename(string &fileName);

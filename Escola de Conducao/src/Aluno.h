@@ -18,6 +18,8 @@ public:
 	int info();
 	string printToFile() const;
 
+	void setNomeInstrutor(string nome) { nomeInstrutor = nome; }
+
 	TipoCartaConducao getTipoDeCarta() {
 		return tipoDeCarta;
 	}
@@ -28,6 +30,7 @@ public:
 	Viatura *getViaturaUsual() {
 		return viaturaUsual;
 	}
+	void setViaturaUsual(Viatura *viatura) { viaturaUsual = viatura; }
 };
 
 #endif

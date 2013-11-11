@@ -26,7 +26,8 @@ public:
 	Aluno getAluno() { return *aluno; }
 	Instrutor getInstrutor() { return *instrutor; }
 	TipoCartaConducao getTipoViatura() { return viatura->getTipo(); }
-	const Viatura *getViatura() const { return viatura; }
+	Viatura *getViatura() const { return viatura; }
+	void setViaturaUsual(Viatura *Viatura) { viatura = Viatura; }
 };
 
 #endif /* AULA_H_ */
