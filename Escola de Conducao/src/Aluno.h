@@ -8,14 +8,21 @@
 class Aluno: public Pessoa {
 private:
 	TipoCartaConducao tipoDeCarta;
+	Viatura *viaturaUsual;
 public:
-	Aluno(string Nome, TipoCartaConducao CartaDe) : Pessoa(Nome), tipoDeCarta(CartaDe) {}
+	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual) :
+			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual) {}
 	virtual ~Aluno();
 
 	int info();
 	string printToFile() const;
 
-	TipoCartaConducao getTipoDeCarta() { return tipoDeCarta; }
+	TipoCartaConducao getTipoDeCarta() {
+		return tipoDeCarta;
+	}
+	Viatura *getViaturaUsual() {
+		return viaturaUsual;
+	}
 };
 
 #endif

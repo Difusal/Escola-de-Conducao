@@ -1,6 +1,7 @@
 #ifndef UTILITIES_H_
 #define UTILITIES_H_
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -10,6 +11,8 @@ using namespace std;
 
 struct tm *getLocalTimeInfo();
 int getAnoActual();
+struct tm getDateFromString(string data);
+string convertTimeToString(struct tm Time);
 
 bool fileExists(const string &fileName);
 int parseFilename(string &fileName);

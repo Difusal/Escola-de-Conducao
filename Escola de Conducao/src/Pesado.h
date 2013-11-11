@@ -7,7 +7,8 @@ public:
 	Pesado(string Matricula, int Ano, string Marca, int Periodicidade) : Automovel(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Pesado() {}
 
-	string getTipo() const { return "pesado"; }
+	TipoCartaConducao getTipo() const { return PESADO; }
+	string getTipoNumaString() const { return "pesado"; }
 	int info();
 };
 

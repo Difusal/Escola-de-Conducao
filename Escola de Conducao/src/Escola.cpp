@@ -79,6 +79,8 @@ int Escola::saveSchoolData() {
 	// A guardar aulas
 	foutAulas << abertura << " " << fecho << endl;
 	foutAulas << numAulas() << endl;
+	FOR(i, 0, numAulas())
+		foutAulas << aulas[i]->printToFile() << endl;
 
 	return 0;
 }
@@ -93,9 +95,16 @@ int Escola::loadSchoolData() {
 	cout << "- A carregar dados da escola -" << endl;
 	cout << "------------------------------" << endl;
 
+	// opening input strings
 	escola = nome;
 	parseFilename(escola);
 	ifstream fin(escola.c_str());
+
+	stringstream ss;
+	ss << nome << " - aulas";
+	escolaAulas = ss.str();
+	parseFilename(escolaAulas);
+	ifstream finAulas(escolaAulas.c_str());
 
 	cout << "> A carregar viaturas... ";
 	viaturas.clear();
@@ -142,19 +151,30 @@ int Escola::loadSchoolData() {
 	cout << "> A carregar alunos... ";
 	alunos.clear();
 	int tipoCarta;
+	string matriculaUsual;
 
 	fin >> n;
 	FOR(i, 0, n)
 	{
-		fin >> nome >> tipoCarta;
+		fin >> nome >> tipoCarta >> matriculaUsual;
 
 		Aluno *temp;
-		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta);
+		Viatura *viaturaUsual;
+		viaturaUsual = getViaturaComMatricula(matriculaUsual);
+		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual);
 		alunos.push_back(temp);
 	}
 	cout << "OK!" << endl;
 
 	cout << "> A carregar aulas... ";
+	aulas.clear();
+
+	finAulas >> abertura >> fecho;
+	finAulas >> n;
+	FOR(i, 0, n) {
+		// TODO thiasfa
+		;
+	}
 	cout << "OK!" << endl;
 
 	return 0;
@@ -684,10 +704,10 @@ void Escola::showManutencaoAulasUI() {
 		cout << "-----------------------" << endl;
 		cout << "- Manutencao de Aulas -" << endl;
 		cout << "-----------------------" << endl;
-		cout << "1. Visualizar alunos" << endl;
-		cout << "2. Adicionar aluno" << endl;
-		cout << "3. Editar dados de aluno" << endl;
-		cout << "4. Remover aluno" << endl;
+		cout << "1. Visualizar aulas" << endl;
+		cout << "2. Marcar aula" << endl;
+		cout << "3. Editar aula" << endl;
+		cout << "4. Desmarcar aula" << endl;
 		cout << endl;
 		cout << "X. Voltar ao menu inicial" << endl;
 		cout << endl;
@@ -701,16 +721,16 @@ void Escola::showManutencaoAulasUI() {
 		done = false;
 		switch (input) {
 		case '1':
-			showVisualizaAlunosUI();
+			showVisualizaAulasUI();
 			break;
 		case '2':
-			showAdicionarAlunoUI();
+			showMarcarAulaUI();
 			break;
 		case '3':
-			showEditarAlunoUI();
+			showEditarAulaUI();
 			break;
 		case '4':
-			showRemoverAlunoUI();
+			showDesmarcarAulaUI();
 			break;
 		case 'x':
 			showMainMenu();
@@ -1055,7 +1075,7 @@ bool menorMarca(Viatura *v1, Viatura *v2) {
 	return (v1->getMarca() < v2->getMarca());
 }
 bool menorTipo(Viatura *v1, Viatura *v2) {
-	return (v1->getTipo() < v2->getTipo());
+	return (v1->getTipoNumaString() < v2->getTipoNumaString());
 }
 bool menorDataInspec(Viatura *v1, Viatura *v2) {
 	return (v1->getDataUltimaInspecao() < v2->getDataUltimaInspecao());
@@ -1538,15 +1558,19 @@ void Escola::showAdicionarAlunoUI() {
 	}
 
 	Aluno *temp;
+	Viatura *viaturaUsual;
 	switch (input) {
 	case 1:
-		temp = new Aluno(nome, LIGEIRO);
+		viaturaUsual = getViaturaComMenosAlunos(LIGEIRO);
+		temp = new Aluno(nome, LIGEIRO, viaturaUsual);
 		break;
 	case 2:
-		temp = new Aluno(nome, PESADO);
+		viaturaUsual = getViaturaComMenosAlunos(PESADO);
+		temp = new Aluno(nome, PESADO, viaturaUsual);
 		break;
 	case 3:
-		temp = new Aluno(nome, MOTOCICLO);
+		viaturaUsual = getViaturaComMenosAlunos(MOTOCICLO);
+		temp = new Aluno(nome, MOTOCICLO, viaturaUsual);
 		break;
 	}
 	adicionaAluno(temp);
@@ -1624,4 +1648,344 @@ void Escola::visualizaAlunos(MetodoDeSortDeAlunos metodo) {
 	cout << endl;
 	cout << "Pressione enter para continuar... ";
 	cin.get();
+}
+
+void Escola::showVisualizaAulasUI() {
+	try {
+		if (numAulas() == 0)
+			throw ColecaoVazia("Aulas");
+
+		cout << endl;
+		cout << "---------------------" << endl;
+		cout << "- Listagem de aulas -" << endl;
+		cout << "---------------------" << endl;
+		cout << "1. Data da aula" << endl;
+		cout << "2. Nome de aluno" << endl;
+		cout << "3. Nome de instrutor" << endl;
+		cout << "4. Tipo de viatura" << endl;
+		cout << endl;
+
+		bool done = false;
+		while (!done) {
+			cout << "> Escolha o metodo de ordenacao da lista:" << endl;
+			cout << "> ";
+			char input;
+			cin >> input;
+			cin.ignore();
+
+			done = true;
+			switch (input) {
+			case '1':
+				visualizaAulas(DATA);
+				break;
+			case '2':
+				visualizaAulas(ALUNO);
+				break;
+			case '3':
+				visualizaAulas(INSTRUTOR);
+				break;
+			case '4':
+				visualizaAulas(TIPOVIATURA);
+				break;
+			default:
+				done = false;
+				break;
+			}
+		}
+	} catch (ColecaoVazia &e) {
+		e = ColecaoVazia("Aulas");
+		e.what();
+	}
+}
+
+void Escola::showMarcarAulaUI() {
+	string data;
+	int dia, mes, ano;
+	int hora, duracao;
+	string nomeAluno;
+	TipoCartaConducao tipoViatura;
+	Aluno *aluno;
+	Instrutor *instrutor;
+	Viatura *viatura;
+
+	cout << endl;
+	cout << "---------------" << endl;
+	cout << "- Marcar Aula -" << endl;
+	cout << "---------------" << endl;
+	cout << endl;
+	cout << "Insira:" << endl;
+
+	int input;
+	while (1) {
+		try {
+			cout << "\tdia: ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 31));
+			} else if (1 <= input && input <= 31)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 31));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 31);
+			e.what();
+		}
+	}
+	dia = input;
+	while (1) {
+		try {
+			cout << "\tmes: ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 12));
+			} else if (1 <= input && input <= 12)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 12));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 12);
+			e.what();
+		}
+	}
+	mes = input;
+	while (1) {
+		try {
+			cout << "\tano: ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, getAnoActual()));
+			} else if (1 <= input && input <= getAnoActual())
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, getAnoActual()));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, getAnoActual());
+			e.what();
+		}
+	}
+	ano = input;
+	while (1) {
+		try {
+			cout << "\tduracao: ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, 1, 2));
+			} else if (1 <= input && input <= 2)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, 1, 2));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, 1, 2);
+			e.what();
+		}
+	}
+	duracao = input;
+	while (1) {
+		try {
+			cout << "\thora: ";
+			cin >> input;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input, abertura, fecho - duracao));
+			} else if (abertura <= input && input <= fecho - duracao)
+				break;
+			else
+				throw(InputEsperadoEraInt(input, abertura, fecho - duracao));
+		} catch (InputEsperadoEraInt &e) {
+			e = InputEsperadoEraInt(input, abertura, fecho - duracao);
+			e.what();
+		}
+	}
+	hora = input;
+
+	// nome aluno
+	cout << "\tnome do aluno: ";
+	cin >> nomeAluno; cin.ignore();
+	aluno = getAlunoChamado(nomeAluno);
+
+	// tipo viatura
+	tipoViatura = aluno->getTipoDeCarta();
+
+	// instrutor
+	instrutor = getInstrutorComMenosAlunos(tipoViatura);
+
+	// viatura usual
+	viatura = getViaturaComMenosAlunos(tipoViatura);
+
+	// a processar data
+	stringstream ss;
+	ss << dia << "/" << mes << "/" << ano;
+	data = ss.str();
+
+	Aula *temp;
+	temp = new Aula(getDateFromString(data), hora, duracao, aluno, instrutor, viatura);
+	marcaAula(temp);
+
+	cout << endl;
+	cout << "* Aula marcada com sucesso *" << endl;
+
+	saveSchoolData();
+	showManutencaoAulasUI();
+}
+
+void Escola::showEditarAulaUI() {
+
+}
+
+void Escola::showDesmarcarAulaUI() {
+
+}
+
+bool menorData(Aula *x1, Aula *x2) {
+	struct tm d1 = x1->getData(), d2 = x2->getData();
+	int sum1 = d1.tm_mday + d1.tm_mon + d1.tm_year;
+	int sum2 = d2.tm_mday + d2.tm_mon + d2.tm_year;
+
+	return sum1 < sum2;
+}
+
+bool menorAluno(Aula *x1, Aula *x2) {
+	return (x1->getAluno().getNome() < x2->getAluno().getNome());
+}
+
+bool menorInstrutor(Aula *x1, Aula *x2) {
+	return (x1->getInstrutor().getNome() < x2->getInstrutor().getNome());
+}
+
+bool tipoViatura(Aula *x1, Aula *x2) {
+	return (x1->getTipoViatura() < x2->getTipoViatura());
+}
+
+void Escola::visualizaAulas(MetodoDeSortDeAulas metodo) {
+	switch (metodo) {
+	case DATA:
+		sort(ALL(aulas), menorData);
+		break;
+	case ALUNO:
+		sort(ALL(aulas), menorAluno);
+		break;
+	case INSTRUTOR:
+		sort(ALL(aulas), menorInstrutor);
+		break;
+	case TIPOVIATURA:
+		sort(ALL(aulas), tipoViatura);
+		break;
+	}
+
+	FOR(i, 0, numAlunos())
+	{
+		cout << endl;
+		cout << "> Aula " << i + 1 << ":" << endl;
+		aulas[i]->info();
+	}
+
+	cout << endl;
+	cout << "Pressione enter para continuar... ";
+	cin.get();
+}
+
+Viatura *Escola::getViaturaComMatricula(string Matricula) {
+	FOR(i, 0, numViaturas()) {
+		if (viaturas[i]->getMatricula().compare(Matricula))
+			return viaturas[i];
+	}
+	return NULL;
+}
+
+Aluno *Escola::getAlunoChamado(string nome) {
+	FOR(i, 0, numAlunos()) {
+		if (alunos[i]->getNome().compare(nome) == 0)
+			return alunos[i];
+	}
+	//TODO exception here
+	return NULL;
+}
+
+Instrutor *Escola::getInstrutorDoAluno(Aluno *aluno) {
+	foreach(instrutores2, it)
+	{
+		FOR(i, 0, it->second.size())
+		{
+			if (aluno == it->second[i])
+				return it->first;
+		}
+	}
+
+	return NULL;
+}
+
+int Escola::numAlunosQueUsamAViatura(Viatura *viatura) {
+	unsigned int counter = 0;
+
+	FOR(i, 0, numAlunos())
+	{
+		if (viatura == alunos[i]->getViaturaUsual())
+			counter++;
+	}
+
+	return counter;
+}
+
+int Escola::numAlunosQueTemAulasComInstrutor(Instrutor *instrutor) {
+	unsigned int counter = 0;
+
+	FOR(i, 0, numAlunos())
+	{
+		if (instrutor == getInstrutorDoAluno(alunos[i]))
+			counter++;
+	}
+
+	return counter;
+}
+
+Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
+	int min = -1, id = -1;
+	FOR(i, 0, numViaturas())
+	{
+		if ((id == -1 && viaturas[i]->getTipo() == TipoViatura)
+				|| (id != -1 && viaturas[i]->getTipo() == TipoViatura
+						&& numAlunosQueUsamAViatura(viaturas[i]) < min)) {
+			id = i;
+			min = numAlunosQueUsamAViatura(viaturas[i]);
+		}
+	}
+	return viaturas[id];
+}
+
+Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
+	int id = -1, min = -1;
+	FOR(i, 0, numInstrutores())
+	{
+		if ((id == -1 && instrutores[i]->isQualifiedFor(TipoViatura))
+				|| (id != -1 && instrutores[i]->isQualifiedFor(TipoViatura)
+						&& numAlunosQueTemAulasComInstrutor(instrutores[i]) < min)) {
+			id = i;
+			min = numAlunosQueTemAulasComInstrutor(instrutores[i]);
+		}
+	}
+	return instrutores[id];
 }

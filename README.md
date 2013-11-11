@@ -6,7 +6,7 @@ Requisitos Obrigatórios:
 ------------------------
 - [x] Manutenção de viaturas
 - [x] Manutenção de instrutores
-- [..] Manutenção de alunos
+- [x] Manutenção de alunos
 - [..] Manutenção de aulas
 - [..] Associar aulas a alunos
 - [..] Associar aulas a instrutores
@@ -29,7 +29,7 @@ Main file:
 
 = Dados dos Alunos =
 > n
-> nome tipoCarta
+> nome tipoCarta matriculaViaturaUsual
 
 Lessons file:
 -------------

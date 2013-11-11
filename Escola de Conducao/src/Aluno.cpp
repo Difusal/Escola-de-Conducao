@@ -24,6 +24,6 @@ int Aluno::info() {
 
 string Aluno::printToFile() const {
 	stringstream ss;
-	ss << nome << " " << tipoDeCarta;
+	ss << nome << " " << tipoDeCarta << " " << viaturaUsual->getMatricula();
 	return ss.str();
 }

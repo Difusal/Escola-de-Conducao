@@ -1,9 +1,3 @@
-/*
- * Utilities.cpp
- *
- *  Created on: Nov 6, 2013
- *      Author: henrique
- */
 #include <sstream>
 #include <fstream>
 #include <time.h>
@@ -25,6 +19,42 @@ int getAnoActual() {
 	return (1900 + getLocalTimeInfo()->tm_year);
 }
 
+struct tm getDateFromString(string data) {
+	struct tm ultimaInspec = *getLocalTimeInfo();
+
+	int day = atoi(data.substr(0, 2).c_str());
+	ultimaInspec.tm_mday = day;
+
+	int month = atoi(data.substr(3, 2).c_str());
+	ultimaInspec.tm_mon = month;
+
+	int year = atoi(data.substr(6, 4).c_str());
+	ultimaInspec.tm_year = year;
+
+	return ultimaInspec;
+}
+
+string convertTimeToString(struct tm Time) {
+	stringstream ss;
+
+	if (Time.tm_mday < 10)
+		ss << 0;
+	ss << Time.tm_mday << "/";
+
+	if (Time.tm_mon < 10)
+		ss << 0;
+	ss << Time.tm_mon << "/";
+
+	if (1900 + Time.tm_year < 10)
+		ss << 0;
+	if (1900 + Time.tm_year < 100)
+		ss << 0;
+	if (1900 + Time.tm_year < 1000)
+		ss << 0;
+	ss << 1900 + Time.tm_year;
+
+	return ss.str();
+}
 
 bool fileExists(const string &fileName) {
 	ifstream infile(fileName.c_str());

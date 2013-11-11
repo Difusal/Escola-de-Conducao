@@ -28,7 +28,8 @@ public:
 	string getMatricula() { return matricula; }
 	int getAnoFabrico() { return anoFabrico; }
 	string getMarca() const { return marca; }
-	virtual string getTipo() const = 0;
+	virtual string getTipoNumaString() const = 0;
+	virtual TipoCartaConducao getTipo() const = 0;
 	void setDataUltimaInspecao(string data);
 	struct tm *getDataUltimaInspecao() { return &dataUltimaInspecao; }
 	string getStringComDataUltimaInspecao() const;

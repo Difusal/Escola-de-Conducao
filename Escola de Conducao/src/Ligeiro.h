@@ -7,7 +7,8 @@ public:
 	Ligeiro(string Matricula, int Ano, string Marca, int Periodicidade) : Automovel(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Ligeiro() {}
 
-	string getTipo() const { return "ligeiro"; }
+	TipoCartaConducao getTipo() const { return LIGEIRO; }
+	string getTipoNumaString() const { return "ligeiro"; }
 	int info();
 };
 

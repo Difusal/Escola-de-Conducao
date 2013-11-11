@@ -6,7 +6,7 @@ int Viatura::info() {
 	cout << "\tMatricula: " << matricula << endl;
 	cout << "\tAno de fabrico: " << anoFabrico << endl;
 	cout << "\tMarca: " << marca << endl;
-	cout << "\tTipo: " << getTipo() << endl;
+	cout << "\tTipo: " << getTipoNumaString() << endl;
 	cout << "\tData ultima inspecao: " << getStringComDataUltimaInspecao() << endl;
 	cout << "\tPeriodicidade: " << getPeriodicidade() << endl;
 	return 6;
@@ -14,7 +14,7 @@ int Viatura::info() {
 
 string Viatura::printToFile() const {
 	stringstream ss;
-	ss << matricula << " " << anoFabrico << " " << marca << " " << getTipo() << " " << getStringComDataUltimaInspecao() << " " << periodicidade;
+	ss << matricula << " " << anoFabrico << " " << marca << " " << getTipoNumaString() << " " << getStringComDataUltimaInspecao() << " " << periodicidade;
 	return ss.str();
 }
 
@@ -23,6 +23,12 @@ void Viatura::setDataUltimaInspecao(string data) {
 
 	int day = atoi(data.substr(0, 2).c_str());
 	ultimaInspec.tm_mday = day;
+
+	int month = atoi(data.substr(3, 2).c_str());
+	ultimaInspec.tm_mon = month;
+
+	int year = atoi(data.substr(6, 4).c_str());
+	ultimaInspec.tm_year = year;
 
 	dataUltimaInspecao = ultimaInspec;
 }

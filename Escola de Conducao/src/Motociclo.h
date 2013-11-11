@@ -7,7 +7,8 @@ public:
 	Motociclo(string Matricula, int Ano, string Marca, int Periodicidade) : Viatura(Matricula, Ano, Marca, Periodicidade) {}
 	virtual ~Motociclo() {}
 
-	string getTipo() const { return "motociclo"; }
+	TipoCartaConducao getTipo() const { return MOTOCICLO; }
+	string getTipoNumaString() const { return "motociclo"; }
 	int info();
 };
 

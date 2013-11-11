@@ -31,6 +31,7 @@ public:
 	int numAulas() { return 0;}//aulas.size(); }
 
 	void setQualificacoes(bool Lig, bool Pes, bool Moto);
+	bool isQualifiedFor(TipoCartaConducao Tipo) { return qualificacoes[Tipo]; }
 };
 
 #endif /* INSTRUTOR_H_ */

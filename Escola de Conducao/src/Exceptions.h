@@ -1,10 +1,3 @@
-/*
- * Exceptions.h
- *
- *  Created on: Nov 6, 2013
- *      Author: henrique
- */
-
 #ifndef EXCEPTIONS_H_
 #define EXCEPTIONS_H_
 
