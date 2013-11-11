@@ -120,6 +120,21 @@ public:
 	}
 };
 
+class InstrutorNaoExiste: public exception {
+	string str;
+public:
+	InstrutorNaoExiste(string Str): str(Str) {}
+	virtual ~InstrutorNaoExiste() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tO instutor " << str << " nao existe." << endl;
+		cout << "\t------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
 class AlunoJaExiste: public exception {
 	string str;
 public:
@@ -129,6 +144,21 @@ public:
 	virtual const char *what () const throw() {
 		cout << endl;
 		cout << "Erro:\tO aluno " << str << " ja existe." << endl;
+		cout << "\t------------------------------------------------" << endl;
+
+		return "";
+	}
+};
+
+class AlunoNaoExiste: public exception {
+	string str;
+public:
+	AlunoNaoExiste(string Str): str(Str) {}
+	virtual ~AlunoNaoExiste() throw() {}
+
+	virtual const char *what () const throw() {
+		cout << endl;
+		cout << "Erro:\tO aluno " << str << " nao existe." << endl;
 		cout << "\t------------------------------------------------" << endl;
 
 		return "";

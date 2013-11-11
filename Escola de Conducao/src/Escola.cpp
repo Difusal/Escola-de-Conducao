@@ -1272,32 +1272,34 @@ void Escola::showAdicionarInstrutorUI() {
 void Escola::showEditarInstrutorUI() {
 	showVisualizaInstrutoresUI();
 
-	unsigned int input, pos;
 	bool qualifLig, qualifPes, qualifMoto;
+	string nomeInstrutor;
 	while (1) {
 		try {
-			cout << "> Insira o numero do instrutor que pretende editar:"
+			cout << "> Insira o nome do instrutor que pretende remover:"
 					<< endl;
 			cout << "> ";
-			cin >> input;
+			cin >> nomeInstrutor;
 			cin.ignore();
 
 			if (cin.fail()) {
 				cin.clear();
 				cin.ignore(10000, '\n');
 
-				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
-			} else if (1 <= input && input <= numInstrutores())
+				throw(InputEsperadoEraString(nomeInstrutor));
+			} else {
+				if (getInstrutorChamado(nomeInstrutor) == NULL)
+					throw InstrutorNaoExiste(nomeInstrutor);
 				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, numInstrutores());
+			}
+		} catch (InputEsperadoEraString &e) {
+			e.what();
+		} catch (InstrutorNaoExiste &e) {
 			e.what();
 		}
 	}
-	pos = input - 1;
 
+	int input;
 	cout << "Editar:" << endl;
 	cout << "1. Qualificacoes" << endl;
 	cout << endl;
@@ -1387,10 +1389,11 @@ void Escola::showEditarInstrutorUI() {
 		break;
 	}
 
-	map<Instrutor*, vector<Aluno*> >::iterator it = comunidade.begin();
-	FOR(i, 0, pos)
-		it++;
-	it->first->setQualificacoes(qualifLig, qualifPes, qualifMoto);
+	foreach(comunidade, it) {
+		if (it->first->getNome().compare(nomeInstrutor) == 0)
+			it->first->setQualificacoes(qualifLig, qualifPes, qualifMoto);
+	}
+
 	saveSchoolData();
 
 	cout << "* Instrutor editado com sucesso *" << endl;
@@ -1401,34 +1404,35 @@ void Escola::showEditarInstrutorUI() {
 void Escola::showRemoverInstrutorUI() {
 	showVisualizaInstrutoresUI();
 
-	unsigned int input;
+	string nomeInstrutor;
 	while (1) {
 		try {
-			cout << "> Insira o numero do instrutor que pretende remover:"
-					<< endl;
+			cout << "> Insira o nome do instrutor que pretende remover:" << endl;
 			cout << "> ";
-			cin >> input;
+			cin >> nomeInstrutor;
 			cin.ignore();
 
 			if (cin.fail()) {
 				cin.clear();
 				cin.ignore(10000, '\n');
 
-				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
-			} else if (1 <= input && input <= numInstrutores())
+				throw(InputEsperadoEraString(nomeInstrutor));
+			} else {
+				if (getInstrutorChamado(nomeInstrutor) == NULL)
+					throw InstrutorNaoExiste(nomeInstrutor);
 				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, numInstrutores()));
-		} catch (InputEsperadoEraInt &e) {
-			e = InputEsperadoEraInt(input, 1, numInstrutores());
+			}
+		} catch (InputEsperadoEraString &e) {
+			e.what();
+		} catch (InstrutorNaoExiste &e) {
 			e.what();
 		}
 	}
 
-	map<Instrutor*, vector<Aluno*> >::iterator it = comunidade.begin();
-	FOR(i, 0, input-1)
-		it++;
-	comunidade.erase(it);
+	foreach(comunidade, it) {
+		if(it->first->getNome().compare(nomeInstrutor) == 0)
+			comunidade.erase(it);
+	}
 	saveSchoolData();
 
 	cout << "* Instrutor removido com sucesso *" << endl;
@@ -1605,8 +1609,14 @@ void Escola::showEditarAlunoUI() {
 				cin.ignore(10000, '\n');
 
 				throw(InputEsperadoEraString(nomeAluno));
-			} else break;
+			} else {
+				if (getAlunoChamado(nomeAluno) == NULL)
+					throw AlunoNaoExiste(nomeAluno);
+				break;
+			}
 		} catch (InputEsperadoEraString &e) {
+			e.what();
+		} catch (AlunoNaoExiste &e) {
 			e.what();
 		}
 	}
@@ -1663,8 +1673,12 @@ void Escola::showEditarAlunoUI() {
 								throw EscolaComRecursosInsuficientes(nomeAluno);
 
 							getAlunoChamado(nomeAluno)->setTipoDeCarta((TipoCartaConducao)input);
+							saveSchoolData();
 
-							break;
+							cout << "* Dados do aluno alterados com sucesso *" << endl;
+							cout << "Prima <enter> para voltar ao menu inicial." << endl;
+							cin.get();
+							return;
 						}
 						else
 							throw(InputEsperadoEraInt(input, 1, 3));
@@ -1683,12 +1697,6 @@ void Escola::showEditarAlunoUI() {
 			e.what();
 		}
 	}
-
-	saveSchoolData();
-
-	cout << "* Dados do aluno alterados com sucesso *" << endl;
-	cout << "Prima <enter> para voltar ao menu inicial." << endl;
-	cin.get();
 }
 
 void Escola::showRemoverAlunoUI() {
@@ -1697,10 +1705,29 @@ void Escola::showRemoverAlunoUI() {
 		return;
 
 	string nomeAluno;
-	cout << "> Insira o nome do aluno que pretende remover:" << endl;
-	cout << "> ";
-	cin >> nomeAluno;
-	cin.ignore();
+	while (1) {
+		try {
+			cout << "> Insira o nome do aluno que pretende remover:" << endl;
+			cout << "> ";
+			cin >> nomeAluno;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraString(nomeAluno));
+			} else {
+				if(getAlunoChamado(nomeAluno) == NULL)
+					throw AlunoNaoExiste(nomeAluno);
+				break;
+			}
+		} catch (InputEsperadoEraString &e) {
+			e.what();
+		} catch (AlunoNaoExiste &e) {
+			e.what();
+		}
+	}
 
 	Aluno *aluno;
 	aluno = getAlunoChamado(nomeAluno);
