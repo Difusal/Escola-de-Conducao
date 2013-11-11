@@ -38,4 +38,4 @@ Lessons file:
 
 = Dados das Aulas =
 > n
-> data hora duracao aluno instrutor
+> data hora duracao aluno instrutor matriculaViaturaUsual

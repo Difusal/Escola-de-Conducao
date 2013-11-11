@@ -7,12 +7,12 @@ Aula::~Aula() {
 }
 
 int Aula::info() {
-	cout << "Data: " << convertTimeToString(data) << endl;
-	cout << "Hora: " << hora << endl;
-	cout << "Duracao: " << duracao << endl;
-	cout << "Aluno: " << aluno->getNome() << endl;
-	cout << "Instrutor: " << instrutor->getNome() << endl;
-	cout << "Viatura: " << endl;
+	cout << "    Data: " << convertTimeToString(data) << endl;
+	cout << "    Hora: " << hora << endl;
+	cout << "    Duracao: " << duracao << endl;
+	cout << "    Aluno: " << aluno->getNome() << endl;
+	cout << "    Instrutor: " << instrutor->getNome() << endl;
+	cout << "    Viatura: " << endl;
 	aluno->getViaturaUsual()->info();
 
 	return 6;

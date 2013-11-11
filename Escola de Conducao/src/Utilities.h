@@ -9,9 +9,10 @@ using namespace std;
 #define ALL(v) (v).begin(), (v).end()
 #define foreach(v, it) for(typeof((v).begin()) it = (v).begin(); it != (v).end(); it++ )
 
+void sleep(double seconds);
 struct tm *getLocalTimeInfo();
 int getAnoActual();
-struct tm getDateFromString(string data);
+struct tm convertStringToDate(string data);
 string convertTimeToString(struct tm Time);
 
 bool fileExists(const string &fileName);

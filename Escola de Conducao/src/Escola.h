@@ -85,6 +85,7 @@ public:
 
 	Viatura *getViaturaComMatricula(string Matricula);
 	Aluno *getAlunoChamado(string nome);
+	Instrutor *getInstrutorChamado(string nome);
 	Instrutor *getInstrutorDoAluno(Aluno *aluno);
 
 	int numAlunosQueUsamAViatura(Viatura *viatura);

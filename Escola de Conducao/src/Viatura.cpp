@@ -28,7 +28,7 @@ void Viatura::setDataUltimaInspecao(string data) {
 	ultimaInspec.tm_mon = month;
 
 	int year = atoi(data.substr(6, 4).c_str());
-	ultimaInspec.tm_year = year;
+	ultimaInspec.tm_year = year-1900;
 
 	dataUltimaInspecao = ultimaInspec;
 }

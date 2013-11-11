@@ -130,6 +130,7 @@ int Escola::loadSchoolData() {
 		temp->setDataUltimaInspecao(dataUltimaInspec);
 		viaturas.push_back(temp);
 	}
+	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar instrutores... ";
@@ -146,6 +147,7 @@ int Escola::loadSchoolData() {
 		temp = new Instrutor(nome, lig, pes, moto);
 		instrutores.push_back(temp);
 	}
+	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar alunos... ";
@@ -164,17 +166,30 @@ int Escola::loadSchoolData() {
 		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual);
 		alunos.push_back(temp);
 	}
+	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar aulas... ";
 	aulas.clear();
+	string data, nomeAluno, nomeInstrutor;
+	int hora, duracao;
 
 	finAulas >> abertura >> fecho;
 	finAulas >> n;
 	FOR(i, 0, n) {
-		// TODO thiasfa
-		;
+		finAulas >> data >> hora >> duracao >> nomeAluno >> nomeInstrutor >> matriculaUsual;
+
+		Aluno *aluno;
+		aluno = getAlunoChamado(nomeAluno);
+		Instrutor *instrutor;
+		instrutor = getInstrutorChamado(nomeInstrutor);
+		Viatura *viatura;
+		viatura = getViaturaComMatricula(matriculaUsual);
+		Aula *temp;
+		temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor, viatura);
+		aulas.push_back(temp);
 	}
+	sleep(0.2);
 	cout << "OK!" << endl;
 
 	return 0;
@@ -1842,7 +1857,7 @@ void Escola::showMarcarAulaUI() {
 	data = ss.str();
 
 	Aula *temp;
-	temp = new Aula(getDateFromString(data), hora, duracao, aluno, instrutor, viatura);
+	temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor, viatura);
 	marcaAula(temp);
 
 	cout << endl;
@@ -1896,7 +1911,7 @@ void Escola::visualizaAulas(MetodoDeSortDeAulas metodo) {
 		break;
 	}
 
-	FOR(i, 0, numAlunos())
+	FOR(i, 0, numAulas())
 	{
 		cout << endl;
 		cout << "> Aula " << i + 1 << ":" << endl;
@@ -1920,6 +1935,15 @@ Aluno *Escola::getAlunoChamado(string nome) {
 	FOR(i, 0, numAlunos()) {
 		if (alunos[i]->getNome().compare(nome) == 0)
 			return alunos[i];
+	}
+	//TODO exception here
+	return NULL;
+}
+
+Instrutor *Escola::getInstrutorChamado(string nome) {
+	FOR(i, 0, numInstrutores()) {
+		if (instrutores[i]->getNome().compare(nome) == 0)
+			return instrutores[i];
 	}
 	//TODO exception here
 	return NULL;

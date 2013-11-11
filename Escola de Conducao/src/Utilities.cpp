@@ -5,6 +5,11 @@
 #include "Exceptions.h"
 using namespace std;
 
+void sleep(double seconds) {
+    clock_t goal = 1000000*seconds + clock();
+    while (goal > clock());
+}
+
 struct tm *getLocalTimeInfo() {
 	time_t rawtime;
 	struct tm * timeinfo;
@@ -19,7 +24,7 @@ int getAnoActual() {
 	return (1900 + getLocalTimeInfo()->tm_year);
 }
 
-struct tm getDateFromString(string data) {
+struct tm convertStringToDate(string data) {
 	struct tm ultimaInspec = *getLocalTimeInfo();
 
 	int day = atoi(data.substr(0, 2).c_str());
@@ -29,7 +34,7 @@ struct tm getDateFromString(string data) {
 	ultimaInspec.tm_mon = month;
 
 	int year = atoi(data.substr(6, 4).c_str());
-	ultimaInspec.tm_year = year;
+	ultimaInspec.tm_year = year - 1900;
 
 	return ultimaInspec;
 }
