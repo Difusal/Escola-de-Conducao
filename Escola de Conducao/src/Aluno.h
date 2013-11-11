@@ -21,6 +21,10 @@ public:
 	TipoCartaConducao getTipoDeCarta() {
 		return tipoDeCarta;
 	}
+	void setTipoDeCarta(TipoCartaConducao Tipo) {
+		tipoDeCarta = Tipo;
+	}
+
 	Viatura *getViaturaUsual() {
 		return viaturaUsual;
 	}

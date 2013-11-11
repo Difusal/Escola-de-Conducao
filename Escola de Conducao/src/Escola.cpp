@@ -1589,7 +1589,106 @@ void Escola::showAdicionarAlunoUI() {
 }
 
 void Escola::showEditarAlunoUI() {
+	showVisualizaAlunosUI();
+	if(getTodosAlunos().size() == 0) return;
 
+	string nomeAluno;
+	while (1) {
+		try {
+			cout << "> Insira o nome do aluno que pretende alterar:" << endl;
+			cout << "> ";
+			cin >> nomeAluno;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraString(nomeAluno));
+			} else break;
+		} catch (InputEsperadoEraString &e) {
+			e.what();
+		}
+	}
+
+	cout << endl;
+	cout << "Editar:" << endl;
+	cout << "1. Tipo de carta de conducao" << endl;
+	cout << endl;
+	int input2;
+	while (1) {
+		try {
+			cout << "> O que pretende editar?" << endl;
+			cout << "> ";
+			cin >> input2;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw(InputEsperadoEraInt(input2, 1, 1));
+			} else if (1 <= input2 && input2 <= 1) {
+				cout << endl;
+				cout << "Tipo de carta de conducao:" << endl;
+				cout << "\t1. Ligeiro" << endl;
+				cout << "\t2. Pesado" << endl;
+				cout << "\t3. Motociclo" << endl;
+				cout << endl;
+
+				int input;
+				while (1) {
+					try {
+						cout << "> Insira o tipo de carta:" << endl;
+						cout << "> ";
+						cin >> input;
+						cin.ignore();
+
+						if (cin.fail()) {
+							cin.clear();
+							cin.ignore(10000, '\n');
+
+							throw(InputEsperadoEraInt(input, 1, 3));
+						} else if (1 <= input && input <= 3) {
+							input--;
+
+							Viatura *viatura;
+							viatura = getViaturaComMenosAlunos((TipoCartaConducao) input);
+							if (viatura == NULL)
+								throw EscolaComRecursosInsuficientes(nomeAluno);
+
+							Instrutor *instrutor;
+							instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
+							if (instrutor == NULL)
+								throw EscolaComRecursosInsuficientes(nomeAluno);
+
+							getAlunoChamado(nomeAluno)->setTipoDeCarta((TipoCartaConducao)input);
+
+							break;
+						}
+						else
+							throw(InputEsperadoEraInt(input, 1, 3));
+					} catch (InputEsperadoEraInt &e) {
+						e.what();
+					} catch (EscolaComRecursosInsuficientes &e) {
+						e.what();
+					}
+				}
+
+				break;
+			}
+			else
+				throw(InputEsperadoEraInt(input2, 1, 1));
+		} catch (InputEsperadoEraInt &e) {
+			e.what();
+		}
+	}
+
+	saveSchoolData();
+
+	cout << "* Dados do aluno alterados com sucesso *" << endl;
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
 }
 
 void Escola::showRemoverAlunoUI() {
@@ -1597,21 +1696,27 @@ void Escola::showRemoverAlunoUI() {
 	if(getTodosAlunos().size() == 0)
 		return;
 
-	string input;
+	string nomeAluno;
 	cout << "> Insira o nome do aluno que pretende remover:" << endl;
 	cout << "> ";
-	cin >> input;
+	cin >> nomeAluno;
 	cin.ignore();
 
+	Aluno *aluno;
+	aluno = getAlunoChamado(nomeAluno);
+
+	Instrutor *instrutor;
+	instrutor = getInstrutorDoAluno(aluno);
+
 	int pos = 0;
-	FOR(i, 0, comunidade[getInstrutorDoAluno(getAlunoChamado(input))].size()) {
-		if (comunidade[getInstrutorDoAluno(getAlunoChamado(input))][i] == getAlunoChamado(input))
+	FOR(i, 0, comunidade[instrutor].size()) {
+		if (comunidade[instrutor][i]->getNome().compare(nomeAluno) == 0) {
+			pos = i;
 			break;
-		pos++;
+		}
 	}
-	comunidade[getInstrutorDoAluno(getAlunoChamado(input))].erase(
-			comunidade[getInstrutorDoAluno(getAlunoChamado(input))].begin()
-					+ pos);
+
+	comunidade[instrutor].erase(comunidade[instrutor].begin() + pos);
 	saveSchoolData();
 
 	cout << "* Aluno removido com sucesso *" << endl;
