@@ -6,7 +6,7 @@ Pessoa::~Pessoa() {
 }
 
 int Pessoa::info() {
-	cout << "\tNome: " << nome << endl;
+	cout << "    Nome: " << nome << endl;
 	return 1;
 }
 

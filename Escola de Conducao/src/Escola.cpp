@@ -129,7 +129,6 @@ int Escola::loadSchoolData() {
 		temp->setDataUltimaInspecao(dataUltimaInspec);
 		viaturas.push_back(temp);
 	}
-	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar instrutores... ";
@@ -146,7 +145,6 @@ int Escola::loadSchoolData() {
 		temp = new Instrutor(nome, lig, pes, moto);
 		comunidade[temp];
 	}
-	sleep(0.2);
 	cout << "OK!" << endl;
 
 	string data, nomeAluno, nomeInstrutor, matriculaUsual;
@@ -167,7 +165,6 @@ int Escola::loadSchoolData() {
 		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual, nomeInstrutor);
 		comunidade[getInstrutorChamado(nomeInstrutor)].push_back(temp);
 	}
-	sleep(0.2);
 	cout << "OK!" << endl;
 
 	cout << "> A carregar aulas... ";
@@ -191,7 +188,6 @@ int Escola::loadSchoolData() {
 		temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor, viatura);
 		aulas.push_back(temp);
 	}
-	sleep(0.2);
 	cout << "OK!" << endl;
 
 	return 0;

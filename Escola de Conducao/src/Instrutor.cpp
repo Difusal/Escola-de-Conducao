@@ -7,7 +7,7 @@ Instrutor::~Instrutor() {
 
 int Instrutor::info() {
 	int num = Pessoa::info();
-	cout << "\tNumero qualificacoes: " << numQualificacoes() << endl;
+	cout << "    Numero qualificacoes: " << numQualificacoes() << endl;
 	if (numQualificacoes() != 0)
 		cout << "\t";
 	if (qualificacoes[0])

@@ -9,7 +9,6 @@ using namespace std;
 #define ALL(v) (v).begin(), (v).end()
 #define foreach(v, it) for(typeof((v).begin()) it = (v).begin(); it != (v).end(); it++ )
 
-void sleep(double seconds);
 struct tm *getLocalTimeInfo();
 int getAnoActual();
 struct tm convertStringToDate(string data);

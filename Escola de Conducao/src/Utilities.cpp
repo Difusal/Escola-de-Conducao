@@ -5,11 +5,6 @@
 #include "Exceptions.h"
 using namespace std;
 
-void sleep(double seconds) {
-    clock_t goal = 1000000*seconds + clock();
-    while (goal > clock());
-}
-
 struct tm *getLocalTimeInfo() {
 	time_t rawtime;
 	struct tm * timeinfo;

@@ -1,6 +1,7 @@
 Escola de Conducao
 ==================
 1.º Trabalho de Grupo de AEDA, FEUP
+
 AEDA1314_2MIEIC5_C
 
 Requisitos Obrigatórios:
@@ -24,14 +25,17 @@ Main file:
 ----------
 = Dados dos Veiculos =
 > n
+
 > matricula anoFabrico marca tipo dataUltimaInspec periodicidadeInspec
 
 = Dados dos Instrutores =
 > n
+
 > nome qualifLig qualifPes qualifMoto
 
 = Dados dos Alunos =
 > n
+
 > nome tipoCarta matriculaViaturaUsual
 
 Lessons file:
@@ -41,4 +45,5 @@ Lessons file:
 
 = Dados das Aulas =
 > n
+
 > data hora duracao aluno instrutor matriculaViaturaUsual

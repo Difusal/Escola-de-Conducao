@@ -6,19 +6,8 @@ Aluno::~Aluno() {
 
 int Aluno::info() {
 	int num = Pessoa::info();
-	cout << "\tTipo de carta: ";
-	switch (tipoDeCarta) {
-	case LIGEIRO:
-		cout << "Ligeiro";
-		break;
-	case PESADO:
-		cout << "Pesado";
-		break;
-	case MOTOCICLO:
-		cout << "Motociclo";
-		break;
-	}
-	cout << endl;
+	cout << "    Viatura usual:" << endl;
+	getViaturaUsual()->info();
 	return num + 1;
 }
 
