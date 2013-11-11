@@ -1,3 +1,14 @@
+/*!
+ * \file Motociclo.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef MOTOCICLO_H_
 #define MOTOCICLO_H_
 #include "Viatura.h"

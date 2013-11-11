@@ -1,3 +1,14 @@
+/*!
+ * \file Escola.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef ESCOLA_H_
 #define ESCOLA_H_
 
@@ -25,7 +36,7 @@ private:
 	vector<Aula*> aulas;
 public:
 	Escola();
-	virtual ~Escola();
+	virtual ~Escola() {}
 
 	int createFileStructure();
 	int saveSchoolData();

@@ -1,3 +1,14 @@
+/*!
+ * \file escola.cpp
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #include <stdlib.h>
 #include <cstdlib>
 #include <fstream>
@@ -11,10 +22,6 @@
 Escola::Escola() {
 	nome = "";
 	abertura = fecho = 0;
-}
-
-Escola::~Escola() {
-	// TODO Auto-generated destructor stub
 }
 
 int Escola::createFileStructure() {
@@ -87,7 +94,6 @@ int Escola::saveSchoolData() {
 int Escola::loadSchoolData() {
 	unsigned int n;
 	string escola, escolaAulas;
-	// TODO this func
 
 	cout << endl;
 	cout << "------------------------------" << endl;
@@ -124,7 +130,9 @@ int Escola::loadSchoolData() {
 		} else if (tipo == "motociclo") {
 			temp = new Motociclo(matricula, anoFabrico, marca, periodicidade);
 		} else {
-			// TODO exception here
+			cout << "An unexpected error occurred." << endl;
+			cout << "Quitting program..." << endl;
+			exit(-1);
 		}
 		temp->setDataUltimaInspecao(dataUltimaInspec);
 		viaturas.push_back(temp);
@@ -708,7 +716,6 @@ void Escola::showManutencaoAlunosUI() {
 }
 
 void Escola::showManutencaoAulasUI() {
-	// TODO this method
 	char input;
 
 	bool done = false;
@@ -1881,7 +1888,7 @@ void Escola::showMarcarAulaUI() {
 }
 
 void Escola::showEditarAulaUI() {
-	// TODO asdjaskghf
+	// TODO showEditarAulaUI
 }
 
 void Escola::showDesmarcarAulaUI() {

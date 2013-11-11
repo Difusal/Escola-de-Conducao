@@ -1,3 +1,14 @@
+/*!
+ * \file Aula.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef AULA_H_
 #define AULA_H_
 
@@ -15,7 +26,7 @@ class Aula {
 public:
 	Aula(struct tm Data, int Hora, int Duracao, Aluno *Aluno, Instrutor *Instrutor, Viatura *Viatura) :
 			data(Data), hora(Hora), duracao(Duracao), aluno(Aluno), instrutor(Instrutor), viatura(Viatura) { }
-	virtual ~Aula();
+	virtual ~Aula() {}
 
 	int info();
 	string printToFile() const;

@@ -1,9 +1,16 @@
+/*!
+ * \file Instrutor.cpp
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #include "Instrutor.h"
 #include <sstream>
-
-Instrutor::~Instrutor() {
-	// TODO Auto-generated destructor stub
-}
 
 int Instrutor::info() {
 	int num = Pessoa::info();

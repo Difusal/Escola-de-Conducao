@@ -1,3 +1,14 @@
+/*!
+ * \file Exceptions.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef EXCEPTIONS_H_
 #define EXCEPTIONS_H_
 

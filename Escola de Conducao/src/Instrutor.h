@@ -1,3 +1,14 @@
+/*!
+ * \file Instrutor.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef INSTRUTOR_H_
 #define INSTRUTOR_H_
 
@@ -13,7 +24,7 @@ public:
 		qualificacoes[1] = qualifPes;
 		qualificacoes[2] = qualifMoto;
 	}
-	virtual ~Instrutor();
+	virtual ~Instrutor() {}
 
 	int info();
 	string printToFile() const;

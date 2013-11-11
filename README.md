@@ -13,7 +13,7 @@ Requisitos Obrigatórios:
 - [x] Associar aulas a alunos
 - [x] Associar aulas a instrutores
 - [x] Associar aulas a viaturas
-- [..] Distribuir alunos de instrutor removido
+- [x] Distribuir alunos de instrutor removido
 - [..] Controlar marcação de aulas
 
 ---

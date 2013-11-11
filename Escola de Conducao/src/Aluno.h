@@ -1,3 +1,14 @@
+/*!
+ * \file Aluno.h
+ *
+ * \author FEUP AEDA1314 2MIEIC5 C:
+ * \author David Azevedo
+ * \author Henrique Ferrolho
+ * \author Tiago Figueiredo
+ *
+ * \date Novembro 2013
+ *
+ */
 #ifndef ALUNO_H_
 #define ALUNO_H_
 
@@ -13,7 +24,7 @@ private:
 public:
 	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual, string NomeInstrutor) :
 			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual), nomeInstrutor(NomeInstrutor) {}
-	virtual ~Aluno();
+	virtual ~Aluno() {}
 
 	int info();
 	string printToFile() const;
