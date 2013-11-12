@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
+<title>Escola de Conducao: Código-Fonte de C:/Users/Henrique/Desktop/Escola-de-Conducao/Escola de Conducao/src/Escola.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Escola de Conducao
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.5 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Ficheiros&#160;membro</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_escola_8h_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores da enumeração</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Escola.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_escola_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef ESCOLA_H_</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ESCOLA_H_</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_viatura_8h.html">Viatura.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_automovel_8h.html">Automovel.h</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_ligeiro_8h.html">Ligeiro.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_pesado_8h.html">Pesado.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_motociclo_8h.html">Motociclo.h</a>&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_instrutor_8h.html">Instrutor.h</a>&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_aluno_8h.html">Aluno.h</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_aula_8h.html">Aula.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a318e650f87521c7837e454d186dbf222">   25</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963">MetodoDeSortDeViaturas</a> { <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a6352cd0af48d73083425550e5f644de5">MATRICULA</a>, <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a3464a010e4da1eebf2a27a8e1fab9969">ANOFABRICO</a>, <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963abefe387910b8b4d18dd1a1514a407be1">MARCA</a>, <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a318e650f87521c7837e454d186dbf222">TIPO</a>, <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963ab80f079aea0397296f26d617babb57c3">DATAULTIMAINSPECAO</a>, <a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963af468eba35ba104ebe531a09908bce510">PROXIMAINSPECAO</a> };</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9ae0f0de1f4f1d1c4d35df134e7a28f7cb">   26</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9">MetodoDeSortDeInstrutores</a> { <a class="code" href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9a4beb66a972df9ddc6a7c690861c85733">NOMEINSTRUTOR</a>, <a class="code" href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9ae0f0de1f4f1d1c4d35df134e7a28f7cb">NQUALIFICACOES</a> };</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884aba617fa6857393cf34fc00c300bd3b7b">   27</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884">MetodoDeSortDeAlunos</a> { <a class="code" href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884aba617fa6857393cf34fc00c300bd3b7b">NOMEALUNO</a>, <a class="code" href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884a9125ea1155e3249c11b98d2d011fe10c">NAULASMARCADAS</a> };</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143baaa6ad97fae03eff1719100988799d3a6">   28</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143b">MetodoDeSortDeAulas</a> { <a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba9d7d6f31868d66330397c967c4afd2d2">DATA</a>, <a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba0b0620b8a0f6942c58867f9ab8751b61">ALUNO</a>, <a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba0f1c38e9d050b1b4c8308979bd585914">INSTRUTOR</a>, <a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143baaa6ad97fae03eff1719100988799d3a6">TIPOVIATURA</a> };</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_escola.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_escola.html">Escola</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">string</span> nome;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">int</span> abertura, fecho;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    vector&lt;Viatura*&gt; viaturas;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    map&lt;Instrutor*, vector&lt;Aluno*&gt; &gt; comunidade;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    vector&lt;Aula*&gt; aulas;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_escola.html#abb8868990479b34abbc2e24b0c5d343c">Escola</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_escola.html#aa139d359939e4e498aad8ef3ca506a64">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_escola.html#aa139d359939e4e498aad8ef3ca506a64">~Escola</a>() {}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a0492d66c3df0a481fd9d9dfed71e2a29">createFileStructure</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#ac2245e84208f38ce006c46bd215f7896">saveSchoolData</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a053d887576fa6dc46a662d78530976ef">loadSchoolData</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a27d55d912dfea5d61388bd83ce12bf7a">showLoginScreen</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a9408e72f83ba9bb45bce24680ab606b4">showLoginUI</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a93f66da708a3c60aef49446d6481af89">showSignUpUI</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#aaf2caa582b2034f93ab1fed0c0d33182">setHorarioUI</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a41de03f6b5f1abfd5381b1e2a34f7043">showRenameSchoolUI</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a3d8be3bb5f7e191d994bb351823f2d2d">showRemoveSchoolUI</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#afd1685b4a3901b2bdd19130d707f4be4">showMainMenu</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a80d944f8da1b4af4682428ef21f48706">showManutencaoViaturasUI</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#ab6563a7f3cf26cbe9925c93434986550">showManutencaoInstrutoresUI</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a427f4c033366d81433b56b0d37f358e5">showManutencaoAlunosUI</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#ad28357602957ac168b1fa88933e777a9">showManutencaoAulasUI</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a586186450f43ec85dacb2eb230275da1">showVisualizaViaturasUI</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#ac23d4117ac126573cb43d4424f6864f9">showAdicionarViaturaUI</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a553a3f542f26856666576a4bf5c63825">showEditarViaturaUI</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a90e718578e285443730603c7b01bb39f">showRemoverViaturaUI</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a3decea5ac7028499ff9c1894e7b4e212">visualizaViaturas</a>(<a class="code" href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963">MetodoDeSortDeViaturas</a> metodo);</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_escola.html#a98b03d20a3c63032f44977d3b78df6bd">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a98b03d20a3c63032f44977d3b78df6bd">adicionaViatura</a>(<a class="code" href="class_viatura.html">Viatura</a> *viatura) { viaturas.push_back(viatura); }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#ae6a3e7c98cb6c7ce15d540e9362e9864">showVisualizaInstrutoresUI</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#abf9202009992dd62c29ee8ee7123a290">showAdicionarInstrutorUI</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#ab9247785054d302f5ae565b6ceea8535">showEditarInstrutorUI</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a0b05385db5af9073e58787f8700a58b6">showRemoverInstrutorUI</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a3417d6e0c3428c71fad9926ba90ee581">visualizaInstrutores</a>(<a class="code" href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9">MetodoDeSortDeInstrutores</a> metodo);</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_escola.html#a42d6bb1d70e8bd27ca6b4845252f4e43">   72</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a42d6bb1d70e8bd27ca6b4845252f4e43">adicionaInstrutor</a>(<a class="code" href="class_instrutor.html">Instrutor</a> *instrutor) { comunidade[instrutor]; }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a411cb45a713f9fbddc0958566347d18b">showVisualizaAlunosUI</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#af1b83f7bed41945f3a568f33610f5c76">showAdicionarAlunoUI</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a10edb2a337c19c88225c196fe905a5f6">showEditarAlunoUI</a>();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a1d8ab2af7e7da10471d84acd7223003d">showRemoverAlunoUI</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a2135bb3799d32450174069c8e9e04d6d">visualizaAlunos</a>(<a class="code" href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884">MetodoDeSortDeAlunos</a> metodo);</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="class_escola.html#a20da7cb54b16bff4d8378d2896a2090f">   80</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a20da7cb54b16bff4d8378d2896a2090f">adicionaAluno</a>(<a class="code" href="class_aluno.html">Aluno</a> *aluno, <a class="code" href="class_instrutor.html">Instrutor</a> *instrutor) { comunidade[instrutor].push_back(aluno); }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a91a4c9157973bb94c0b27d8b56336c81">showVisualizaAulasUI</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#aaa3c14270d7925b95c354c8242bf4b0e">showMarcarAulaUI</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#af21769452ecb44e1dcdbd01b75bc2966">showEditarAulaUI</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a81c7f0ca79fd9f3317ded7bb04f7ef1f">showDesmarcarAulaUI</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#aa16b1b8f2731b67bd9023f0caa948a59">visualizaAulas</a>(<a class="code" href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143b">MetodoDeSortDeAulas</a> metodo);</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_escola.html#aefcd8080a6d9c678c57c068fe9465aae">   88</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#aefcd8080a6d9c678c57c068fe9465aae">marcaAula</a>(<a class="code" href="class_aula.html">Aula</a> *aula) { aulas.push_back(aula); }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_escola.html#a4a46e68e1bb2da81ac6e3880624dfbaf">   90</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a4a46e68e1bb2da81ac6e3880624dfbaf">numViaturas</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> viaturas.size(); }</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_escola.html#a5179a7402419726ab69fdcef71063cff">   91</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a5179a7402419726ab69fdcef71063cff">numInstrutores</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> comunidade.size(); }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_escola.html#ab2bf433f6ef33444106c7077d999c94c">numAlunos</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_escola.html#a67115ac2a1af68426844544e71379dbe">   93</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a67115ac2a1af68426844544e71379dbe">numAulas</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> aulas.size(); }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_escola.html#aaf6fc21e29993059a3539f25f7618c40">numAulasDoInstrutor</a>(<a class="code" href="class_instrutor.html">Instrutor</a> *instrutor);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#acf779e25e09c9ae76cc9abdc7f719c56">numAlunosQueUsamAViatura</a>(<a class="code" href="class_viatura.html">Viatura</a> *viatura);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_escola.html#a1020739fbed4d6e221870a6d70d868e6">numAlunosQueTemAulasComInstrutor</a>(<a class="code" href="class_instrutor.html">Instrutor</a> *instrutor);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="class_viatura.html">Viatura</a> *<a class="code" href="class_escola.html#aa88fedefd56c9fb1ce2e42509bcf8ee4">getViaturaComMatricula</a>(<span class="keywordtype">string</span> Matricula);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="class_viatura.html">Viatura</a> *<a class="code" href="class_escola.html#a6effe353353996533777f11d1456097d">getViaturaComMenosAlunos</a>(<a class="code" href="_viatura_8h.html#a258f2128ac5bf4bc02acbabb631bbc18">TipoCartaConducao</a> TipoViatura);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> vector&lt;Aluno*&gt; <a class="code" href="class_escola.html#ad5b8f910238bfdfedd51766bc3dc9f7e">getTodosAlunos</a>();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="class_aluno.html">Aluno</a> *<a class="code" href="class_escola.html#a896471be17b5aa07b5042f440fb94bb9">getAlunoChamado</a>(<span class="keywordtype">string</span> nome);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="class_instrutor.html">Instrutor</a> *<a class="code" href="class_escola.html#acf68d2a4afc94a802e219cd57b6cdb4f">getInstrutorChamado</a>(<span class="keywordtype">string</span> nome);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="class_instrutor.html">Instrutor</a> *<a class="code" href="class_escola.html#a4ffdd7359e1e1e8dfe4c719fce48a6e7">getInstrutorDoAluno</a>(<a class="code" href="class_aluno.html">Aluno</a> *aluno);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="class_instrutor.html">Instrutor</a> *<a class="code" href="class_escola.html#a8ca36721cd0a2aedd388d826be336540">getInstrutorComMenosAlunos</a>(<a class="code" href="_viatura_8h.html#a258f2128ac5bf4bc02acbabb631bbc18">TipoCartaConducao</a> TipoViatura);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_escola.html#a10c7772e2138f4defaf9f6e462555b83">waitForValidAluno</a>(<span class="keywordtype">string</span> &amp;nomeAluno);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_escola_html_aefcd8080a6d9c678c57c068fe9465aae"><div class="ttname"><a href="class_escola.html#aefcd8080a6d9c678c57c068fe9465aae">Escola::marcaAula</a></div><div class="ttdeci">void marcaAula(Aula *aula)</div><div class="ttdef"><b>Definition:</b> Escola.h:88</div></div>
+<div class="ttc" id="class_viatura_html"><div class="ttname"><a href="class_viatura.html">Viatura</a></div><div class="ttdef"><b>Definition:</b> Viatura.h:24</div></div>
+<div class="ttc" id="class_escola_html_a5179a7402419726ab69fdcef71063cff"><div class="ttname"><a href="class_escola.html#a5179a7402419726ab69fdcef71063cff">Escola::numInstrutores</a></div><div class="ttdeci">unsigned int numInstrutores() const </div><div class="ttdef"><b>Definition:</b> Escola.h:91</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963af468eba35ba104ebe531a09908bce510"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963af468eba35ba104ebe531a09908bce510">PROXIMAINSPECAO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="class_escola_html_a1d8ab2af7e7da10471d84acd7223003d"><div class="ttname"><a href="class_escola.html#a1d8ab2af7e7da10471d84acd7223003d">Escola::showRemoverAlunoUI</a></div><div class="ttdeci">void showRemoverAlunoUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1693</div></div>
+<div class="ttc" id="class_escola_html_ab6563a7f3cf26cbe9925c93434986550"><div class="ttname"><a href="class_escola.html#ab6563a7f3cf26cbe9925c93434986550">Escola::showManutencaoInstrutoresUI</a></div><div class="ttdeci">void showManutencaoInstrutoresUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:624</div></div>
+<div class="ttc" id="class_escola_html_aaf6fc21e29993059a3539f25f7618c40"><div class="ttname"><a href="class_escola.html#aaf6fc21e29993059a3539f25f7618c40">Escola::numAulasDoInstrutor</a></div><div class="ttdeci">unsigned int numAulasDoInstrutor(Instrutor *instrutor)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1980</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963ab80f079aea0397296f26d617babb57c3"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963ab80f079aea0397296f26d617babb57c3">DATAULTIMAINSPECAO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="_escola_8h_html_aba6844ea30efccb14260e31acd5f21e9a4beb66a972df9ddc6a7c690861c85733"><div class="ttname"><a href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9a4beb66a972df9ddc6a7c690861c85733">NOMEINSTRUTOR</a></div><div class="ttdef"><b>Definition:</b> Escola.h:26</div></div>
+<div class="ttc" id="class_escola_html_a20da7cb54b16bff4d8378d2896a2090f"><div class="ttname"><a href="class_escola.html#a20da7cb54b16bff4d8378d2896a2090f">Escola::adicionaAluno</a></div><div class="ttdeci">void adicionaAluno(Aluno *aluno, Instrutor *instrutor)</div><div class="ttdef"><b>Definition:</b> Escola.h:80</div></div>
+<div class="ttc" id="class_escola_html_aa88fedefd56c9fb1ce2e42509bcf8ee4"><div class="ttname"><a href="class_escola.html#aa88fedefd56c9fb1ce2e42509bcf8ee4">Escola::getViaturaComMatricula</a></div><div class="ttdeci">Viatura * getViaturaComMatricula(string Matricula)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2015</div></div>
+<div class="ttc" id="class_escola_html_a411cb45a713f9fbddc0958566347d18b"><div class="ttname"><a href="class_escola.html#a411cb45a713f9fbddc0958566347d18b">Escola::showVisualizaAlunosUI</a></div><div class="ttdeci">void showVisualizaAlunosUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1466</div></div>
+<div class="ttc" id="_pesado_8h_html"><div class="ttname"><a href="_pesado_8h.html">Pesado.h</a></div></div>
+<div class="ttc" id="class_escola_html_a3d8be3bb5f7e191d994bb351823f2d2d"><div class="ttname"><a href="class_escola.html#a3d8be3bb5f7e191d994bb351823f2d2d">Escola::showRemoveSchoolUI</a></div><div class="ttdeci">void showRemoveSchoolUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:468</div></div>
+<div class="ttc" id="class_escola_html_ac2245e84208f38ce006c46bd215f7896"><div class="ttname"><a href="class_escola.html#ac2245e84208f38ce006c46bd215f7896">Escola::saveSchoolData</a></div><div class="ttdeci">int saveSchoolData()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:56</div></div>
+<div class="ttc" id="class_aluno_html"><div class="ttname"><a href="class_aluno.html">Aluno</a></div><div class="ttdef"><b>Definition:</b> Aluno.h:19</div></div>
+<div class="ttc" id="class_escola_html_a053d887576fa6dc46a662d78530976ef"><div class="ttname"><a href="class_escola.html#a053d887576fa6dc46a662d78530976ef">Escola::loadSchoolData</a></div><div class="ttdeci">int loadSchoolData()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:94</div></div>
+<div class="ttc" id="_ligeiro_8h_html"><div class="ttname"><a href="_ligeiro_8h.html">Ligeiro.h</a></div></div>
+<div class="ttc" id="class_escola_html_a0b05385db5af9073e58787f8700a58b6"><div class="ttname"><a href="class_escola.html#a0b05385db5af9073e58787f8700a58b6">Escola::showRemoverInstrutorUI</a></div><div class="ttdeci">void showRemoverInstrutorUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1368</div></div>
+<div class="ttc" id="class_escola_html_a90e718578e285443730603c7b01bb39f"><div class="ttname"><a href="class_escola.html#a90e718578e285443730603c7b01bb39f">Escola::showRemoverViaturaUI</a></div><div class="ttdeci">void showRemoverViaturaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:999</div></div>
+<div class="ttc" id="class_escola_html_a10c7772e2138f4defaf9f6e462555b83"><div class="ttname"><a href="class_escola.html#a10c7772e2138f4defaf9f6e462555b83">Escola::waitForValidAluno</a></div><div class="ttdeci">void waitForValidAluno(string &amp;nomeAluno)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2092</div></div>
+<div class="ttc" id="_escola_8h_html_a8468e98b470c0230703e18e4772d8884a9125ea1155e3249c11b98d2d011fe10c"><div class="ttname"><a href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884a9125ea1155e3249c11b98d2d011fe10c">NAULASMARCADAS</a></div><div class="ttdef"><b>Definition:</b> Escola.h:27</div></div>
+<div class="ttc" id="class_escola_html"><div class="ttname"><a href="class_escola.html">Escola</a></div><div class="ttdef"><b>Definition:</b> Escola.h:30</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963a318e650f87521c7837e454d186dbf222"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a318e650f87521c7837e454d186dbf222">TIPO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963a6352cd0af48d73083425550e5f644de5"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a6352cd0af48d73083425550e5f644de5">MATRICULA</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="class_escola_html_a42d6bb1d70e8bd27ca6b4845252f4e43"><div class="ttname"><a href="class_escola.html#a42d6bb1d70e8bd27ca6b4845252f4e43">Escola::adicionaInstrutor</a></div><div class="ttdeci">void adicionaInstrutor(Instrutor *instrutor)</div><div class="ttdef"><b>Definition:</b> Escola.h:72</div></div>
+<div class="ttc" id="class_escola_html_ad5b8f910238bfdfedd51766bc3dc9f7e"><div class="ttname"><a href="class_escola.html#ad5b8f910238bfdfedd51766bc3dc9f7e">Escola::getTodosAlunos</a></div><div class="ttdeci">const vector&lt; Aluno * &gt; getTodosAlunos()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2040</div></div>
+<div class="ttc" id="class_escola_html_a6effe353353996533777f11d1456097d"><div class="ttname"><a href="class_escola.html#a6effe353353996533777f11d1456097d">Escola::getViaturaComMenosAlunos</a></div><div class="ttdeci">Viatura * getViaturaComMenosAlunos(TipoCartaConducao TipoViatura)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2023</div></div>
+<div class="ttc" id="_aluno_8h_html"><div class="ttname"><a href="_aluno_8h.html">Aluno.h</a></div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963a3464a010e4da1eebf2a27a8e1fab9969"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963a3464a010e4da1eebf2a27a8e1fab9969">ANOFABRICO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="_aula_8h_html"><div class="ttname"><a href="_aula_8h.html">Aula.h</a></div></div>
+<div class="ttc" id="class_escola_html_a8ca36721cd0a2aedd388d826be336540"><div class="ttname"><a href="class_escola.html#a8ca36721cd0a2aedd388d826be336540">Escola::getInstrutorComMenosAlunos</a></div><div class="ttdeci">Instrutor * getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2078</div></div>
+<div class="ttc" id="class_escola_html_a81c7f0ca79fd9f3317ded7bb04f7ef1f"><div class="ttname"><a href="class_escola.html#a81c7f0ca79fd9f3317ded7bb04f7ef1f">Escola::showDesmarcarAulaUI</a></div><div class="ttdeci">void showDesmarcarAulaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1894</div></div>
+<div class="ttc" id="class_escola_html_ab2bf433f6ef33444106c7077d999c94c"><div class="ttname"><a href="class_escola.html#ab2bf433f6ef33444106c7077d999c94c">Escola::numAlunos</a></div><div class="ttdeci">unsigned int numAlunos() const </div><div class="ttdef"><b>Definition:</b> Escola.cpp:1973</div></div>
+<div class="ttc" id="class_escola_html_a80d944f8da1b4af4682428ef21f48706"><div class="ttname"><a href="class_escola.html#a80d944f8da1b4af4682428ef21f48706">Escola::showManutencaoViaturasUI</a></div><div class="ttdeci">void showManutencaoViaturasUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:577</div></div>
+<div class="ttc" id="_escola_8h_html_a3b240ced08b09807aa5832d7d1d0143baaa6ad97fae03eff1719100988799d3a6"><div class="ttname"><a href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143baaa6ad97fae03eff1719100988799d3a6">TIPOVIATURA</a></div><div class="ttdef"><b>Definition:</b> Escola.h:28</div></div>
+<div class="ttc" id="_escola_8h_html_a8468e98b470c0230703e18e4772d8884"><div class="ttname"><a href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884">MetodoDeSortDeAlunos</a></div><div class="ttdeci">MetodoDeSortDeAlunos</div><div class="ttdef"><b>Definition:</b> Escola.h:27</div></div>
+<div class="ttc" id="class_aula_html"><div class="ttname"><a href="class_aula.html">Aula</a></div><div class="ttdef"><b>Definition:</b> Aula.h:20</div></div>
+<div class="ttc" id="class_escola_html_a9408e72f83ba9bb45bce24680ab606b4"><div class="ttname"><a href="class_escola.html#a9408e72f83ba9bb45bce24680ab606b4">Escola::showLoginUI</a></div><div class="ttdeci">void showLoginUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:251</div></div>
+<div class="ttc" id="class_escola_html_a67115ac2a1af68426844544e71379dbe"><div class="ttname"><a href="class_escola.html#a67115ac2a1af68426844544e71379dbe">Escola::numAulas</a></div><div class="ttdeci">unsigned int numAulas() const </div><div class="ttdef"><b>Definition:</b> Escola.h:93</div></div>
+<div class="ttc" id="class_escola_html_a4ffdd7359e1e1e8dfe4c719fce48a6e7"><div class="ttname"><a href="class_escola.html#a4ffdd7359e1e1e8dfe4c719fce48a6e7">Escola::getInstrutorDoAluno</a></div><div class="ttdeci">Instrutor * getInstrutorDoAluno(Aluno *aluno)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2066</div></div>
+<div class="ttc" id="class_escola_html_a427f4c033366d81433b56b0d37f358e5"><div class="ttname"><a href="class_escola.html#a427f4c033366d81433b56b0d37f358e5">Escola::showManutencaoAlunosUI</a></div><div class="ttdeci">void showManutencaoAlunosUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:671</div></div>
+<div class="ttc" id="_viatura_8h_html_a258f2128ac5bf4bc02acbabb631bbc18"><div class="ttname"><a href="_viatura_8h.html#a258f2128ac5bf4bc02acbabb631bbc18">TipoCartaConducao</a></div><div class="ttdeci">TipoCartaConducao</div><div class="ttdef"><b>Definition:</b> Viatura.h:22</div></div>
+<div class="ttc" id="class_escola_html_a27d55d912dfea5d61388bd83ce12bf7a"><div class="ttname"><a href="class_escola.html#a27d55d912dfea5d61388bd83ce12bf7a">Escola::showLoginScreen</a></div><div class="ttdeci">void showLoginScreen()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:204</div></div>
+<div class="ttc" id="_motociclo_8h_html"><div class="ttname"><a href="_motociclo_8h.html">Motociclo.h</a></div></div>
+<div class="ttc" id="class_escola_html_aaf2caa582b2034f93ab1fed0c0d33182"><div class="ttname"><a href="class_escola.html#aaf2caa582b2034f93ab1fed0c0d33182">Escola::setHorarioUI</a></div><div class="ttdeci">int setHorarioUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:420</div></div>
+<div class="ttc" id="_viatura_8h_html"><div class="ttname"><a href="_viatura_8h.html">Viatura.h</a></div></div>
+<div class="ttc" id="class_escola_html_a3417d6e0c3428c71fad9926ba90ee581"><div class="ttname"><a href="class_escola.html#a3417d6e0c3428c71fad9926ba90ee581">Escola::visualizaInstrutores</a></div><div class="ttdeci">void visualizaInstrutores(MetodoDeSortDeInstrutores metodo)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1440</div></div>
+<div class="ttc" id="class_escola_html_a2135bb3799d32450174069c8e9e04d6d"><div class="ttname"><a href="class_escola.html#a2135bb3799d32450174069c8e9e04d6d">Escola::visualizaAlunos</a></div><div class="ttdeci">void visualizaAlunos(MetodoDeSortDeAlunos metodo)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1741</div></div>
+<div class="ttc" id="class_escola_html_a4a46e68e1bb2da81ac6e3880624dfbaf"><div class="ttname"><a href="class_escola.html#a4a46e68e1bb2da81ac6e3880624dfbaf">Escola::numViaturas</a></div><div class="ttdeci">unsigned int numViaturas() const </div><div class="ttdef"><b>Definition:</b> Escola.h:90</div></div>
+<div class="ttc" id="class_escola_html_a41de03f6b5f1abfd5381b1e2a34f7043"><div class="ttname"><a href="class_escola.html#a41de03f6b5f1abfd5381b1e2a34f7043">Escola::showRenameSchoolUI</a></div><div class="ttdeci">void showRenameSchoolUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:316</div></div>
+<div class="ttc" id="_instrutor_8h_html"><div class="ttname"><a href="_instrutor_8h.html">Instrutor.h</a></div></div>
+<div class="ttc" id="class_escola_html_a1020739fbed4d6e221870a6d70d868e6"><div class="ttname"><a href="class_escola.html#a1020739fbed4d6e221870a6d70d868e6">Escola::numAlunosQueTemAulasComInstrutor</a></div><div class="ttdeci">int numAlunosQueTemAulasComInstrutor(Instrutor *instrutor)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2002</div></div>
+<div class="ttc" id="class_escola_html_abf9202009992dd62c29ee8ee7123a290"><div class="ttname"><a href="class_escola.html#abf9202009992dd62c29ee8ee7123a290">Escola::showAdicionarInstrutorUI</a></div><div class="ttdeci">void showAdicionarInstrutorUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1138</div></div>
+<div class="ttc" id="class_escola_html_a586186450f43ec85dacb2eb230275da1"><div class="ttname"><a href="class_escola.html#a586186450f43ec85dacb2eb230275da1">Escola::showVisualizaViaturasUI</a></div><div class="ttdeci">void showVisualizaViaturasUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:765</div></div>
+<div class="ttc" id="_automovel_8h_html"><div class="ttname"><a href="_automovel_8h.html">Automovel.h</a></div></div>
+<div class="ttc" id="class_escola_html_acf68d2a4afc94a802e219cd57b6cdb4f"><div class="ttname"><a href="class_escola.html#acf68d2a4afc94a802e219cd57b6cdb4f">Escola::getInstrutorChamado</a></div><div class="ttdeci">Instrutor * getInstrutorChamado(string nome)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2058</div></div>
+<div class="ttc" id="class_escola_html_afd1685b4a3901b2bdd19130d707f4be4"><div class="ttname"><a href="class_escola.html#afd1685b4a3901b2bdd19130d707f4be4">Escola::showMainMenu</a></div><div class="ttdeci">void showMainMenu()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:529</div></div>
+<div class="ttc" id="class_escola_html_acf779e25e09c9ae76cc9abdc7f719c56"><div class="ttname"><a href="class_escola.html#acf779e25e09c9ae76cc9abdc7f719c56">Escola::numAlunosQueUsamAViatura</a></div><div class="ttdeci">int numAlunosQueUsamAViatura(Viatura *viatura)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1991</div></div>
+<div class="ttc" id="class_escola_html_ae6a3e7c98cb6c7ce15d540e9362e9864"><div class="ttname"><a href="class_escola.html#ae6a3e7c98cb6c7ce15d540e9362e9864">Escola::showVisualizaInstrutoresUI</a></div><div class="ttdeci">void showVisualizaInstrutoresUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1098</div></div>
+<div class="ttc" id="class_escola_html_af21769452ecb44e1dcdbd01b75bc2966"><div class="ttname"><a href="class_escola.html#af21769452ecb44e1dcdbd01b75bc2966">Escola::showEditarAulaUI</a></div><div class="ttdeci">void showEditarAulaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1890</div></div>
+<div class="ttc" id="class_escola_html_aaa3c14270d7925b95c354c8242bf4b0e"><div class="ttname"><a href="class_escola.html#aaa3c14270d7925b95c354c8242bf4b0e">Escola::showMarcarAulaUI</a></div><div class="ttdeci">void showMarcarAulaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1817</div></div>
+<div class="ttc" id="_escola_8h_html_aba6844ea30efccb14260e31acd5f21e9"><div class="ttname"><a href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9">MetodoDeSortDeInstrutores</a></div><div class="ttdeci">MetodoDeSortDeInstrutores</div><div class="ttdef"><b>Definition:</b> Escola.h:26</div></div>
+<div class="ttc" id="class_escola_html_a3decea5ac7028499ff9c1894e7b4e212"><div class="ttname"><a href="class_escola.html#a3decea5ac7028499ff9c1894e7b4e212">Escola::visualizaViaturas</a></div><div class="ttdeci">void visualizaViaturas(MetodoDeSortDeViaturas metodo)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1064</div></div>
+<div class="ttc" id="_escola_8h_html_aba6844ea30efccb14260e31acd5f21e9ae0f0de1f4f1d1c4d35df134e7a28f7cb"><div class="ttname"><a href="_escola_8h.html#aba6844ea30efccb14260e31acd5f21e9ae0f0de1f4f1d1c4d35df134e7a28f7cb">NQUALIFICACOES</a></div><div class="ttdef"><b>Definition:</b> Escola.h:26</div></div>
+<div class="ttc" id="class_escola_html_a91a4c9157973bb94c0b27d8b56336c81"><div class="ttname"><a href="class_escola.html#a91a4c9157973bb94c0b27d8b56336c81">Escola::showVisualizaAulasUI</a></div><div class="ttdeci">void showVisualizaAulasUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1769</div></div>
+<div class="ttc" id="class_escola_html_aa16b1b8f2731b67bd9023f0caa948a59"><div class="ttname"><a href="class_escola.html#aa16b1b8f2731b67bd9023f0caa948a59">Escola::visualizaAulas</a></div><div class="ttdeci">void visualizaAulas(MetodoDeSortDeAulas metodo)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1945</div></div>
+<div class="ttc" id="class_escola_html_a0492d66c3df0a481fd9d9dfed71e2a29"><div class="ttname"><a href="class_escola.html#a0492d66c3df0a481fd9d9dfed71e2a29">Escola::createFileStructure</a></div><div class="ttdeci">int createFileStructure()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:27</div></div>
+<div class="ttc" id="class_escola_html_a10edb2a337c19c88225c196fe905a5f6"><div class="ttname"><a href="class_escola.html#a10edb2a337c19c88225c196fe905a5f6">Escola::showEditarAlunoUI</a></div><div class="ttdeci">void showEditarAlunoUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1586</div></div>
+<div class="ttc" id="class_instrutor_html"><div class="ttname"><a href="class_instrutor.html">Instrutor</a></div><div class="ttdef"><b>Definition:</b> Instrutor.h:18</div></div>
+<div class="ttc" id="class_escola_html_ab9247785054d302f5ae565b6ceea8535"><div class="ttname"><a href="class_escola.html#ab9247785054d302f5ae565b6ceea8535">Escola::showEditarInstrutorUI</a></div><div class="ttdeci">void showEditarInstrutorUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1234</div></div>
+<div class="ttc" id="_escola_8h_html_a3b240ced08b09807aa5832d7d1d0143ba0b0620b8a0f6942c58867f9ab8751b61"><div class="ttname"><a href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba0b0620b8a0f6942c58867f9ab8751b61">ALUNO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:28</div></div>
+<div class="ttc" id="class_escola_html_a98b03d20a3c63032f44977d3b78df6bd"><div class="ttname"><a href="class_escola.html#a98b03d20a3c63032f44977d3b78df6bd">Escola::adicionaViatura</a></div><div class="ttdeci">void adicionaViatura(Viatura *viatura)</div><div class="ttdef"><b>Definition:</b> Escola.h:64</div></div>
+<div class="ttc" id="class_escola_html_a93f66da708a3c60aef49446d6481af89"><div class="ttname"><a href="class_escola.html#a93f66da708a3c60aef49446d6481af89">Escola::showSignUpUI</a></div><div class="ttdeci">void showSignUpUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:283</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963">MetodoDeSortDeViaturas</a></div><div class="ttdeci">MetodoDeSortDeViaturas</div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="class_escola_html_a553a3f542f26856666576a4bf5c63825"><div class="ttname"><a href="class_escola.html#a553a3f542f26856666576a4bf5c63825">Escola::showEditarViaturaUI</a></div><div class="ttdeci">void showEditarViaturaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:934</div></div>
+<div class="ttc" id="_escola_8h_html_a3b240ced08b09807aa5832d7d1d0143ba0f1c38e9d050b1b4c8308979bd585914"><div class="ttname"><a href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba0f1c38e9d050b1b4c8308979bd585914">INSTRUTOR</a></div><div class="ttdef"><b>Definition:</b> Escola.h:28</div></div>
+<div class="ttc" id="class_escola_html_ad28357602957ac168b1fa88933e777a9"><div class="ttname"><a href="class_escola.html#ad28357602957ac168b1fa88933e777a9">Escola::showManutencaoAulasUI</a></div><div class="ttdeci">void showManutencaoAulasUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:718</div></div>
+<div class="ttc" id="_escola_8h_html_a3b240ced08b09807aa5832d7d1d0143ba9d7d6f31868d66330397c967c4afd2d2"><div class="ttname"><a href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143ba9d7d6f31868d66330397c967c4afd2d2">DATA</a></div><div class="ttdef"><b>Definition:</b> Escola.h:28</div></div>
+<div class="ttc" id="_escola_8h_html_a3b240ced08b09807aa5832d7d1d0143b"><div class="ttname"><a href="_escola_8h.html#a3b240ced08b09807aa5832d7d1d0143b">MetodoDeSortDeAulas</a></div><div class="ttdeci">MetodoDeSortDeAulas</div><div class="ttdef"><b>Definition:</b> Escola.h:28</div></div>
+<div class="ttc" id="_escola_8h_html_a8468e98b470c0230703e18e4772d8884aba617fa6857393cf34fc00c300bd3b7b"><div class="ttname"><a href="_escola_8h.html#a8468e98b470c0230703e18e4772d8884aba617fa6857393cf34fc00c300bd3b7b">NOMEALUNO</a></div><div class="ttdef"><b>Definition:</b> Escola.h:27</div></div>
+<div class="ttc" id="class_escola_html_a896471be17b5aa07b5042f440fb94bb9"><div class="ttname"><a href="class_escola.html#a896471be17b5aa07b5042f440fb94bb9">Escola::getAlunoChamado</a></div><div class="ttdeci">Aluno * getAlunoChamado(string nome)</div><div class="ttdef"><b>Definition:</b> Escola.cpp:2048</div></div>
+<div class="ttc" id="_escola_8h_html_a52d4eea9a6f1d1075e70a9623586f963abefe387910b8b4d18dd1a1514a407be1"><div class="ttname"><a href="_escola_8h.html#a52d4eea9a6f1d1075e70a9623586f963abefe387910b8b4d18dd1a1514a407be1">MARCA</a></div><div class="ttdef"><b>Definition:</b> Escola.h:25</div></div>
+<div class="ttc" id="class_escola_html_abb8868990479b34abbc2e24b0c5d343c"><div class="ttname"><a href="class_escola.html#abb8868990479b34abbc2e24b0c5d343c">Escola::Escola</a></div><div class="ttdeci">Escola()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:22</div></div>
+<div class="ttc" id="class_escola_html_ac23d4117ac126573cb43d4424f6864f9"><div class="ttname"><a href="class_escola.html#ac23d4117ac126573cb43d4424f6864f9">Escola::showAdicionarViaturaUI</a></div><div class="ttdeci">void showAdicionarViaturaUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:821</div></div>
+<div class="ttc" id="class_escola_html_af1b83f7bed41945f3a568f33610f5c76"><div class="ttname"><a href="class_escola.html#af1b83f7bed41945f3a568f33610f5c76">Escola::showAdicionarAlunoUI</a></div><div class="ttdeci">void showAdicionarAlunoUI()</div><div class="ttdef"><b>Definition:</b> Escola.cpp:1506</div></div>
+<div class="ttc" id="class_escola_html_aa139d359939e4e498aad8ef3ca506a64"><div class="ttname"><a href="class_escola.html#aa139d359939e4e498aad8ef3ca506a64">Escola::~Escola</a></div><div class="ttdeci">virtual ~Escola()</div><div class="ttdef"><b>Definition:</b> Escola.h:39</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b64df8b707319000bf7bc7860356c27d.html">Escola-de-Conducao</a></li><li class="navelem"><a class="el" href="dir_39d7d5164e00f2d4335f4917a47fbcc4.html">Escola de Conducao</a></li><li class="navelem"><a class="el" href="dir_979c226e6ed7b34b8884832ea7618bab.html">src</a></li><li class="navelem"><a class="el" href="_escola_8h.html">Escola.h</a></li>
+    <li class="footer">Gerado em Segunda, 11 de Novembro de 2013 23:47:46 para Escola de Conducao por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
+</body>
+</html>
