@@ -19,11 +19,6 @@
 #include "Utilities.h"
 #include "Exceptions.h"
 
-Escola::Escola() {
-	nome = "";
-	abertura = fecho = 0;
-}
-
 int Escola::createFileStructure() {
 	cout << "---------------------------------" << endl;
 	cout << "A criar ficheiros iniciais... ";
@@ -31,12 +26,12 @@ int Escola::createFileStructure() {
 	string escola, escolaAulas;
 
 	// opening output strings
-	escola = nome;
+	escola = designacao;
 	parseFilename(escola);
 	ofstream fout(escola.c_str());
 
 	stringstream ss;
-	ss << nome << " - aulas";
+	ss << designacao << " - aulas";
 	escolaAulas = ss.str();
 	parseFilename(escolaAulas);
 	ofstream foutAulas(escolaAulas.c_str());
@@ -57,12 +52,12 @@ int Escola::saveSchoolData() {
 	string escola, escolaAulas;
 
 	// opening output strings
-	escola = nome;
+	escola = designacao;
 	parseFilename(escola);
 	ofstream fout(escola.c_str());
 
 	stringstream ss;
-	ss << nome << " - aulas";
+	ss << designacao << " - aulas";
 	escolaAulas = ss.str();
 	parseFilename(escolaAulas);
 	ofstream foutAulas(escolaAulas.c_str());
@@ -101,12 +96,12 @@ int Escola::loadSchoolData() {
 	cout << "------------------------------" << endl;
 
 	// opening input strings
-	escola = nome;
+	escola = designacao;
 	parseFilename(escola);
 	ifstream fin(escola.c_str());
 
 	stringstream ss;
-	ss << nome << " - aulas";
+	ss << designacao << " - aulas";
 	escolaAulas = ss.str();
 	parseFilename(escolaAulas);
 	ifstream finAulas(escolaAulas.c_str());
@@ -170,7 +165,8 @@ int Escola::loadSchoolData() {
 		Aluno *temp;
 		Viatura *viaturaUsual;
 		viaturaUsual = getViaturaComMatricula(matriculaUsual);
-		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual, nomeInstrutor);
+		temp = new Aluno(nome, (TipoCartaConducao) tipoCarta, viaturaUsual,
+				nomeInstrutor);
 		comunidade[getInstrutorChamado(nomeInstrutor)].push_back(temp);
 	}
 	cout << "OK!" << endl;
@@ -193,7 +189,8 @@ int Escola::loadSchoolData() {
 		Viatura *viatura;
 		viatura = getViaturaComMatricula(matriculaUsual);
 		Aula *temp;
-		temp = new Aula(convertStringToDate(data), hora, duracao, aluno, instrutor, viatura);
+		temp = new Aula(convertStringToDate(data), hora, duracao, aluno,
+				instrutor, viatura);
 		aulas.push_back(temp);
 	}
 	cout << "OK!" << endl;
@@ -201,224 +198,9 @@ int Escola::loadSchoolData() {
 	return 0;
 }
 
-void Escola::showLoginScreen() {
-	char input;
-
-	bool done = false;
-	while (!done) {
-		cout << endl;
-		cout << "**********************" << endl;
-		cout << "* Escola de Conducao *" << endl;
-		cout << "**********************" << endl;
-		cout << endl;
-		cout << "1. Carregar escola existente" << endl;
-		cout << "2. Criar uma nova escola" << endl;
-		cout << "3. Editar escola" << endl;
-		cout << "4. Apagar escola" << endl;
-		cout << "5. Visualizar escolas" << endl;
-		cout << endl;
-		cout << "X. Terminar Programa" << endl;
-		cout << endl;
-		cout << "> Escolha o que pretende fazer:" << endl;
-		cout << "> ";
-		cin >> input;
-		cin.ignore();
-
-		input = tolower(input);
-		done = true;
-		switch (input) {
-		case '1':
-			showLoginUI();
-			break;
-		case '2':
-			showSignUpUI();
-			break;
-		case '3':
-			showEditSchoolUI();
-			break;
-		case '4':
-			showRemoveSchoolUI();
-			break;
-		case '5':
-			showViewSchoolUI();
-			break;
-		case 'x':
-			cout << "A terminar programa..." << endl;
-			exit(0);
-		default:
-			done = false;
-			break;
-		}
-	}
-}
-
-void Escola::showLoginUI() {
-	string input;
-
-	bool done = false;
-	while (!done) {
-		cout << endl;
-		cout << "Nome da escola: ";
-		cin.clear();
-		getline(cin, input);
-		nome = input;
-
-		// if user chose to go back to start menu
-		if (input.size() == 1 && input[0] == '.') {
-			showLoginScreen();
-			done = true;
-			break;
-		}
-
-		parseFilename(input);
-		if (fileExists(input)) {
-			loadSchoolData();
-			showMainMenu();
-			done = true;
-			return;
-		} else {
-			cout << "Erro:\tEscola inexistente." << endl;
-			cout << "\tSe pretende retornar ao menu inicial" << endl;
-			cout << "\tinsira o caracter \'.\' como nome da escola." << endl;
-		}
-	}
-}
-
-void Escola::showSignUpUI() {
-	string input;
-
-	bool done = false;
-	while (!done) {
-		cout << endl;
-		cout << "Nome da escola: ";
-		cin.clear();
-		getline(cin, input);
-		nome = input;
-
-		// if user chose to go back to start menu
-		if (input.size() == 1 && input[0] == '.') {
-			showLoginScreen();
-			done = true;
-			return;
-		}
-
-		parseFilename(input);
-		if (fileExists(input)) {
-			cout << "Erro:\tEscola ja existente." << endl;
-			cout << "\tSe pretende retornar ao menu inicial" << endl;
-			cout << "\tinsira o caracter \'.\' como nome da escola." << endl;
-		} else {
-			setHorarioUI();
-			createFileStructure();
-			showMainMenu();
-			done = true;
-			return;
-		}
-	}
-}
-
-void Escola::showEditSchoolUI() {
-	string nomeNovo, unparsedCopy;
-
-	bool done = false;
-	while (!done) {
-		cout << endl;
-		cout << "Insira o caracter \'.\' para voltar ao menu inicial." << endl;
-		cout << "> Nome antigo da escola: ";
-		cin.clear();
-		getline(cin, nome);
-
-		// if user chose to go back to start menu
-		if (nome.size() == 1 && nome[0] == '.') {
-			showLoginScreen();
-			done = true;
-			return;
-		}
-
-		string escola, escolaAulas;
-
-		escola = nome;
-		parseFilename(escola);
-
-		if (fileExists(escola)) {
-			stringstream ss;
-			ss << nome << " - aulas";
-			escolaAulas = ss.str();
-			parseFilename(escolaAulas);
-
-			string oldNameEscola = escola;
-			string oldNameEscolaAulas = escolaAulas;
-
-			string tempNameEscola = "tempname.txt";
-			string tempNameEscolaAulas = "tempname - aulas.txt";
-			parseFilename(tempNameEscola);
-			parseFilename(tempNameEscolaAulas);
-
-			if (rename(oldNameEscola.c_str(), tempNameEscola.c_str()) == 0
-					&& rename(oldNameEscolaAulas.c_str(),
-							tempNameEscolaAulas.c_str()) == 0) {
-				// a inserir novo nome para a escola
-				cout << "> Nome novo da escola: ";
-				cin.clear();
-				getline(cin, nomeNovo);
-				unparsedCopy = nomeNovo;
-				parseFilename(nomeNovo);
-
-				cout << "A alterar o nome da escola... ";
-				if (fileExists(nomeNovo)) {
-					cout << endl;
-					cout << "* Erro ao alterar o nome da escola *" << endl;
-					cout << "Ja existe uma escola com o novo nome que escolheu."
-							<< endl;
-					cout << "A cancelar operacao... ";
-
-					escola = nome;
-					parseFilename(escola);
-
-					ss.str(string());
-					ss << nome << " - aulas";
-					escolaAulas = ss.str();
-					parseFilename(escolaAulas);
-
-					rename(tempNameEscola.c_str(), escola.c_str());
-					rename(tempNameEscolaAulas.c_str(), escolaAulas.c_str());
-
-					cout << "OK!" << endl;
-				} else {
-					string newNameEscola = unparsedCopy;
-					parseFilename(newNameEscola);
-
-					ss.str(string());
-					ss << unparsedCopy << " - aulas";
-					string newNameEscolaAulas = ss.str();
-					parseFilename(newNameEscolaAulas);
-
-					rename(tempNameEscola.c_str(), newNameEscola.c_str());
-					rename(tempNameEscolaAulas.c_str(),
-							newNameEscolaAulas.c_str());
-
-					cout << "OK!" << endl;
-					cout << "* Nome da escola alterado com sucesso *" << endl;
-				}
-			} else {
-				cout << endl;
-				cout << "* Erro: o nome que especificou nao existe *" << endl;
-			}
-
-			cout << "Prima <enter> para voltar ao menu inicial." << endl;
-			cin.get();
-			showLoginScreen();
-			return;
-		} else {
-			cout << "Erro:\tO nome da escola inserida não existe." << endl;
-			cout << "\tPrima <enter> para voltar ao menu inicial." << endl;
-			cin.get();
-
-			showLoginScreen();
-			done = true;
-			return;
-		}
-	}
+int Escola::setDesignacao(string nome) {
+	designacao = nome;
+	return 0;
 }
 
 int Escola::setHorarioUI() {
@@ -469,72 +251,57 @@ int Escola::setHorarioUI() {
 	return 0;
 }
 
-void Escola::showRemoveSchoolUI() {
-	bool done = false;
-	while (!done) {
-		cout << endl;
-		cout << "!!!!!!!!!!!!!!!" << endl;
-		cout << "!!  ATENCAO  !!" << endl;
-		cout << "!!!!!!!!!!!!!!!" << endl;
-		cout << endl;
-		cout << "- Todos os dados da escola que inserir vao ser apagados."
-				<< endl;
-		cout << "  Insira o caracter \'.\' para voltar ao menu inicial."
-				<< endl;
-		cout << endl;
-		cout << "> Nome da escola: ";
-		cin.clear();
-		getline(cin, nome);
+int Escola::setLocalizacaoUI() {
+	cout << "> Insira a localizacao da escola:" << endl;
 
-		// if user chose to go back to start menu
-		if (nome.size() == 1 && nome[0] == '.') {
-			showLoginScreen();
-			done = true;
-			return;
-		}
+	while (1) {
+		try {
+			cout << "\tLocal: ";
+			cin >> localizacao;
+			cin.ignore();
 
-		string escola, escolaAulas;
-		escola = nome;
-		parseFilename(escola);
-		if (fileExists(escola)) {
-			cout << "A remover dados da escola permanentemente... ";
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
 
-			escolaAulas = nome;
-			stringstream ss;
-			ss << escolaAulas << " - aulas";
-			escolaAulas = ss.str();
-			parseFilename(escolaAulas);
-
-			if (remove(escola.c_str()) != 0
-					|| remove(escolaAulas.c_str()) != 0) {
-				cout << endl;
-				cout << "* Erro a apagar escola *" << endl;
-			} else {
-				cout << "OK!" << endl;
-				cout << "* Escola apagada com sucesso *" << endl;
-			}
-
-			cout << "Prima <enter> para voltar ao menu inicial." << endl;
-			cin.get();
-			showLoginScreen();
-			return;
-		} else {
-			cout << "Erro:\tO nome da escola inserida não existe." << endl;
-			cout << "\tPrima <enter> para voltar ao menu inicial." << endl;
-			cin.get();
-
-			showLoginScreen();
-			done = true;
-			return;
+				throw InputEsperadoEraString(localizacao);
+			} else
+				break;
+		} catch (InputEsperadoEraString &e) {
+			e.what();
 		}
 	}
+
+	return 0;
 }
 
-void Escola::showViewSchoolUI() {
+int Escola::setNumMaxAlunosUI() {
+	cout << "> Insira o numero maximo de alunos da escola:" << endl;
 
+	while (1) {
+		try {
+			cout << "\tMaximo: ";
+			cin >> nMaxAlunos;
+			cin.ignore();
+
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				throw InputEsperadoEraInt(nMaxAlunos, 0, 1000);
+			} else if (0 <= nMaxAlunos && nMaxAlunos <= 1000)
+				break;
+			else
+				throw HoraInvalida(nMaxAlunos);
+		} catch (HoraInvalida &e) {
+			e.what();
+		}
+	}
+
+	return 0;
 }
 
-void Escola::showMainMenu() {
+int Escola::showMainMenu() {
 	char input;
 
 	bool done = false;
@@ -573,13 +340,14 @@ void Escola::showMainMenu() {
 			break;
 		case 'x':
 			cout << "A terminar sessao..." << endl;
-			showLoginScreen();
-			return;
+			return 1;
 		default:
 			done = false;
 			break;
 		}
 	}
+
+	return 0;
 }
 
 void Escola::showManutencaoViaturasUI() {
@@ -1026,7 +794,8 @@ void Escola::showRemoverViaturaUI() {
 
 	if (getViaturaComMenosAlunos(tipoTemp) == NULL) {
 		viaturas.push_back(viaturaTemp);
-		cout << "Error:\tNao e possivel remover a ultima viatura de um tipo" << endl;
+		cout << "Error:\tNao e possivel remover a ultima viatura de um tipo"
+				<< endl;
 		cout << "\t--------------------------------------------------" << endl;
 		cout << "Pressione enter para continuar... ";
 		cin.get();
@@ -1034,11 +803,15 @@ void Escola::showRemoverViaturaUI() {
 	}
 
 	// percorrer todos os alunos, a encontrar uma viatura nova
-	FOR(i, 0, numAlunos()) {
-		if (getTodosAlunos()[i]->getViaturaUsual()->getMatricula().compare(matricula) == 0)
-			getTodosAlunos()[i]->setViaturaUsual(getViaturaComMenosAlunos(tipoTemp));
+	FOR(i, 0, numAlunos())
+	{
+		if (getTodosAlunos()[i]->getViaturaUsual()->getMatricula().compare(
+				matricula) == 0)
+			getTodosAlunos()[i]->setViaturaUsual(
+					getViaturaComMenosAlunos(tipoTemp));
 	}
-	FOR(i, 0, aulas.size()) {
+	FOR(i, 0, aulas.size())
+	{
 		if (aulas[i]->getViatura()->getMatricula().compare(matricula) == 0)
 			aulas[i]->setViaturaUsual(getViaturaComMenosAlunos(tipoTemp));
 	}
@@ -1159,7 +932,7 @@ void Escola::showAdicionarInstrutorUI() {
 		try {
 			cout << "\to nome: ";
 			cin >> nome;
-			if(getInstrutorChamado(nome) != NULL)
+			if (getInstrutorChamado(nome) != NULL)
 				throw InstrutorJaExiste(nome);
 			break;
 		} catch (InstrutorJaExiste &e) {
@@ -1361,7 +1134,8 @@ void Escola::showEditarInstrutorUI() {
 		break;
 	}
 
-	foreach(comunidade, it) {
+	foreach(comunidade, it)
+	{
 		if (it->first->getNome().compare(nomeInstrutor) == 0)
 			it->first->setQualificacoes(qualifLig, qualifPes, qualifMoto);
 	}
@@ -1381,7 +1155,8 @@ void Escola::showRemoverInstrutorUI() {
 	string nomeInstrutor;
 	while (1) {
 		try {
-			cout << "> Insira o nome do instrutor que pretende remover:" << endl;
+			cout << "> Insira o nome do instrutor que pretende remover:"
+					<< endl;
 			cout << "> ";
 			cin >> nomeInstrutor;
 			cin.ignore();
@@ -1403,8 +1178,9 @@ void Escola::showRemoverInstrutorUI() {
 		}
 	}
 
-	foreach(comunidade, it) {
-		if(it->first->getNome().compare(nomeInstrutor) == 0) {
+	foreach(comunidade, it)
+	{
+		if (it->first->getNome().compare(nomeInstrutor) == 0) {
 			// a guardar alunos do instrutor
 			vector<Aluno*> alunos = it->second;
 
@@ -1414,17 +1190,24 @@ void Escola::showRemoverInstrutorUI() {
 			comunidade.erase(it);
 
 			// a distribuir alunos por outros instrutores
-			FOR(i, 0, alunos.size()) {
-				if (getInstrutorComMenosAlunos(alunos[i]->getTipoDeCarta()) == NULL) {
+			FOR(i, 0, alunos.size())
+			{
+				if (getInstrutorComMenosAlunos(
+						alunos[i]->getTipoDeCarta()) == NULL) {
 					comunidade[tempInst] = alunos;
-					cout << "Error:\tNao e possivel remover o ultimo instrutor de um tipo" << endl;
-					cout << "\t--------------------------------------------------" << endl;
+					cout
+							<< "Error:\tNao e possivel remover o ultimo instrutor de um tipo"
+							<< endl;
+					cout
+							<< "\t--------------------------------------------------"
+							<< endl;
 					cout << "Pressione enter para continuar... ";
 					cin.get();
 					return;
 				}
 
-				Instrutor *instrutor = getInstrutorComMenosAlunos(alunos[i]->getTipoDeCarta());
+				Instrutor *instrutor = getInstrutorComMenosAlunos(
+						alunos[i]->getTipoDeCarta());
 				comunidade[instrutor].push_back(alunos[i]);
 				alunos[i]->setNomeInstrutor(instrutor->getNome());
 			}
@@ -1526,7 +1309,7 @@ void Escola::showAdicionarAlunoUI() {
 		try {
 			cout << "\to nome: ";
 			cin >> nome;
-			if(getAlunoChamado(nome) != NULL)
+			if (getAlunoChamado(nome) != NULL)
 				throw AlunoJaExiste(nome);
 			break;
 		} catch (AlunoJaExiste &e) {
@@ -1577,7 +1360,8 @@ void Escola::showAdicionarAlunoUI() {
 		if (instrutor == NULL)
 			throw EscolaComRecursosInsuficientes(nome);
 
-		temp = new Aluno(nome, (TipoCartaConducao) input, viatura, instrutor->getNome());
+		temp = new Aluno(nome, (TipoCartaConducao) input, viatura,
+				instrutor->getNome());
 		adicionaAluno(temp, instrutor);
 
 		cout << endl;
@@ -1593,7 +1377,8 @@ void Escola::showAdicionarAlunoUI() {
 
 void Escola::showEditarAlunoUI() {
 	showVisualizaAlunosUI();
-	if(getTodosAlunos().size() == 0) return;
+	if (getTodosAlunos().size() == 0)
+		return;
 
 	string nomeAluno;
 	while (1) {
@@ -1662,24 +1447,28 @@ void Escola::showEditarAlunoUI() {
 							input--;
 
 							Viatura *viatura;
-							viatura = getViaturaComMenosAlunos((TipoCartaConducao) input);
+							viatura = getViaturaComMenosAlunos(
+									(TipoCartaConducao) input);
 							if (viatura == NULL)
 								throw EscolaComRecursosInsuficientes(nomeAluno);
 
 							Instrutor *instrutor;
-							instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
+							instrutor = getInstrutorComMenosAlunos(
+									(TipoCartaConducao) input);
 							if (instrutor == NULL)
 								throw EscolaComRecursosInsuficientes(nomeAluno);
 
-							getAlunoChamado(nomeAluno)->setTipoDeCarta((TipoCartaConducao)input);
+							getAlunoChamado(nomeAluno)->setTipoDeCarta(
+									(TipoCartaConducao) input);
 							saveSchoolData();
 
-							cout << "* Dados do aluno alterados com sucesso *" << endl;
-							cout << "Prima <enter> para voltar ao menu inicial." << endl;
+							cout << "* Dados do aluno alterados com sucesso *"
+									<< endl;
+							cout << "Prima <enter> para voltar ao menu inicial."
+									<< endl;
 							cin.get();
 							return;
-						}
-						else
+						} else
 							throw(InputEsperadoEraInt(input, 1, 3));
 					} catch (InputEsperadoEraInt &e) {
 						e.what();
@@ -1689,8 +1478,7 @@ void Escola::showEditarAlunoUI() {
 				}
 
 				break;
-			}
-			else
+			} else
 				throw(InputEsperadoEraInt(input2, 1, 1));
 		} catch (InputEsperadoEraInt &e) {
 			e.what();
@@ -1700,7 +1488,7 @@ void Escola::showEditarAlunoUI() {
 
 void Escola::showRemoverAlunoUI() {
 	showVisualizaAlunosUI();
-	if(getTodosAlunos().size() == 0)
+	if (getTodosAlunos().size() == 0)
 		return;
 
 	string nomeAluno;
@@ -1713,7 +1501,8 @@ void Escola::showRemoverAlunoUI() {
 	instrutor = getInstrutorDoAluno(aluno);
 
 	int pos = 0;
-	FOR(i, 0, comunidade[instrutor].size()) {
+	FOR(i, 0, comunidade[instrutor].size())
+	{
 		if (comunidade[instrutor][i]->getNome().compare(nomeAluno) == 0) {
 			pos = i;
 			break;
@@ -1721,7 +1510,8 @@ void Escola::showRemoverAlunoUI() {
 	}
 
 	// a apagar aulas que o aluno tinha marcado
-	FOR(i, 0, aulas.size()) {
+	FOR(i, 0, aulas.size())
+	{
 		if (aulas[i]->getAluno().getNome().compare(nomeAluno) == 0) {
 			aulas.erase(aulas.begin() + i);
 			i--;
@@ -1748,7 +1538,8 @@ bool tipoCarta(Aluno *x1, Aluno *x2) {
 
 void Escola::visualizaAlunos(MetodoDeSortDeAlunos metodo) {
 	vector<Aluno*> alunos;
-	foreach(comunidade, it) {
+	foreach(comunidade, it)
+	{
 		FOR(i, 0, it->second.size())
 			alunos.push_back(it->second[i]);
 	}
@@ -1849,9 +1640,13 @@ void Escola::showMarcarAulaUI() {
 		waitForValidInt(mes, 1, 12, "mes");
 		mes--;
 		waitForValidInt(ano, getAnoActual(), getAnoActual() + 1, "ano");
-		while(dataJaUltrapassada(dia, mes, ano)) {
-			cout << "Erro:\tas aulas tem que ser marcadas com um dia de antecedencia." << endl;
-			cout << "\t---------------------------------------------------------" << endl;
+		while (dataJaUltrapassada(dia, mes, ano)) {
+			cout
+					<< "Erro:\tas aulas tem que ser marcadas com um dia de antecedencia."
+					<< endl;
+			cout
+					<< "\t---------------------------------------------------------"
+					<< endl;
 
 			waitForValidInt(dia, 1, 31, "dia");
 			waitForValidInt(mes, 1, 12, "mes");
@@ -1999,7 +1794,8 @@ unsigned int Escola::numAulasDoInstrutor(Instrutor *instrutor) {
 int Escola::numAlunosQueUsamAViatura(Viatura *viatura) {
 	unsigned int counter = 0;
 
-	FOR(i, 0, numAlunos()) {
+	FOR(i, 0, numAlunos())
+	{
 		if (viatura == getTodosAlunos()[i]->getViaturaUsual())
 			counter++;
 	}
@@ -2019,9 +1815,9 @@ int Escola::numAlunosQueTemAulasComInstrutor(Instrutor *instrutor) {
 	return counter;
 }
 
-
 Viatura *Escola::getViaturaComMatricula(string Matricula) {
-	FOR(i, 0, numViaturas()) {
+	FOR(i, 0, numViaturas())
+	{
 		if (viaturas[i]->getMatricula().compare(Matricula) == 0)
 			return viaturas[i];
 	}
@@ -2030,7 +1826,8 @@ Viatura *Escola::getViaturaComMatricula(string Matricula) {
 
 Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
 	int min = -1, id = -1;
-	FOR(i, 0, numViaturas()) {
+	FOR(i, 0, numViaturas())
+	{
 		if ((id == -1 && viaturas[i]->getTipo() == TipoViatura)
 				|| (id != -1 && viaturas[i]->getTipo() == TipoViatura
 						&& numAlunosQueUsamAViatura(viaturas[i]) < min)) {
@@ -2044,7 +1841,6 @@ Viatura *Escola::getViaturaComMenosAlunos(TipoCartaConducao TipoViatura) {
 		return NULL;
 }
 
-
 const vector<Aluno*> Escola::getTodosAlunos() {
 	vector<Aluno*> temp;
 	foreach(comunidade, it)
@@ -2054,7 +1850,8 @@ const vector<Aluno*> Escola::getTodosAlunos() {
 }
 
 Aluno *Escola::getAlunoChamado(string nome) {
-	foreach(comunidade, it) {
+	foreach(comunidade, it)
+	{
 		FOR(i, 0, it->second.size())
 			if (it->second[i]->getNome().compare(nome) == 0)
 				return it->second[i];
@@ -2062,9 +1859,9 @@ Aluno *Escola::getAlunoChamado(string nome) {
 	return NULL;
 }
 
-
 Instrutor *Escola::getInstrutorChamado(string nome) {
-	foreach(comunidade, it) {
+	foreach(comunidade, it)
+	{
 		if (it->first->getNome().compare(nome) == 0)
 			return it->first;
 	}
@@ -2086,15 +1883,18 @@ Instrutor *Escola::getInstrutorDoAluno(Aluno *aluno) {
 Instrutor *Escola::getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura) {
 	map<Instrutor*, vector<Aluno*> >::iterator instrutor;
 	int min = -1;
-	foreach(comunidade, it) {
-		if (it->first->isQualifiedFor(TipoViatura) && (min == -1 || (int)it->second.size() < min)) {
+	foreach(comunidade, it)
+	{
+		if (it->first->isQualifiedFor(TipoViatura)
+				&& (min == -1 || (int) it->second.size() < min)) {
 			instrutor = it;
 			min = it->second.size();
 		}
 	}
 	if (min != -1)
 		return instrutor->first;
-	else return NULL;
+	else
+		return NULL;
 }
 
 void Escola::waitForValidAluno(string &nomeAluno) {

@@ -22,35 +22,47 @@
 #include "Aula.h"
 #include <map>
 
-enum MetodoDeSortDeViaturas { MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PROXIMAINSPECAO };
-enum MetodoDeSortDeInstrutores { NOMEINSTRUTOR, NQUALIFICACOES };
-enum MetodoDeSortDeAlunos { NOMEALUNO, NAULASMARCADAS };
-enum MetodoDeSortDeAulas { DATA, ALUNO, INSTRUTOR, TIPOVIATURA };
+enum MetodoDeSortDeViaturas {
+	MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PROXIMAINSPECAO
+};
+enum MetodoDeSortDeInstrutores {
+	NOMEINSTRUTOR, NQUALIFICACOES
+};
+enum MetodoDeSortDeAlunos {
+	NOMEALUNO, NAULASMARCADAS
+};
+enum MetodoDeSortDeAulas {
+	DATA, ALUNO, INSTRUTOR, TIPOVIATURA
+};
 
 class Escola {
 private:
-	string nome;
+	string designacao;
+	string localizacao;
+	int nMaxAlunos;
 	int abertura, fecho;
+
 	vector<Viatura*> viaturas;
 	map<Instrutor*, vector<Aluno*> > comunidade;
 	vector<Aula*> aulas;
 public:
-	Escola();
-	virtual ~Escola() {}
+	Escola(string Nome, string Localizacao, int NumMaxAlunos) :
+			designacao(Nome), localizacao(Localizacao), nMaxAlunos(NumMaxAlunos) {
+		abertura = fecho = 0;
+	}
+	virtual ~Escola() {
+	}
 
 	int createFileStructure();
 	int saveSchoolData();
 	int loadSchoolData();
 
-	void showLoginScreen();
-	void showLoginUI();
-	void showSignUpUI();
+	int setDesignacao(string nome);
 	int setHorarioUI();
-	void showEditSchoolUI();
-	void showRemoveSchoolUI();
-	void showViewSchoolUI();
+	int setLocalizacaoUI();
+	int setNumMaxAlunosUI();
 
-	void showMainMenu();
+	int showMainMenu();
 	void showManutencaoViaturasUI();
 	void showManutencaoInstrutoresUI();
 	void showManutencaoAlunosUI();
@@ -62,7 +74,9 @@ public:
 	void showRemoverViaturaUI();
 
 	void visualizaViaturas(MetodoDeSortDeViaturas metodo);
-	void adicionaViatura(Viatura *viatura) { viaturas.push_back(viatura); }
+	void adicionaViatura(Viatura *viatura) {
+		viaturas.push_back(viatura);
+	}
 
 	void showVisualizaInstrutoresUI();
 	void showAdicionarInstrutorUI();
@@ -70,7 +84,9 @@ public:
 	void showRemoverInstrutorUI();
 
 	void visualizaInstrutores(MetodoDeSortDeInstrutores metodo);
-	void adicionaInstrutor(Instrutor *instrutor) { comunidade[instrutor]; }
+	void adicionaInstrutor(Instrutor *instrutor) {
+		comunidade[instrutor];
+	}
 
 	void showVisualizaAlunosUI();
 	void showAdicionarAlunoUI();
@@ -78,7 +94,9 @@ public:
 	void showRemoverAlunoUI();
 
 	void visualizaAlunos(MetodoDeSortDeAlunos metodo);
-	void adicionaAluno(Aluno *aluno, Instrutor *instrutor) { comunidade[instrutor].push_back(aluno); }
+	void adicionaAluno(Aluno *aluno, Instrutor *instrutor) {
+		comunidade[instrutor].push_back(aluno);
+	}
 
 	void showVisualizaAulasUI();
 	void showMarcarAulaUI();
@@ -86,12 +104,20 @@ public:
 	void showDesmarcarAulaUI();
 
 	void visualizaAulas(MetodoDeSortDeAulas metodo);
-	void marcaAula(Aula *aula) { aulas.push_back(aula); }
+	void marcaAula(Aula *aula) {
+		aulas.push_back(aula);
+	}
 
-	unsigned int numViaturas() const { return viaturas.size(); }
-	unsigned int numInstrutores() const { return comunidade.size(); }
+	unsigned int numViaturas() const {
+		return viaturas.size();
+	}
+	unsigned int numInstrutores() const {
+		return comunidade.size();
+	}
 	unsigned int numAlunos() const;
-	unsigned int numAulas() const { return aulas.size(); }
+	unsigned int numAulas() const {
+		return aulas.size();
+	}
 	unsigned int numAulasDoInstrutor(Instrutor *instrutor);
 	int numAlunosQueUsamAViatura(Viatura *viatura);
 	int numAlunosQueTemAulasComInstrutor(Instrutor *instrutor);
@@ -107,6 +133,11 @@ public:
 	Instrutor *getInstrutorComMenosAlunos(TipoCartaConducao TipoViatura);
 
 	void waitForValidAluno(string &nomeAluno);
+
+	bool operator <(const Escola &escola) const {
+		return nMaxAlunos < escola.nMaxAlunos;
+	}
+	friend class Program;
 };
 
 #endif

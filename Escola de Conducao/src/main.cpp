@@ -9,17 +9,14 @@
  * \date Novembro 2013
  *
  */
-#include "Escola.h"
-#include "Viatura.h"
-#include "Ligeiro.h"
-#include "Pesado.h"
-#include "Motociclo.h"
+#include "Program.h"
 
 using namespace std;
 
 int main(){
-	Escola escola;
-	escola.showLoginScreen();
+	Program program;
+	program.loadSchoolsFile();
+	program.showLoginScreen();
 
     return 0;
 }
