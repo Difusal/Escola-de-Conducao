@@ -47,3 +47,10 @@ Lessons file:
 > n
 
 > data hora duracao aluno instrutor matriculaViaturaUsual
+
+Schools file:
+-------------
+= Dados das Escolas =
+> n
+
+> designacao localizacao nMaxAlunos

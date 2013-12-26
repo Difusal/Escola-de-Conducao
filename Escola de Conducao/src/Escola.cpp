@@ -213,8 +213,9 @@ void Escola::showLoginScreen() {
 		cout << endl;
 		cout << "1. Carregar escola existente" << endl;
 		cout << "2. Criar uma nova escola" << endl;
-		cout << "3. Alterar nome de escola" << endl;
+		cout << "3. Editar escola" << endl;
 		cout << "4. Apagar escola" << endl;
+		cout << "5. Visualizar escolas" << endl;
 		cout << endl;
 		cout << "X. Terminar Programa" << endl;
 		cout << endl;
@@ -233,10 +234,13 @@ void Escola::showLoginScreen() {
 			showSignUpUI();
 			break;
 		case '3':
-			showRenameSchoolUI();
+			showEditSchoolUI();
 			break;
 		case '4':
 			showRemoveSchoolUI();
+			break;
+		case '5':
+			showViewSchoolUI();
 			break;
 		case 'x':
 			cout << "A terminar programa..." << endl;
@@ -313,7 +317,7 @@ void Escola::showSignUpUI() {
 	}
 }
 
-void Escola::showRenameSchoolUI() {
+void Escola::showEditSchoolUI() {
 	string nomeNovo, unparsedCopy;
 
 	bool done = false;
@@ -524,6 +528,10 @@ void Escola::showRemoveSchoolUI() {
 			return;
 		}
 	}
+}
+
+void Escola::showViewSchoolUI() {
+
 }
 
 void Escola::showMainMenu() {

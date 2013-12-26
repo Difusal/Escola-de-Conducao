@@ -46,8 +46,9 @@ public:
 	void showLoginUI();
 	void showSignUpUI();
 	int setHorarioUI();
-	void showRenameSchoolUI();
+	void showEditSchoolUI();
 	void showRemoveSchoolUI();
+	void showViewSchoolUI();
 
 	void showMainMenu();
 	void showManutencaoViaturasUI();
