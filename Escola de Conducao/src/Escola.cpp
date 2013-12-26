@@ -18,6 +18,7 @@
 #include "Escola.h"
 #include "Utilities.h"
 #include "Exceptions.h"
+#include "BST.h"
 
 int Escola::createFileStructure() {
 	cout << "---------------------------------" << endl;
@@ -213,7 +214,8 @@ void Escola::saveSchoolToMainFile() {
 
 		string nome, local;
 		int nMax;
-		FOR(i, 0, n) {
+		FOR(i, 0, n)
+		{
 			fin >> nome >> local >> nMax;
 			escolasTemp.push_back(Escola(nome, local, nMax));
 		}
@@ -227,8 +229,10 @@ void Escola::saveSchoolToMainFile() {
 
 	ofstream fout(mainFile.c_str());
 	fout << n << endl;
-	FOR(i, 0, escolasTemp.size()) {
-		fout << escolasTemp[i].designacao << " " << escolasTemp[i].localizacao << " " << escolasTemp[i].nMaxAlunos << endl;
+	FOR(i, 0, escolasTemp.size())
+	{
+		fout << escolasTemp[i].designacao << " " << escolasTemp[i].localizacao
+				<< " " << escolasTemp[i].nMaxAlunos << endl;
 	}
 }
 
@@ -1336,77 +1340,132 @@ void Escola::showAdicionarAlunoUI() {
 	cout << "- Adicionar Aluno -" << endl;
 	cout << "-------------------" << endl;
 	cout << endl;
-	cout << "Insira:" << endl;
+	cout << "Vagas actuais: " << getNumMaxALunos() - numAlunos() << "/"
+			<< getNumMaxALunos() << endl;
+	cout << endl;
+	if (getNumMaxALunos() - numAlunos() == 0) {
+		cout << "Nao e possivel adicionar alunos porque a escola esta cheia."
+				<< endl;
+		cout
+				<< "Pressione <Enter> para visualizar todas as escolas existentes... ";
+		cin.get();
 
-	bool done = false;
-	while (!done) {
+		BST<Escola> escolas(Escola("", "", -1));
+
+		string designacao, localizacao;
+		unsigned int n, nMaxAlunos;
+
+		// opening input strings
+		string path = "Escolas";
+		parseFilename(path);
+		if (!fileExists(path))
+			return;
+
+		ifstream fin(path.c_str());
+
+		fin >> n;
+		FOR(i, 0, n)
+		{
+			fin >> designacao >> localizacao >> nMaxAlunos;
+
+			Escola nova(designacao, localizacao, nMaxAlunos);
+			escolas.insert(nova);
+		}
+
 		try {
-			cout << "\to nome: ";
-			cin >> nome;
-			if (getAlunoChamado(nome) != NULL)
-				throw AlunoJaExiste(nome);
-			break;
-		} catch (AlunoJaExiste &e) {
+			if (escolas.isEmpty())
+				throw ColecaoVazia("Escolas");
+
+			BSTItrIn<Escola> it = escolas;
+			while (!it.isAtEnd()) {
+				cout << endl;
+				cout << "Escola: " << it.retrieve().designacao << endl;
+				cout << "   Localizacao: " << it.retrieve().localizacao << endl;
+				cout << "   Numero Max de Alunos: " << it.retrieve().nMaxAlunos
+						<< endl;
+
+				it.advance();
+			}
+			cout << endl;
+			cout << "Pressione enter para continuar... ";
+			cin.get();
+		} catch (ColecaoVazia &e) {
 			e.what();
 		}
-	}
 
-	cout << endl;
-	cout << "Tipo de carta de conducao:" << endl;
-	cout << "\t1. Ligeiro" << endl;
-	cout << "\t2. Pesado" << endl;
-	cout << "\t3. Motociclo" << endl;
-	cout << endl;
+	} else {
+		cout << "Insira:" << endl;
 
-	int input;
-	while (1) {
-		try {
-			cout << "> Insira o tipo de carta:" << endl;
-			cout << "> ";
-			cin >> input;
-			cin.ignore();
-
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(10000, '\n');
-
-				throw(InputEsperadoEraInt(input, 1, 3));
-			} else if (1 <= input && input <= 3)
+		bool done = false;
+		while (!done) {
+			try {
+				cout << "\to nome: ";
+				cin >> nome;
+				if (getAlunoChamado(nome) != NULL)
+					throw AlunoJaExiste(nome);
 				break;
-			else
-				throw(InputEsperadoEraInt(input, 1, 3));
-		} catch (InputEsperadoEraInt &e) {
-			e.what();
+			} catch (AlunoJaExiste &e) {
+				e.what();
+			}
 		}
-	}
-	input--;
-
-	try {
-		Aluno *temp;
-
-		Viatura *viatura;
-		viatura = getViaturaComMenosAlunos((TipoCartaConducao) input);
-		if (viatura == NULL)
-			throw EscolaComRecursosInsuficientes(nome);
-
-		Instrutor *instrutor;
-		instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
-		if (instrutor == NULL)
-			throw EscolaComRecursosInsuficientes(nome);
-
-		temp = new Aluno(nome, (TipoCartaConducao) input, viatura,
-				instrutor->getNome());
-		adicionaAluno(temp, instrutor);
 
 		cout << endl;
-		cout << "* Aluno adicionado com sucesso *" << endl;
+		cout << "Tipo de carta de conducao:" << endl;
+		cout << "\t1. Ligeiro" << endl;
+		cout << "\t2. Pesado" << endl;
+		cout << "\t3. Motociclo" << endl;
+		cout << endl;
 
-		saveSchoolData();
-	} catch (EscolaComRecursosInsuficientes &e) {
-		e.what();
+		int input;
+		while (1) {
+			try {
+				cout << "> Insira o tipo de carta:" << endl;
+				cout << "> ";
+				cin >> input;
+				cin.ignore();
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+
+					throw(InputEsperadoEraInt(input, 1, 3));
+				} else if (1 <= input && input <= 3)
+					break;
+				else
+					throw(InputEsperadoEraInt(input, 1, 3));
+			} catch (InputEsperadoEraInt &e) {
+				e.what();
+			}
+		}
+		input--;
+
+		try {
+			Aluno *temp;
+
+			Viatura *viatura;
+			viatura = getViaturaComMenosAlunos((TipoCartaConducao) input);
+			if (viatura == NULL)
+				throw EscolaComRecursosInsuficientes(nome);
+
+			Instrutor *instrutor;
+			instrutor = getInstrutorComMenosAlunos((TipoCartaConducao) input);
+			if (instrutor == NULL)
+				throw EscolaComRecursosInsuficientes(nome);
+
+			temp = new Aluno(nome, (TipoCartaConducao) input, viatura,
+					instrutor->getNome());
+			adicionaAluno(temp, instrutor);
+
+			cout << endl;
+			cout << "* Aluno adicionado com sucesso *" << endl;
+
+			saveSchoolData();
+		} catch (EscolaComRecursosInsuficientes &e) {
+			e.what();
+		}
+
+		showManutencaoAlunosUI();
 	}
-
-	showManutencaoAlunosUI();
 }
 
 void Escola::showEditarAlunoUI() {

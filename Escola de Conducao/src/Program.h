@@ -30,6 +30,8 @@ public:
 	}
 
 	int loadSchoolsFile();
+	void renameSchoolFromMainFile(string Nome, string NomeNovo);
+	void changeSchoolNumMaxStudentsFromMainFileUI();
 	void removeSchoolFromMainFile(string Designacao);
 
 	void showLoginScreen();
@@ -37,6 +39,7 @@ public:
 	void showLoginUI();
 	void showSignUpUI();
 	void showEditSchoolUI();
+	void showRenameSchoolUI();
 	void showRemoveSchoolUI();
 	void showViewSchoolUI();
 };

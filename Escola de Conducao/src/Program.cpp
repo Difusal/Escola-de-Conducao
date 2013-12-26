@@ -20,8 +20,10 @@ int Program::loadSchoolsFile() {
 	string designacao, localizacao;
 	unsigned int n, nMaxAlunos;
 
+	/*
 	cout << endl;
 	cout << "A carregar escolas... ";
+	*/
 
 	// opening input strings
 	string path = "Escolas";
@@ -39,9 +41,94 @@ int Program::loadSchoolsFile() {
 		Escola nova(designacao, localizacao, nMaxAlunos);
 		escolas.insert(nova);
 	}
-	cout << "OK!" << endl;
+	//cout << "OK!" << endl;
 
 	return 0;
+}
+
+void Program::renameSchoolFromMainFile(string Nome, string NomeNovo) {
+	string mainFile = "Escolas";
+	parseFilename(mainFile);
+
+	// reading schools
+	vector<Escola> escolasTemp;
+	unsigned int n;
+	if (fileExists(mainFile)) {
+		ifstream fin(mainFile.c_str());
+
+		fin >> n;
+
+		string nome, local;
+		int nMax;
+		FOR(i, 0, n)
+		{
+			fin >> nome >> local >> nMax;
+			escolasTemp.push_back(Escola(nome, local, nMax));
+		}
+
+		n--;
+
+		ofstream fout(mainFile.c_str());
+		fout << n << endl;
+		FOR(i, 0, escolasTemp.size())
+		{
+			if (Nome == escolasTemp[i].getDesignacao())
+				fout << NomeNovo << " " << escolasTemp[i].getLocalizacao()
+						<< " " << escolasTemp[i].getNumMaxALunos() << endl;
+			else
+				fout << escolasTemp[i].getDesignacao() << " "
+						<< escolasTemp[i].getLocalizacao() << " "
+						<< escolasTemp[i].getNumMaxALunos() << endl;
+		}
+	}
+}
+
+void Program::changeSchoolNumMaxStudentsFromMainFileUI() {
+	string Nome;
+	int NumNovo;
+
+	cout << endl;
+	cout << "Qual o nome da escola?\n\t> ";
+	cin >> Nome;
+	cin.ignore();
+	cout << "Qual o numero de alunos maximo a definir?\n\t> ";
+	cin >> NumNovo;
+	cin.ignore();
+
+	string mainFile = "Escolas";
+	parseFilename(mainFile);
+
+	// reading schools
+	vector<Escola> escolasTemp;
+	unsigned int n;
+	if (fileExists(mainFile)) {
+		ifstream fin(mainFile.c_str());
+
+		fin >> n;
+
+		string nome, local;
+		int nMax;
+		FOR(i, 0, n)
+		{
+			fin >> nome >> local >> nMax;
+			escolasTemp.push_back(Escola(nome, local, nMax));
+		}
+
+		ofstream fout(mainFile.c_str());
+		fout << n << endl;
+		FOR(i, 0, escolasTemp.size())
+		{
+			if (Nome == escolasTemp[i].getDesignacao())
+				fout << escolasTemp[i].getDesignacao() << " "
+						<< escolasTemp[i].getLocalizacao() << " " << NumNovo
+						<< endl;
+			else
+				fout << escolasTemp[i].getDesignacao() << " "
+						<< escolasTemp[i].getLocalizacao() << " "
+						<< escolasTemp[i].getNumMaxALunos() << endl;
+		}
+	} else
+		cout << "ERROR" << endl;
 }
 
 void Program::removeSchoolFromMainFile(string Designacao) {
@@ -147,6 +234,19 @@ void Program::showLoginUI() {
 			break;
 		}
 
+		loadSchoolsFile();
+		BSTItrIn<Escola> it = escolas;
+		while (!it.isAtEnd()) {
+			if (it.retrieve().designacao == input) {
+				escola->designacao = it.retrieve().designacao;
+				escola->localizacao = it.retrieve().localizacao;
+				escola->nMaxAlunos = it.retrieve().nMaxAlunos;
+				break;
+			}
+
+			it.advance();
+		}
+
 		parseFilename(input);
 		if (fileExists(input)) {
 			escola->loadSchoolData();
@@ -198,6 +298,38 @@ void Program::showSignUpUI() {
 }
 
 void Program::showEditSchoolUI() {
+	char input;
+
+	bool done = false;
+	while (!done) {
+		cout << endl;
+		cout << "1. Alterar nome" << endl;
+		cout << "2. Alterar numero maximo de alunos" << endl;
+		cout << endl;
+		cout << "> Escolha o que pretende fazer:" << endl;
+		cout << "> ";
+		cin >> input;
+		cin.ignore();
+
+		input = tolower(input);
+		done = false;
+		switch (input) {
+		case '1':
+			showRenameSchoolUI();
+			done = true;
+			break;
+		case '2':
+			changeSchoolNumMaxStudentsFromMainFileUI();
+			done = true;
+			break;
+		default:
+			done = false;
+			break;
+		}
+	}
+}
+
+void Program::showRenameSchoolUI() {
 	string nomeNovo, unparsedCopy;
 
 	bool done = false;
@@ -278,9 +410,12 @@ void Program::showEditSchoolUI() {
 					rename(tempNameEscolaAulas.c_str(),
 							newNameEscolaAulas.c_str());
 
+					cout << "changing " << escola->designacao << " por "
+							<< unparsedCopy << endl;
+					renameSchoolFromMainFile(escola->designacao, unparsedCopy);
+
 					cout << "OK!" << endl;
-					cout << "* Nome da escolaStr alterado com sucesso *"
-							<< endl;
+					cout << "* Nome da escola alterado com sucesso *" << endl;
 				}
 			} else {
 				cout << endl;
