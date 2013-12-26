@@ -12,8 +12,11 @@
 #include "Program.h"
 
 #include <fstream>
+#include "Exceptions.h"
 
 int Program::loadSchoolsFile() {
+	escolas.makeEmpty();
+
 	string designacao, localizacao;
 	unsigned int n, nMaxAlunos;
 
@@ -23,6 +26,9 @@ int Program::loadSchoolsFile() {
 	// opening input strings
 	string path = "Escolas";
 	parseFilename(path);
+	if (!fileExists(path))
+		return 1;
+
 	ifstream fin(path.c_str());
 
 	fin >> n;
@@ -36,6 +42,40 @@ int Program::loadSchoolsFile() {
 	cout << "OK!" << endl;
 
 	return 0;
+}
+
+void Program::removeSchoolFromMainFile(string Designacao) {
+	string mainFile = "Escolas";
+	parseFilename(mainFile);
+
+	// reading schools
+	vector<Escola> escolasTemp;
+	unsigned int n;
+	if (fileExists(mainFile)) {
+		ifstream fin(mainFile.c_str());
+
+		fin >> n;
+
+		string nome, local;
+		int nMax;
+		FOR(i, 0, n)
+		{
+			fin >> nome >> local >> nMax;
+			escolasTemp.push_back(Escola(nome, local, nMax));
+		}
+
+		n--;
+
+		ofstream fout(mainFile.c_str());
+		fout << n << endl;
+		FOR(i, 0, escolasTemp.size())
+		{
+			if (Designacao != escolasTemp[i].getDesignacao())
+				fout << escolasTemp[i].getDesignacao() << " "
+						<< escolasTemp[i].getLocalizacao() << " "
+						<< escolasTemp[i].getNumMaxALunos() << endl;
+		}
+	}
 }
 
 void Program::showLoginScreen() {
@@ -293,6 +333,8 @@ void Program::showRemoveSchoolUI() {
 		if (fileExists(escolaStr)) {
 			cout << "A remover dados da escola permanentemente... ";
 
+			removeSchoolFromMainFile(escola->designacao);
+
 			escolaAulas = escola->designacao;
 			stringstream ss;
 			ss << escolaAulas << " - aulas";
@@ -325,18 +367,28 @@ void Program::showRemoveSchoolUI() {
 }
 
 void Program::showViewSchoolUI() {
-	BSTItrIn<Escola> it = escolas;
-	while (!it.isAtEnd()) {
-		cout << endl;
-		cout << "Escola: " << it.retrieve().designacao << endl;
-		cout << "   Localizacao: " << it.retrieve().localizacao << endl;
-		cout << "   Numero Max de Alunos: " << it.retrieve().nMaxAlunos << endl;
+	loadSchoolsFile();
 
-		it.advance();
+	try {
+		if (escolas.isEmpty())
+			throw ColecaoVazia("Escolas");
+
+		BSTItrIn<Escola> it = escolas;
+		while (!it.isAtEnd()) {
+			cout << endl;
+			cout << "Escola: " << it.retrieve().designacao << endl;
+			cout << "   Localizacao: " << it.retrieve().localizacao << endl;
+			cout << "   Numero Max de Alunos: " << it.retrieve().nMaxAlunos
+					<< endl;
+
+			it.advance();
+		}
+		cout << endl;
+		cout << "Pressione enter para continuar... ";
+		cin.get();
+	} catch (ColecaoVazia &e) {
+		e.what();
 	}
-	cout << endl;
-	cout << "Pressione enter para continuar... ";
-	cin.get();
 
 	showLoginScreen();
 }

@@ -30,6 +30,8 @@ public:
 	}
 
 	int loadSchoolsFile();
+	void removeSchoolFromMainFile(string Designacao);
+
 	void showLoginScreen();
 
 	void showLoginUI();

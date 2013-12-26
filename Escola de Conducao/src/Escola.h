@@ -56,6 +56,17 @@ public:
 	int createFileStructure();
 	int saveSchoolData();
 	int loadSchoolData();
+	void saveSchoolToMainFile();
+
+	string getDesignacao() {
+		return designacao;
+	}
+	string getLocalizacao() {
+		return localizacao;
+	}
+	int getNumMaxALunos() {
+		return nMaxAlunos;
+	}
 
 	int setDesignacao(string nome);
 	int setHorarioUI();

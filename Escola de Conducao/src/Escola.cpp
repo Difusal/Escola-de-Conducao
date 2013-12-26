@@ -42,6 +42,8 @@ int Escola::createFileStructure() {
 	foutAulas << abertura << " " << fecho << endl;
 	foutAulas << 0;
 
+	saveSchoolToMainFile();
+
 	cout << "OK!" << endl;
 	cout << "---------------------------------" << endl;
 
@@ -196,6 +198,38 @@ int Escola::loadSchoolData() {
 	cout << "OK!" << endl;
 
 	return 0;
+}
+
+void Escola::saveSchoolToMainFile() {
+	string mainFile = "Escolas";
+	parseFilename(mainFile);
+
+	vector<Escola> escolasTemp;
+	unsigned int n;
+	if (fileExists(mainFile)) {
+		ifstream fin(mainFile.c_str());
+
+		fin >> n;
+
+		string nome, local;
+		int nMax;
+		FOR(i, 0, n) {
+			fin >> nome >> local >> nMax;
+			escolasTemp.push_back(Escola(nome, local, nMax));
+		}
+
+		n++;
+	} else {
+		n = 1;
+	}
+
+	escolasTemp.push_back(Escola(designacao, localizacao, nMaxAlunos));
+
+	ofstream fout(mainFile.c_str());
+	fout << n << endl;
+	FOR(i, 0, escolasTemp.size()) {
+		fout << escolasTemp[i].designacao << " " << escolasTemp[i].localizacao << " " << escolasTemp[i].nMaxAlunos << endl;
+	}
 }
 
 int Escola::setDesignacao(string nome) {
