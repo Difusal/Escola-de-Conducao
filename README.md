@@ -54,3 +54,14 @@ Schools file:
 > n
 
 > designacao localizacao nMaxAlunos
+
+Workshops file:
+---------------
+= Dados das Oficinas =
+> n
+
+> designacao localizacao disponibilidade
+
+> nMarcasEspecializadas
+
+> marcas

@@ -17,6 +17,7 @@
 #include <string>
 using namespace std;
 #define FOR(i, a, b) for(unsigned int i = a; i < b; i++)
+#define PB push_back
 #define ALL(v) (v).begin(), (v).end()
 #define foreach(v, it) for(typeof((v).begin()) it = (v).begin(); it != (v).end(); it++ )
 

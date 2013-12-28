@@ -4,6 +4,7 @@
  * \author FEUP AEDA1314 2MIEIC5 C:
  * \author David Azevedo
  * \author Henrique Ferrolho
+ * \author Maria Joao Marques
  * \author Tiago Figueiredo
  *
  * \date Dezembro 2013
@@ -12,13 +13,20 @@
 #ifndef PROGRAM_H_
 #define PROGRAM_H_
 
-#include "Escola.h"
 #include "BST.h"
+#include <queue>
 using namespace std;
+
+#include "Escola.h"
+#include "Oficina.h"
+
+typedef priority_queue<Oficina> HEAP_OFICINAS;
 
 class Program {
 private:
 	BST<Escola> escolas;
+	HEAP_OFICINAS oficinas;
+
 	Escola* escola;
 public:
 	Program() :
@@ -42,6 +50,21 @@ public:
 	void showRenameSchoolUI();
 	void showRemoveSchoolUI();
 	void showViewSchoolUI();
+
+	// Metodos das Oficinas
+	void showAddWorkshopUI();
+	void viewWorkshopsList();
+	void showEditWorkshopUI();
+	void showRemoveWorkshopUI();
+
+	void addOficina(string Nome, string Local);
+	void removeOficina(string Nome);
+
+	void addMarcaToOficina(string Nome, string marca);
+	void removeMarcaFromOficina(string Nome, string marca);
+	void alteraDisponibilidadeDeOficina(string Nome, int disponibilidade);
+
+	Oficina* getOficinaDisponivel();
 };
 
 #endif
