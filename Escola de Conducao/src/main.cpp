@@ -16,6 +16,7 @@ using namespace std;
 int main(){
 	Program program;
 	program.loadSchoolsFile();
+	program.loadOficinas();
 	program.showLoginScreen();
 
     return 0;

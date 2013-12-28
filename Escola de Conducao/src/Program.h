@@ -52,17 +52,21 @@ public:
 	void showViewSchoolUI();
 
 	// Metodos das Oficinas
+	void loadOficinas();
+	void saveOficinas();
+
 	void showAddWorkshopUI();
 	void viewWorkshopsList();
 	void showEditWorkshopUI();
 	void showRemoveWorkshopUI();
 
-	void addOficina(string Nome, string Local);
+	void addOficina(string Nome, string Local, bool feedback = 1);
 	void removeOficina(string Nome);
 
-	void addMarcaToOficina(string Nome, string marca);
+	void addMarcaToOficina(string Nome, string marca, bool feedback = 1);
 	void removeMarcaFromOficina(string Nome, string marca);
-	void alteraDisponibilidadeDeOficina(string Nome, int disponibilidade);
+	void alteraDisponibilidadeDeOficina(string Nome, int disponibilidade,
+			bool feedback = 1);
 
 	Oficina* getOficinaDisponivel();
 };

@@ -47,7 +47,11 @@ public:
 		return disponibilidade;
 	}
 
-	string getMarcasEspecializadas() {
+	vector<string> getMarcasEspecializadas() {
+		return marcasEspecializadas;
+	}
+
+	string getMarcasEspecializadasStr() {
 		if (marcasEspecializadas.empty())
 			return "Nenhuma marca disponivel.";
 

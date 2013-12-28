@@ -546,6 +546,65 @@ void Program::showViewSchoolUI() {
 	showLoginScreen();
 }
 
+void Program::loadOficinas() {
+	string oficinasPath = "oficinas";
+	parseFilename(oficinasPath);
+
+	if (fileExists(oficinasPath)) {
+		ifstream fin(oficinasPath.c_str());
+
+		unsigned int n;
+
+		string nome, local;
+		int disponibilidade;
+
+		unsigned int nMarcas;
+		string marca;
+
+		fin >> n;
+		FOR(i, 0, n)
+		{
+			fin >> nome >> local >> disponibilidade;
+
+			addOficina(nome, local, 0);
+			alteraDisponibilidadeDeOficina(nome, disponibilidade, 0);
+
+			fin >> nMarcas;
+			FOR(j, 0, nMarcas)
+			{
+				fin >> marca;
+				addMarcaToOficina(nome, marca, 0);
+			}
+		}
+	}
+}
+
+void Program::saveOficinas() {
+	string oficinasPath = "oficinas";
+	parseFilename(oficinasPath);
+
+	ofstream fout(oficinasPath.c_str());
+
+	// numero de oficinas
+	fout << oficinas.size() << endl;
+
+	HEAP_OFICINAS oficinasCopy = oficinas;
+
+	while (!oficinasCopy.empty()) {
+		Oficina temp = oficinasCopy.top();
+		oficinasCopy.pop();
+
+		// oficina
+		fout << temp.getDenominacao() << " " << temp.getLocalizacao() << " "
+				<< temp.getDisponibilidade() << endl;
+
+		// marcas especializadas
+		fout << temp.getMarcasEspecializadas().size() << endl;
+		FOR(i, 0, temp.getMarcasEspecializadas().size())
+			fout << temp.getMarcasEspecializadas()[i] << endl;
+	}
+}
+
 void Program::showAddWorkshopUI() {
 	string oficina, local;
 
@@ -572,7 +631,9 @@ void Program::viewWorkshopsList() {
 		HEAP_OFICINAS oficinasCopy = oficinas;
 
 		cout << endl;
+		cout << "------------------" << endl;
 		cout << "Lista de oficinas:" << endl;
+		cout << "------------------" << endl;
 		cout << endl;
 		while (!oficinasCopy.empty()) {
 			Oficina temp = oficinasCopy.top();
@@ -581,7 +642,7 @@ void Program::viewWorkshopsList() {
 			cout << "   Localizacao: " << temp.getLocalizacao() << endl;
 			cout << "   Disponibilidade: " << temp.getDisponibilidade() << endl;
 			cout << "   Marcas especializadas: "
-					<< temp.getMarcasEspecializadas() << endl;
+					<< temp.getMarcasEspecializadasStr() << endl;
 			cout << endl;
 
 			oficinasCopy.pop();
@@ -663,7 +724,7 @@ void Program::showRemoveWorkshopUI() {
 	removeOficina(oficina);
 }
 
-void Program::addOficina(string Nome, string Local) {
+void Program::addOficina(string Nome, string Local, bool feedback) {
 	HEAP_OFICINAS oficinasCopy = oficinas;
 
 	// checking if already exists
@@ -672,7 +733,8 @@ void Program::addOficina(string Nome, string Local) {
 		Oficina temp = oficinasCopy.top();
 
 		if (temp.getDenominacao() == Nome) {
-			cout << endl << "O nome " << Nome << " ja esta a ser utilizado." << endl;
+			cout << endl << "O nome " << Nome << " ja esta a ser utilizado."
+					<< endl;
 			cout << "Prima <enter> para voltar ao menu inicial." << endl;
 			cin.get();
 
@@ -685,10 +747,14 @@ void Program::addOficina(string Nome, string Local) {
 	if (!existe)
 		oficinas.push(Oficina(Nome, Local));
 
-	cout << endl;
-	cout << "Oficina " << Nome << " adicionada." << endl;
-	cout << "Prima <enter> para voltar ao menu inicial." << endl;
-	cin.get();
+	if (feedback) {
+		saveOficinas();
+
+		cout << endl;
+		cout << "Oficina " << Nome << " adicionada." << endl;
+		cout << "Prima <enter> para voltar ao menu inicial." << endl;
+		cin.get();
+	}
 }
 
 void Program::removeOficina(string Nome) {
@@ -709,6 +775,8 @@ void Program::removeOficina(string Nome) {
 	oficinas = oficinasCopy;
 
 	if (existe) {
+		saveOficinas();
+
 		cout << endl;
 		cout << "Oficina removida." << endl;
 	} else {
@@ -721,7 +789,7 @@ void Program::removeOficina(string Nome) {
 
 }
 
-void Program::addMarcaToOficina(string Nome, string marca) {
+void Program::addMarcaToOficina(string Nome, string marca, bool feedback) {
 	HEAP_OFICINAS oficinasCopy;
 
 	bool existe = false;
@@ -731,12 +799,17 @@ void Program::addMarcaToOficina(string Nome, string marca) {
 		if (temp.getDenominacao() == Nome) {
 			existe = true;
 
-			if (temp.addMarca(marca) == 1)
-				cout << endl << "A marca " << marca << " ja existe na oficina "
-						<< Nome << "." << endl;
-			else
-				cout << endl << "A marca " << marca
-						<< " foi adicionada a oficina " << Nome << "." << endl;
+			int res = temp.addMarca(marca);
+
+			if (feedback) {
+				if (res == 1)
+					cout << endl << "A marca " << marca
+							<< " ja existe na oficina " << Nome << "." << endl;
+				else
+					cout << endl << "A marca " << marca
+							<< " foi adicionada a oficina " << Nome << "."
+							<< endl;
+			}
 		}
 
 		oficinasCopy.push(temp);
@@ -746,13 +819,17 @@ void Program::addMarcaToOficina(string Nome, string marca) {
 
 	oficinas = oficinasCopy;
 
-	if (!existe) {
+	if (!existe && feedback) {
 		cout << endl;
 		cout << "A oficina " << Nome << " nao existe." << endl;
 	}
 
-	cout << "Prima <enter> para voltar ao menu inicial." << endl;
-	cin.get();
+	if (feedback) {
+		saveOficinas();
+
+		cout << "Prima <enter> para voltar ao menu inicial." << endl;
+		cin.get();
+	}
 }
 
 void Program::removeMarcaFromOficina(string Nome, string marca) {
@@ -785,11 +862,13 @@ void Program::removeMarcaFromOficina(string Nome, string marca) {
 		cout << "A oficina " << Nome << " nao existe." << endl;
 	}
 
+	saveOficinas();
 	cout << "Prima <enter> para voltar ao menu inicial." << endl;
 	cin.get();
 }
 
-void Program::alteraDisponibilidadeDeOficina(string Nome, int disponibilidade) {
+void Program::alteraDisponibilidadeDeOficina(string Nome, int disponibilidade,
+		bool feedback) {
 	HEAP_OFICINAS oficinasCopy;
 
 	bool existe = false;
@@ -800,8 +879,10 @@ void Program::alteraDisponibilidadeDeOficina(string Nome, int disponibilidade) {
 			existe = true;
 
 			temp.setDisponibilidade(disponibilidade);
-			cout << endl << "A disponibilidade da oficina " << Nome
-					<< " foi alterada." << endl;
+
+			if (feedback)
+				cout << endl << "A disponibilidade da oficina " << Nome
+						<< " foi alterada." << endl;
 		}
 
 		oficinasCopy.push(temp);
@@ -811,11 +892,15 @@ void Program::alteraDisponibilidadeDeOficina(string Nome, int disponibilidade) {
 
 	oficinas = oficinasCopy;
 
-	if (!existe) {
+	if (!existe && feedback) {
 		cout << endl;
 		cout << "A oficina " << Nome << " nao existe." << endl;
 	}
 
-	cout << "Prima <enter> para voltar ao menu inicial." << endl;
-	cin.get();
+	if (feedback) {
+		saveOficinas();
+
+		cout << "Prima <enter> para voltar ao menu inicial." << endl;
+		cin.get();
+	}
 }
