@@ -1465,7 +1465,7 @@ void Escola::showAdicionarAlunoUI() {
 				throw EscolaComRecursosInsuficientes(nome);
 
 			temp = new Aluno(nome, (TipoCartaConducao) input, viatura,
-					instrutor->getNome());
+					instrutor->getNome(), 0);
 			adicionaAluno(temp, instrutor);
 
 			cout << endl;
