@@ -1732,7 +1732,7 @@ void Escola::setInactivo(Aluno *aluno) {
 	bool inactivo = 0;
 	time_t rawtime=time(NULL)-31557600; //sub 1 year
 	struct tm data;
-	for(size_t i=0; i<aulas.size(); i++) {
+	FOR(i, 0, aulas.size()) {
 		if(aulas[i]->getAluno().getNome()==aluno->getNome()) {
 			data=aulas[i]->getData();
 			if(mktime(&data)<=rawtime) {
