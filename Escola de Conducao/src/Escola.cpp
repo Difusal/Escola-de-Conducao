@@ -20,6 +20,8 @@
 #include "Exceptions.h"
 #include "BST.h"
 
+bool menorData(Aula *x1, Aula *x2);
+
 int Escola::createFileStructure() {
 	cout << "---------------------------------" << endl;
 	cout << "A criar ficheiros iniciais... ";
@@ -1732,6 +1734,7 @@ void Escola::setInactivo(Aluno *aluno) {
 	bool inactivo = 0;
 	time_t rawtime=time(NULL)-31557600; //sub 1 year
 	struct tm data;
+	sort(ALL(aulas), menorData);
 	FOR(i, 0, aulas.size()) {
 		if(aulas[i]->getAluno().getNome()==aluno->getNome()) {
 			data=aulas[i]->getData();
@@ -1873,8 +1876,14 @@ void Escola::showMarcarAulaUI() {
 
 		// a processar data
 		stringstream ss;
-		ss << dia << "/" << mes << "/" << ano;
+		if(dia<10)
+			ss<<0;
+		ss << dia << "/";
+		if(mes<10)
+			ss<<0;
+		ss << mes << "/" << ano;
 		data = ss.str();
+		cout<<data.size();
 
 		Aula *temp;
 		temp = new Aula(convertStringToDate(data), hora, duracao, aluno,
