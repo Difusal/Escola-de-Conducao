@@ -21,9 +21,12 @@ private:
 	TipoCartaConducao tipoDeCarta;
 	Viatura *viaturaUsual;
 	string nomeInstrutor;
+	bool inactivo;
 public:
 	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual, string NomeInstrutor) :
-			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual), nomeInstrutor(NomeInstrutor) {}
+				Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual), nomeInstrutor(NomeInstrutor), inactivo(0) {}
+	Aluno(string Nome, TipoCartaConducao CartaDe, Viatura *ViaturaUsual, string NomeInstrutor, bool b) :
+			Pessoa(Nome), tipoDeCarta(CartaDe), viaturaUsual(ViaturaUsual), nomeInstrutor(NomeInstrutor), inactivo(b) {}
 	virtual ~Aluno() {}
 
 	int info();
@@ -41,7 +44,10 @@ public:
 	Viatura *getViaturaUsual() {
 		return viaturaUsual;
 	}
+
 	void setViaturaUsual(Viatura *viatura) { viaturaUsual = viatura; }
+
+	void setInactivo(bool b) { inactivo=b; }
 };
 
 #endif

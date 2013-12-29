@@ -21,6 +21,7 @@
 #include "Aluno.h"
 #include "Aula.h"
 #include <map>
+#include <tr1/unordered_set>
 
 enum MetodoDeSortDeViaturas {
 	MATRICULA, ANOFABRICO, MARCA, TIPO, DATAULTIMAINSPECAO, PROXIMAINSPECAO
@@ -35,6 +36,23 @@ enum MetodoDeSortDeAulas {
 	DATA, ALUNO, INSTRUTOR, TIPOVIATURA
 };
 
+struct eqaluno {
+	bool operator()(const Aluno* a1, const Aluno* a2) const {
+		return a1->getNome() == a2->getNome();
+	}
+};
+
+struct haluno {
+	int operator()(const Aluno* a1) const {
+		int v = 0;
+		for (unsigned int i = 0; i < a1->getNome().size(); i++)
+			v = 37 * v + a1->getNome()[i];
+		return v;
+	}
+};
+
+typedef tr1::unordered_set<Aluno*, haluno, eqaluno> HashAlunos;
+
 class Escola {
 private:
 	string designacao;
@@ -45,6 +63,7 @@ private:
 	vector<Viatura*> viaturas;
 	map<Instrutor*, vector<Aluno*> > comunidade;
 	vector<Aula*> aulas;
+	HashAlunos alunosInactivos;
 public:
 	Escola(string Nome, string Localizacao, int NumMaxAlunos) :
 			designacao(Nome), localizacao(Localizacao), nMaxAlunos(NumMaxAlunos) {
@@ -103,11 +122,13 @@ public:
 	void showAdicionarAlunoUI();
 	void showEditarAlunoUI();
 	void showRemoverAlunoUI();
-
-	void visualizaAlunos(MetodoDeSortDeAlunos metodo);
 	void adicionaAluno(Aluno *aluno, Instrutor *instrutor) {
 		comunidade[instrutor].push_back(aluno);
 	}
+	void visualizaAlunos(MetodoDeSortDeAlunos metodo);
+	void visualizaAlunosInactivos();
+	void setInactivo(Aluno *aluno);
+	void removeInactivo(Aluno *aluno);
 
 	void showVisualizaAulasUI();
 	void showMarcarAulaUI();

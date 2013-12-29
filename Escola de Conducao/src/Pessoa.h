@@ -26,7 +26,7 @@ public:
 	virtual int info();
 	virtual string printToFile() const = 0;
 
-	string getNome() { return nome; }
+	string getNome()  const { return nome; }
 };
 
 #endif
