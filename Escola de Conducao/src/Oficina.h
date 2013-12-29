@@ -20,6 +20,10 @@
 #include "Utilities.h"
 using namespace std;
 
+enum TipoDeServico {
+	SERVICO_USUAL, SERVICO_ESPECIFICO
+};
+
 class Oficina {
 private:
 	string denominacao;
@@ -63,6 +67,9 @@ public:
 		return ss.str();
 	}
 
+	void adicionaServico() { disponibilidade--; }
+	void terminaServico() { disponibilidade++; }
+
 	int addMarca(string Marca);
 	int removeMarca(string Marca);
 	void setDisponibilidade(int Disponibilidade) {
@@ -71,6 +78,17 @@ public:
 
 	bool operator <(const Oficina& o1) const {
 		return disponibilidade < o1.disponibilidade;
+	}
+
+	friend ostream& operator <<(ostream& os, Oficina& o1) {
+		os << "Oficina " << o1.getDenominacao() << endl;
+		os << "   Localizacao: " << o1.getLocalizacao() << endl;
+		os << "   Disponibilidade: " << o1.getDisponibilidade() << endl;
+		os << "   Marcas especializadas: " << o1.getMarcasEspecializadasStr()
+				<< endl;
+		os << endl;
+
+		return os;
 	}
 };
 

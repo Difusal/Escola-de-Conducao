@@ -187,6 +187,11 @@ void Program::showLoginScreen() {
 		cout << "8. Remover Oficina" << endl;
 		cout << "9. Listar Oficinas" << endl;
 		cout << endl;
+		cout << "- Procurar oficina mais indicada para:" << endl;
+		cout << "\tA. Servico Usual" << endl;
+		cout << "\tB. Servico Especifico" << endl;
+		cout << "C. Terminar Servico" << endl;
+		cout << endl;
 		cout << "X. Terminar Programa" << endl;
 		cout << endl;
 		cout << "> Escolha o que pretende fazer:" << endl;
@@ -224,7 +229,29 @@ void Program::showLoginScreen() {
 		case '9':
 			viewWorkshopsList();
 			break;
+		case 'a':
+			getOficinaDisponivel(SERVICO_USUAL);
+			break;
+		case 'b': {
+			string marcaAProcurar;
+			cout << endl;
+			cout << "Indique a marca da viatura: ";
+			cin >> marcaAProcurar;
+			cin.ignore();
+			getOficinaDisponivel(SERVICO_ESPECIFICO, marcaAProcurar);
+			break;
+		}
+		case 'c': {
+			string oficinaAProcurar;
+			cout << endl;
+			cout << "Indique o nome da oficina onde o servico terminou: ";
+			cin >> oficinaAProcurar;
+			cin.ignore();
+			incDisponibilidadeDeOficina(oficinaAProcurar);
+			break;
+		}
 		case 'x':
+			saveOficinas();
 			cout << "A terminar programa..." << endl;
 			exit(0);
 		default:
@@ -638,12 +665,7 @@ void Program::viewWorkshopsList() {
 		while (!oficinasCopy.empty()) {
 			Oficina temp = oficinasCopy.top();
 
-			cout << "Oficina " << temp.getDenominacao() << endl;
-			cout << "   Localizacao: " << temp.getLocalizacao() << endl;
-			cout << "   Disponibilidade: " << temp.getDisponibilidade() << endl;
-			cout << "   Marcas especializadas: "
-					<< temp.getMarcasEspecializadasStr() << endl;
-			cout << endl;
+			cout << temp;
 
 			oficinasCopy.pop();
 		}
@@ -903,4 +925,95 @@ void Program::alteraDisponibilidadeDeOficina(string Nome, int disponibilidade,
 		cout << "Prima <enter> para voltar ao menu inicial." << endl;
 		cin.get();
 	}
+}
+
+void Program::incDisponibilidadeDeOficina(string Nome) {
+	HEAP_OFICINAS oficinasCopy;
+
+	bool existe = false;
+	while (!oficinas.empty()) {
+		Oficina temp = oficinas.top();
+
+		if (temp.getDenominacao() == Nome) {
+			existe = true;
+
+			temp.terminaServico();
+
+			cout << endl << "A disponibilidade da oficina " << Nome
+					<< " foi alterada." << endl;
+		}
+
+		oficinasCopy.push(temp);
+
+		oficinas.pop();
+	}
+
+	oficinas = oficinasCopy;
+
+	if (!existe) {
+		cout << endl;
+		cout << "A oficina " << Nome << " nao existe." << endl;
+	}
+
+	saveOficinas();
+
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
+}
+
+Oficina Program::getOficinaDisponivel(TipoDeServico servico, string marca) {
+	HEAP_OFICINAS oficinasCopy = oficinas;
+	Oficina oficina("", "");
+
+	if (marca == "" && servico == SERVICO_ESPECIFICO) {
+		cout
+				<< "Para requisitar um servico especifico tem que indicar uma marca."
+				<< endl;
+		cout << "Prima <enter> para voltar ao menu inicial." << endl;
+		cin.get();
+		return oficina;
+	}
+
+	bool found;
+	while (!oficinasCopy.empty()) {
+		oficina = oficinasCopy.top();
+		oficinasCopy.pop();
+
+		if (servico == SERVICO_ESPECIFICO) {
+			found = false;
+			FOR(i, 0, oficina.getMarcasEspecializadas().size())
+			{
+				if (oficina.getMarcasEspecializadas()[i] == marca) {
+					found = true;
+					break;
+				}
+			}
+			if (found) {
+				if (oficina.getDisponibilidade() == 0)
+					found = false;
+				else
+					break;
+			}
+		} else if (oficina.getDisponibilidade() != 0) {
+			found = true;
+			break;
+		}
+	}
+
+	if (!found || oficina.getDenominacao() == "") {
+		cout << endl;
+		cout << "Nao foi encontrada nenhuma oficina disponivel." << endl;
+	} else {
+		cout << endl;
+		cout << "Resultado da procura:" << endl;
+		cout << oficina;
+
+		alteraDisponibilidadeDeOficina(oficina.getDenominacao(),
+				oficina.getDisponibilidade() - 1, 0);
+		cout << "O servico foi requisitado." << endl;
+	}
+	cout << "Prima <enter> para voltar ao menu inicial." << endl;
+	cin.get();
+
+	return oficina;
 }

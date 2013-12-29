@@ -148,6 +148,7 @@ public:
 	bool operator <(const Escola &escola) const {
 		return nMaxAlunos < escola.nMaxAlunos;
 	}
+
 	friend class Program;
 };
 

@@ -67,8 +67,9 @@ public:
 	void removeMarcaFromOficina(string Nome, string marca);
 	void alteraDisponibilidadeDeOficina(string Nome, int disponibilidade,
 			bool feedback = 1);
+	void incDisponibilidadeDeOficina(string Nome);
 
-	Oficina* getOficinaDisponivel();
+	Oficina getOficinaDisponivel(TipoDeServico servico, string marca = "");
 };
 
 #endif
