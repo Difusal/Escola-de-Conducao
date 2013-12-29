@@ -1746,23 +1746,23 @@ void Escola::setInactivo(Aluno *aluno) {
 		if (it == alunosInactivos.end()) {
 			alunosInactivos.insert(aluno);
 			aluno->setInactivo(1);
-			cout << "*Aluno adicionado com sucesso a lista de inactivos*\n";
+			cout << "Aluno adicionado com sucesso a lista de inactivos\n";
 		} else {
-			cout << "*O aluno ja se encontra na lista de inactivos*\n";
+			cout << "O aluno ja se encontra na lista de inactivos\n *Estado actual mantem-se*\n";
 		}
 	}else{
-		cout<<"O aluno encontra-se activo ou ainda nao teve aulas, estado actual mantem-se\n";
+		cout<<"O aluno encontra-se activo ou ainda nao teve aulas\n *Estado actual mantem-se*\n";
 	}
 }
 
 void Escola::removeInactivo(Aluno *aluno) {
 	HashAlunos::const_iterator it = alunosInactivos.find(aluno);
 	if (it == alunosInactivos.end())
-		cout << "*O aluno nao se encontra na lista de inactivos*\n";
+		cout << "O aluno nao se encontra na lista de inactivos\n *Estado actual mantem-se*\n";
 	else {
 		alunosInactivos.erase(it);
 		aluno->setInactivo(0);
-		cout << "*Aluno removido com sucesso da lista de inactivos*\n";
+		cout << "Aluno removido com sucesso da lista de inactivos\n";
 	}
 }
 
