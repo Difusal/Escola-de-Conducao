@@ -1729,13 +1729,29 @@ void Escola::visualizaAlunosInactivos() {
 }
 
 void Escola::setInactivo(Aluno *aluno) {
-	HashAlunos::const_iterator it = alunosInactivos.find(aluno);
-	if (it == alunosInactivos.end()) {
-		alunosInactivos.insert(aluno);
-		aluno->setInactivo(1);
-		cout << "*Aluno adicionado com sucesso a lista de inactivos*\n";
-	} else {
-		cout << "*O aluno ja se encontra na lista de inactivos*\n";
+	bool inactivo = 0;
+	time_t rawtime=time(NULL)-31557600; //sub 1 year
+	struct tm data;
+	for(size_t i=0; i<aulas.size(); i++) {
+		if(aulas[i]->getAluno().getNome()==aluno->getNome()) {
+			data=aulas[i]->getData();
+			if(mktime(&data)<=rawtime) {
+				inactivo=1;
+				break;
+			}
+		}
+	}
+	if (inactivo) {
+		HashAlunos::const_iterator it = alunosInactivos.find(aluno);
+		if (it == alunosInactivos.end()) {
+			alunosInactivos.insert(aluno);
+			aluno->setInactivo(1);
+			cout << "*Aluno adicionado com sucesso a lista de inactivos*\n";
+		} else {
+			cout << "*O aluno ja se encontra na lista de inactivos*\n";
+		}
+	}else{
+		cout<<"O aluno encontra-se activo ou ainda nao teve aulas, estado actual mantem-se\n";
 	}
 }
 
@@ -1864,6 +1880,9 @@ void Escola::showMarcarAulaUI() {
 		temp = new Aula(convertStringToDate(data), hora, duracao, aluno,
 				instrutor, viatura);
 		marcaAula(temp);
+		if(aluno->getInactivo()){
+			removeInactivo(aluno);
+		}
 
 		cout << endl;
 		cout << "* Aula marcada com sucesso *" << endl;

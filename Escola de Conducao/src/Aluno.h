@@ -45,6 +45,8 @@ public:
 
 	void setViaturaUsual(Viatura *viatura) { viaturaUsual = viatura; }
 
+	bool getInactivo() {return inactivo;}
+
 	void setInactivo(bool b) { inactivo=b; }
 };
 
