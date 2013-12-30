@@ -1732,19 +1732,23 @@ void Escola::visualizaAlunosInactivos() {
 
 void Escola::setInactivo(Aluno *aluno) {
 	bool inactivo = 0;
-	time_t rawtime=time(NULL)-31557600; //sub 1 year
+	int nAulas=0;
+	time_t oneYearAgo=time(NULL)-31557600; //sub 1 year
 	struct tm data;
 	sort(ALL(aulas), menorData);
-	FOR(i, 0, aulas.size()) {
-		if(aulas[i]->getAluno().getNome()==aluno->getNome()) {
-			data=aulas[i]->getData();
-			if(mktime(&data)<=rawtime) {
+	vector<Aula*>::reverse_iterator rit;
+
+	for(rit=aulas.rbegin(); rit!=aulas.rend(); rit++){
+		if((*rit)->getAluno().getNome()==aluno->getNome()) {
+			nAulas++;
+			data=(*rit)->getData();
+			if(mktime(&data)<=oneYearAgo) {
 				inactivo=1;
 				break;
 			}
 		}
 	}
-	if (inactivo) {
+	if (inactivo||(nAulas==0)) {
 		HashAlunos::const_iterator it = alunosInactivos.find(aluno);
 		if (it == alunosInactivos.end()) {
 			alunosInactivos.insert(aluno);
@@ -1754,14 +1758,14 @@ void Escola::setInactivo(Aluno *aluno) {
 			cout << "O aluno ja se encontra na lista de inactivos\n *Estado actual mantem-se*\n";
 		}
 	}else{
-		cout<<"O aluno encontra-se activo ou ainda nao teve aulas\n *Estado actual mantem-se*\n";
+		cout<<"O aluno encontra-se activo\n * Estado actual mantem-se *\n";
 	}
 }
 
 void Escola::removeInactivo(Aluno *aluno) {
 	HashAlunos::const_iterator it = alunosInactivos.find(aluno);
 	if (it == alunosInactivos.end())
-		cout << "O aluno nao se encontra na lista de inactivos\n *Estado actual mantem-se*\n";
+		cout << "O aluno nao se encontra na lista de inactivos\n * Estado actual mantem-se *\n";
 	else {
 		alunosInactivos.erase(it);
 		aluno->setInactivo(0);
@@ -1883,7 +1887,6 @@ void Escola::showMarcarAulaUI() {
 			ss<<0;
 		ss << mes << "/" << ano;
 		data = ss.str();
-		cout<<data.size();
 
 		Aula *temp;
 		temp = new Aula(convertStringToDate(data), hora, duracao, aluno,
@@ -1911,29 +1914,12 @@ void Escola::showDesmarcarAulaUI() {
 	showVisualizaAulasUI();
 	if (aulas.size() == 0)
 		return;
-
-	string nomeAluno;
-	waitForValidAluno(nomeAluno);
-
-	Aluno *aluno;
-	aluno = getAlunoChamado(nomeAluno);
-
-	Instrutor *instrutor;
-	instrutor = getInstrutorDoAluno(aluno);
-
-	int pos = 0;
-	FOR(i, 0, comunidade[instrutor].size())
-	{
-		if (comunidade[instrutor][i]->getNome().compare(nomeAluno) == 0) {
-			pos = i;
-			break;
-		}
-	}
-
-	comunidade[instrutor].erase(comunidade[instrutor].begin() + pos);
+	int pos;
+	cout<<"Selecione a aula a desmarcar:\n";
+	waitForValidInt (pos, 1, aulas.size(), "aula");
+	aulas.erase(aulas.begin()+pos-1);
 	saveSchoolData();
-
-	cout << "* Aluno removido com sucesso *" << endl;
+	cout << "* Aula removida com sucesso *" << endl;
 	cout << "Prima <enter> para voltar ao menu inicial." << endl;
 	cin.get();
 }
