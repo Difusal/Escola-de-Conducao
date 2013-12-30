@@ -19,6 +19,7 @@
 #include "Motociclo.h"
 #include "Instrutor.h"
 #include "Aluno.h"
+#include "AlunoAntigo.h"
 #include "Aula.h"
 #include <map>
 #include <tr1/unordered_set>
@@ -30,20 +31,20 @@ enum MetodoDeSortDeInstrutores {
 	NOMEINSTRUTOR, NQUALIFICACOES
 };
 enum MetodoDeSortDeAlunos {
-	NOMEALUNO, NAULASMARCADAS
+	NOMEALUNO, NAULASMARCADAS, INACTIVOS
 };
 enum MetodoDeSortDeAulas {
 	DATA, ALUNO, INSTRUTOR, TIPOVIATURA
 };
 
-struct eqaluno {
-	bool operator()(const Aluno* a1, const Aluno* a2) const {
+struct eqAlunoAntigo {
+	bool operator()(const AlunoAntigo* a1, const AlunoAntigo* a2) const {
 		return a1->getNome() == a2->getNome();
 	}
 };
 
-struct haluno {
-	int operator()(const Aluno* a1) const {
+struct hAlunoAntigo {
+	int operator()(const AlunoAntigo* a1) const {
 		int v = 0;
 		for (unsigned int i = 0; i < a1->getNome().size(); i++)
 			v = 37 * v + a1->getNome()[i];
@@ -51,7 +52,7 @@ struct haluno {
 	}
 };
 
-typedef tr1::unordered_set<Aluno*, haluno, eqaluno> HashAlunos;
+typedef tr1::unordered_set<AlunoAntigo*, hAlunoAntigo, eqAlunoAntigo> HashAlunoAntigo;
 
 class Escola {
 private:
@@ -63,7 +64,7 @@ private:
 	vector<Viatura*> viaturas;
 	map<Instrutor*, vector<Aluno*> > comunidade;
 	vector<Aula*> aulas;
-	HashAlunos alunosInactivos;
+	HashAlunoAntigo alunosAntigos;
 public:
 	Escola(string Nome, string Localizacao, int NumMaxAlunos) :
 			designacao(Nome), localizacao(Localizacao), nMaxAlunos(NumMaxAlunos) {
@@ -96,6 +97,7 @@ public:
 	void showManutencaoViaturasUI();
 	void showManutencaoInstrutoresUI();
 	void showManutencaoAlunosUI();
+	void showManutencaoAlunosAntigosUI();
 	void showManutencaoAulasUI();
 
 	void showVisualizaViaturasUI();
@@ -121,14 +123,16 @@ public:
 	void showVisualizaAlunosUI();
 	void showAdicionarAlunoUI();
 	void showEditarAlunoUI();
+	void showEditarAlunoAntigoUI();
 	void showRemoverAlunoUI();
+	void showRemoverAlunoAntigoUI();
 	void adicionaAluno(Aluno *aluno, Instrutor *instrutor) {
 		comunidade[instrutor].push_back(aluno);
 	}
 	void visualizaAlunos(MetodoDeSortDeAlunos metodo);
-	void visualizaAlunosInactivos();
-	void setInactivo(Aluno *aluno);
-	void removeInactivo(Aluno *aluno);
+	void visualizaAlunosAntigos();
+	void adicionaAlunoAntigo(AlunoAntigo *aluno);
+	void removeAlunoAntigo(AlunoAntigo *aluno);
 
 	void showVisualizaAulasUI();
 	void showMarcarAulaUI();
@@ -159,6 +163,8 @@ public:
 
 	const vector<Aluno*> getTodosAlunos();
 	Aluno *getAlunoChamado(string nome);
+	AlunoAntigo *getAlunoAntigoChamado(string nome);
+	bool getInactivo(Aluno *aluno);
 
 	Instrutor *getInstrutorChamado(string nome);
 	Instrutor *getInstrutorDoAluno(Aluno *aluno);

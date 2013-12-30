@@ -9,17 +9,17 @@
  * \date Novembro 2013
  *
  */
- #include "Aluno.h"
+ #include "AlunoAntigo.h"
 
-int Aluno::info() {
+int AlunoAntigo::info() {
 	int num = Pessoa::info();
-	cout << "    Viatura usual:" << endl;
-	getViaturaUsual()->info();
+	cout<<"    Instructor: "<<nomeInstrutor<<endl;
+	cout<<"    Contacto: "<<contacto<<endl;
 	return num + 1;
 }
 
-string Aluno::printToFile() const {
+string AlunoAntigo::printToFile() const {
 	stringstream ss;
-	ss << nome << " " << tipoDeCarta << " " << viaturaUsual->getMatricula() << " " << nomeInstrutor;
+	ss << nome << " " << tipoDeCarta << " " << nomeInstrutor << " "<< contacto;
 	return ss.str();
 }
