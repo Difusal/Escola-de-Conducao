@@ -1,5 +1,5 @@
 /*!
- * \file Oficina.h
+ * \file Oficina.cpp
  *
  * \author FEUP AEDA1314 2MIEIC5 C:
  * \author David Azevedo

@@ -32,29 +32,50 @@ private:
 	int disponibilidade;
 	vector<string> marcasEspecializadas;
 public:
+	/**
+	 * Copy Constructor
+	 */
 	Oficina(string Denominacao, string Localizacao, int Disponibilidade = 10) :
 			denominacao(Denominacao), localizacao(Localizacao) {
 		disponibilidade = Disponibilidade;
 	}
+	/**
+	 * Destructor
+	 */
 	virtual ~Oficina() {
 	}
 
+	/**
+	 * Get denominacao da oficina
+	 */
 	string getDenominacao() {
 		return denominacao;
 	}
 
+	/**
+	 * Get localizacao da oficina
+	 */
 	string getLocalizacao() {
 		return localizacao;
 	}
 
+	/**
+	 * Get disponibilidade da oficina
+	 */
 	int getDisponibilidade() {
 		return disponibilidade;
 	}
 
+	/**
+	 * Get marcas de especializacao da oficina
+	 */
 	vector<string> getMarcasEspecializadas() {
 		return marcasEspecializadas;
 	}
 
+	/**
+	 * Get marcas especializadas
+	 */
 	string getMarcasEspecializadasStr() {
 		if (marcasEspecializadas.empty())
 			return "Nenhuma marca disponivel.";
@@ -67,14 +88,30 @@ public:
 		return ss.str();
 	}
 
+	/**
+	 * Adiciona servico
+	 */
 	void adicionaServico() { disponibilidade--; }
+	/**
+	 * Termona servico
+	 */
 	void terminaServico() { disponibilidade++; }
 
+	/**
+	 * Adiciona marca
+	 */
 	int addMarca(string Marca);
+	/**
+	 * Remove marca
+	 */
 	int removeMarca(string Marca);
+	/**
+	 * Set disponibilidade
+	 */
 	void setDisponibilidade(int Disponibilidade) {
 		disponibilidade = Disponibilidade;
 	}
+
 
 	bool operator <(const Oficina& o1) const {
 		return disponibilidade < o1.disponibilidade;

@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
+<title>Escola de Conducao: Código-Fonte de C:/Users/Henrique/Desktop/Escola-de-Conducao/Escola de Conducao/src/Exceptions.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Escola de Conducao
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.5 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Ficheiros&#160;membro</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_exceptions_8h_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores da enumeração</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Exceptions.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_exceptions_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef EXCEPTIONS_H_</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define EXCEPTIONS_H_</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_utilities_8h.html">Utilities.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_matricula_invalida.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_matricula_invalida.html">MatriculaInvalida</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">string</span> *m;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_matricula_invalida.html#a8e5947282f40b5b4754814be82b596b8">   24</a></span>&#160;    <a class="code" href="class_matricula_invalida.html#a8e5947282f40b5b4754814be82b596b8">MatriculaInvalida</a>(<span class="keywordtype">string</span> &amp;matricula): m(&amp;matricula) {}</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_matricula_invalida.html#a886f3e60375a7c799bc44f6206892c51">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_matricula_invalida.html#a886f3e60375a7c799bc44f6206892c51">~MatriculaInvalida</a>() throw() {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_matricula_invalida.html#acc1373e88c61a40296e338f12dbfd66e">   27</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="class_matricula_invalida.html#acc1373e88c61a40296e338f12dbfd66e">what</a>() <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tMatricula Invalida.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\tFormato esperado: \&quot;xx-xx-xx\&quot;.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\tUma matricula tem que conter 2 letras e&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t4 numeros separados por um \&#39;-\&#39;&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t---------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_hora_invalida.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_hora_invalida.html">HoraInvalida</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">int</span> *hora;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_hora_invalida.html#a4cebb0ab0a52a047e68cbba881960607">   42</a></span>&#160;    <a class="code" href="class_hora_invalida.html#a4cebb0ab0a52a047e68cbba881960607">HoraInvalida</a>(<span class="keywordtype">int</span> &amp;Hora): hora(&amp;Hora) {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_hora_invalida.html#a39dbf54d07e580dc398a7fac4a52dd94">   43</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_hora_invalida.html#a39dbf54d07e580dc398a7fac4a52dd94">~HoraInvalida</a>() throw() {}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_hora_invalida.html#a3e7cf43122245a0b3ddbfc70432dbf4e">   45</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_hora_invalida.html#a3e7cf43122245a0b3ddbfc70432dbf4e">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tHora Invalida.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\tA hora tem que pertencer ao intervalo: [0, 23]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t----------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_input_esperado_era_int.html">   55</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_input_esperado_era_int.html">InputEsperadoEraInt</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> num;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">int</span> start, end;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_input_esperado_era_int.html#a94f6c3a5efbe639a37d9771b4f68c305">   59</a></span>&#160;    <a class="code" href="class_input_esperado_era_int.html#a94f6c3a5efbe639a37d9771b4f68c305">InputEsperadoEraInt</a>(<span class="keywordtype">int</span> Numero, <span class="keywordtype">int</span> Start, <span class="keywordtype">int</span> End): num(Numero), start(Start), end(End) {}</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_input_esperado_era_int.html#a3c4d583997e2f34c4f48bd6e122af7d6">   60</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_input_esperado_era_int.html#a3c4d583997e2f34c4f48bd6e122af7d6">~InputEsperadoEraInt</a>() throw() {}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_input_esperado_era_int.html#a5716a0d2e06b87491181fe97c4799aaa">   62</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_input_esperado_era_int.html#a5716a0d2e06b87491181fe97c4799aaa">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tInput Invalido: \&#39;int\&#39; type era esperado.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\tInput tambem tem que pertencer ao intervalo: [&quot;</span> &lt;&lt; start &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; end &lt;&lt; <span class="stringliteral">&quot;]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t----------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_input_esperado_era_string.html">   72</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_input_esperado_era_string.html">InputEsperadoEraString</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">string</span> *str;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_input_esperado_era_string.html#a13f2296eabff7d45785766e0737e1da7">   75</a></span>&#160;    <a class="code" href="class_input_esperado_era_string.html#a13f2296eabff7d45785766e0737e1da7">InputEsperadoEraString</a>(<span class="keywordtype">string</span> &amp;String): str(&amp;String) {}</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_input_esperado_era_string.html#ad4fd82fb761999ce0ea401cc30bcfd90">   76</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_input_esperado_era_string.html#ad4fd82fb761999ce0ea401cc30bcfd90">~InputEsperadoEraString</a>() throw() {}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="class_input_esperado_era_string.html#ad5667855fab08a530fcebb7e5eb0699f">   78</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_input_esperado_era_string.html#ad5667855fab08a530fcebb7e5eb0699f">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tInput Invalido: \&#39;string\&#39; type era esperado.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t-------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="class_colecao_vazia.html">   87</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_colecao_vazia.html">ColecaoVazia</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">string</span> name;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_colecao_vazia.html#abaf2f392221eaa7e7fe12da02776481b">   90</a></span>&#160;    <a class="code" href="class_colecao_vazia.html#abaf2f392221eaa7e7fe12da02776481b">ColecaoVazia</a>(<span class="keywordtype">string</span> Nome): name(Nome) {}</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_colecao_vazia.html#af6e4233d2c4dabd02cd2c68fc48bdd6c">   91</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_colecao_vazia.html#af6e4233d2c4dabd02cd2c68fc48bdd6c">~ColecaoVazia</a>() throw() {}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_colecao_vazia.html#a384f753d689fb78e3a15be1af324b856">   93</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_colecao_vazia.html#a384f753d689fb78e3a15be1af324b856">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tA colecao de nome &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; encontra-se vazia.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Pressione enter para continuar... &quot;</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        cin.get();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="class_viatura_ja_existe.html">  104</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_viatura_ja_existe.html">ViaturaJaExiste</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">string</span> matricula;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_viatura_ja_existe.html#a52220e019ffd22cb34741b0025064cb1">  107</a></span>&#160;    <a class="code" href="class_viatura_ja_existe.html#a52220e019ffd22cb34741b0025064cb1">ViaturaJaExiste</a>(<span class="keywordtype">string</span> Matricula): matricula(Matricula) {}</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_viatura_ja_existe.html#a95aaf5333456b8f28a94155969ebb7d8">  108</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_viatura_ja_existe.html#a95aaf5333456b8f28a94155969ebb7d8">~ViaturaJaExiste</a>() throw() {}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="class_viatura_ja_existe.html#a6c175843c45554aa495deb857e466519">  110</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_viatura_ja_existe.html#a6c175843c45554aa495deb857e466519">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tA viatura com matricula &quot;</span> &lt;&lt; matricula &lt;&lt; <span class="stringliteral">&quot; ja existe.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="class_instrutor_ja_existe.html">  119</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_instrutor_ja_existe.html">InstrutorJaExiste</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">string</span> str;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="class_instrutor_ja_existe.html#a2ddef336047938e6217d1309bed60e86">  122</a></span>&#160;    <a class="code" href="class_instrutor_ja_existe.html#a2ddef336047938e6217d1309bed60e86">InstrutorJaExiste</a>(<span class="keywordtype">string</span> Str): str(Str) {}</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="class_instrutor_ja_existe.html#a9dbe5d5748a4372c69d9648eaa090da9">  123</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_instrutor_ja_existe.html#a9dbe5d5748a4372c69d9648eaa090da9">~InstrutorJaExiste</a>() throw() {}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="class_instrutor_ja_existe.html#a25347a7055ee3dd5eecadda3c055495e">  125</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_instrutor_ja_existe.html#a25347a7055ee3dd5eecadda3c055495e">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tO instutor &quot;</span> &lt;&lt; str &lt;&lt; <span class="stringliteral">&quot; ja existe.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="class_instrutor_nao_existe.html">  134</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_instrutor_nao_existe.html">InstrutorNaoExiste</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">string</span> str;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="class_instrutor_nao_existe.html#a0bee2c82f4dd3a54955870edbeb7208d">  137</a></span>&#160;    <a class="code" href="class_instrutor_nao_existe.html#a0bee2c82f4dd3a54955870edbeb7208d">InstrutorNaoExiste</a>(<span class="keywordtype">string</span> Str): str(Str) {}</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="class_instrutor_nao_existe.html#a09b155c4b7535a20957eadf35d41bb0c">  138</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_instrutor_nao_existe.html#a09b155c4b7535a20957eadf35d41bb0c">~InstrutorNaoExiste</a>() throw() {}</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="class_instrutor_nao_existe.html#a70ee6b62b6f52734ff7ebd0bc2a4fd2b">  140</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_instrutor_nao_existe.html#a70ee6b62b6f52734ff7ebd0bc2a4fd2b">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tO instutor &quot;</span> &lt;&lt; str &lt;&lt; <span class="stringliteral">&quot; nao existe.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;};</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="class_aluno_ja_existe.html">  149</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_aluno_ja_existe.html">AlunoJaExiste</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">string</span> str;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="class_aluno_ja_existe.html#a41eba983281e38d9a2b3797c085beb62">  152</a></span>&#160;    <a class="code" href="class_aluno_ja_existe.html#a41eba983281e38d9a2b3797c085beb62">AlunoJaExiste</a>(<span class="keywordtype">string</span> Str): str(Str) {}</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="class_aluno_ja_existe.html#aa7b7fecfeb9a4f4a2e1532a2bcb541ca">  153</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_aluno_ja_existe.html#aa7b7fecfeb9a4f4a2e1532a2bcb541ca">~AlunoJaExiste</a>() throw() {}</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="class_aluno_ja_existe.html#aad3399a66299acb5d9bdf1f84cae0ab3">  155</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_aluno_ja_existe.html#aad3399a66299acb5d9bdf1f84cae0ab3">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tO aluno &quot;</span> &lt;&lt; str &lt;&lt; <span class="stringliteral">&quot; ja existe.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;};</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="class_aluno_nao_existe.html">  164</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_aluno_nao_existe.html">AlunoNaoExiste</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">string</span> str;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_aluno_nao_existe.html#a92d042e4b384b27ae9cd7006c088f7be">  167</a></span>&#160;    <a class="code" href="class_aluno_nao_existe.html#a92d042e4b384b27ae9cd7006c088f7be">AlunoNaoExiste</a>(<span class="keywordtype">string</span> Str): str(Str) {}</div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="class_aluno_nao_existe.html#afa60d01966d88bf525f6c5537cd68979">  168</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_aluno_nao_existe.html#afa60d01966d88bf525f6c5537cd68979">~AlunoNaoExiste</a>() throw() {}</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="class_aluno_nao_existe.html#a67b18ca63b45cfd3025363c87c80c132">  170</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_aluno_nao_existe.html#a67b18ca63b45cfd3025363c87c80c132">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tO aluno &quot;</span> &lt;&lt; str &lt;&lt; <span class="stringliteral">&quot; nao existe.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;};</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="class_escola_com_recursos_insuficientes.html">  179</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_escola_com_recursos_insuficientes.html">EscolaComRecursosInsuficientes</a>: <span class="keyword">public</span> exception {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">string</span> str;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="class_escola_com_recursos_insuficientes.html#af4c0e71de0e17f090234e12c36a8f623">  182</a></span>&#160;    <a class="code" href="class_escola_com_recursos_insuficientes.html#af4c0e71de0e17f090234e12c36a8f623">EscolaComRecursosInsuficientes</a>(<span class="keywordtype">string</span> Str): str(Str) {}</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="class_escola_com_recursos_insuficientes.html#ab561c780c530744ff968f37ca389b2b5">  183</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_escola_com_recursos_insuficientes.html#ab561c780c530744ff968f37ca389b2b5">~EscolaComRecursosInsuficientes</a>() throw() {}</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="class_escola_com_recursos_insuficientes.html#a2ee91b76f52f60aabbef11def0964bca">  185</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_escola_com_recursos_insuficientes.html#a2ee91b76f52f60aabbef11def0964bca">what</a> () <span class="keyword">const</span> throw() {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Erro:\tA escola nao tem os recursos necessarios para o aluno &quot;</span> &lt;&lt; str &lt;&lt; <span class="stringliteral">&quot;.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;\t---------------------------------------------------------------&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Pressione enter para continuar... &quot;</span>;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        cin.get();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;};</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* EXCEPTIONS_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="class_viatura_ja_existe_html_a95aaf5333456b8f28a94155969ebb7d8"><div class="ttname"><a href="class_viatura_ja_existe.html#a95aaf5333456b8f28a94155969ebb7d8">ViaturaJaExiste::~ViaturaJaExiste</a></div><div class="ttdeci">virtual ~ViaturaJaExiste()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:108</div></div>
+<div class="ttc" id="class_hora_invalida_html_a3e7cf43122245a0b3ddbfc70432dbf4e"><div class="ttname"><a href="class_hora_invalida.html#a3e7cf43122245a0b3ddbfc70432dbf4e">HoraInvalida::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:45</div></div>
+<div class="ttc" id="class_instrutor_ja_existe_html_a25347a7055ee3dd5eecadda3c055495e"><div class="ttname"><a href="class_instrutor_ja_existe.html#a25347a7055ee3dd5eecadda3c055495e">InstrutorJaExiste::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:125</div></div>
+<div class="ttc" id="class_aluno_ja_existe_html_aad3399a66299acb5d9bdf1f84cae0ab3"><div class="ttname"><a href="class_aluno_ja_existe.html#aad3399a66299acb5d9bdf1f84cae0ab3">AlunoJaExiste::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:155</div></div>
+<div class="ttc" id="class_input_esperado_era_string_html_a13f2296eabff7d45785766e0737e1da7"><div class="ttname"><a href="class_input_esperado_era_string.html#a13f2296eabff7d45785766e0737e1da7">InputEsperadoEraString::InputEsperadoEraString</a></div><div class="ttdeci">InputEsperadoEraString(string &amp;String)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:75</div></div>
+<div class="ttc" id="class_escola_com_recursos_insuficientes_html_a2ee91b76f52f60aabbef11def0964bca"><div class="ttname"><a href="class_escola_com_recursos_insuficientes.html#a2ee91b76f52f60aabbef11def0964bca">EscolaComRecursosInsuficientes::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:185</div></div>
+<div class="ttc" id="class_hora_invalida_html_a4cebb0ab0a52a047e68cbba881960607"><div class="ttname"><a href="class_hora_invalida.html#a4cebb0ab0a52a047e68cbba881960607">HoraInvalida::HoraInvalida</a></div><div class="ttdeci">HoraInvalida(int &amp;Hora)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:42</div></div>
+<div class="ttc" id="class_colecao_vazia_html_a384f753d689fb78e3a15be1af324b856"><div class="ttname"><a href="class_colecao_vazia.html#a384f753d689fb78e3a15be1af324b856">ColecaoVazia::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:93</div></div>
+<div class="ttc" id="class_aluno_nao_existe_html_afa60d01966d88bf525f6c5537cd68979"><div class="ttname"><a href="class_aluno_nao_existe.html#afa60d01966d88bf525f6c5537cd68979">AlunoNaoExiste::~AlunoNaoExiste</a></div><div class="ttdeci">virtual ~AlunoNaoExiste()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:168</div></div>
+<div class="ttc" id="class_input_esperado_era_string_html"><div class="ttname"><a href="class_input_esperado_era_string.html">InputEsperadoEraString</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:72</div></div>
+<div class="ttc" id="class_viatura_ja_existe_html_a52220e019ffd22cb34741b0025064cb1"><div class="ttname"><a href="class_viatura_ja_existe.html#a52220e019ffd22cb34741b0025064cb1">ViaturaJaExiste::ViaturaJaExiste</a></div><div class="ttdeci">ViaturaJaExiste(string Matricula)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:107</div></div>
+<div class="ttc" id="class_escola_com_recursos_insuficientes_html_af4c0e71de0e17f090234e12c36a8f623"><div class="ttname"><a href="class_escola_com_recursos_insuficientes.html#af4c0e71de0e17f090234e12c36a8f623">EscolaComRecursosInsuficientes::EscolaComRecursosInsuficientes</a></div><div class="ttdeci">EscolaComRecursosInsuficientes(string Str)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:182</div></div>
+<div class="ttc" id="class_hora_invalida_html_a39dbf54d07e580dc398a7fac4a52dd94"><div class="ttname"><a href="class_hora_invalida.html#a39dbf54d07e580dc398a7fac4a52dd94">HoraInvalida::~HoraInvalida</a></div><div class="ttdeci">virtual ~HoraInvalida()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:43</div></div>
+<div class="ttc" id="class_input_esperado_era_int_html_a94f6c3a5efbe639a37d9771b4f68c305"><div class="ttname"><a href="class_input_esperado_era_int.html#a94f6c3a5efbe639a37d9771b4f68c305">InputEsperadoEraInt::InputEsperadoEraInt</a></div><div class="ttdeci">InputEsperadoEraInt(int Numero, int Start, int End)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:59</div></div>
+<div class="ttc" id="class_aluno_nao_existe_html_a67b18ca63b45cfd3025363c87c80c132"><div class="ttname"><a href="class_aluno_nao_existe.html#a67b18ca63b45cfd3025363c87c80c132">AlunoNaoExiste::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:170</div></div>
+<div class="ttc" id="class_escola_com_recursos_insuficientes_html"><div class="ttname"><a href="class_escola_com_recursos_insuficientes.html">EscolaComRecursosInsuficientes</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:179</div></div>
+<div class="ttc" id="class_viatura_ja_existe_html_a6c175843c45554aa495deb857e466519"><div class="ttname"><a href="class_viatura_ja_existe.html#a6c175843c45554aa495deb857e466519">ViaturaJaExiste::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:110</div></div>
+<div class="ttc" id="class_colecao_vazia_html_abaf2f392221eaa7e7fe12da02776481b"><div class="ttname"><a href="class_colecao_vazia.html#abaf2f392221eaa7e7fe12da02776481b">ColecaoVazia::ColecaoVazia</a></div><div class="ttdeci">ColecaoVazia(string Nome)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:90</div></div>
+<div class="ttc" id="class_instrutor_ja_existe_html_a2ddef336047938e6217d1309bed60e86"><div class="ttname"><a href="class_instrutor_ja_existe.html#a2ddef336047938e6217d1309bed60e86">InstrutorJaExiste::InstrutorJaExiste</a></div><div class="ttdeci">InstrutorJaExiste(string Str)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:122</div></div>
+<div class="ttc" id="class_escola_com_recursos_insuficientes_html_ab561c780c530744ff968f37ca389b2b5"><div class="ttname"><a href="class_escola_com_recursos_insuficientes.html#ab561c780c530744ff968f37ca389b2b5">EscolaComRecursosInsuficientes::~EscolaComRecursosInsuficientes</a></div><div class="ttdeci">virtual ~EscolaComRecursosInsuficientes()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:183</div></div>
+<div class="ttc" id="class_hora_invalida_html"><div class="ttname"><a href="class_hora_invalida.html">HoraInvalida</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:39</div></div>
+<div class="ttc" id="class_colecao_vazia_html"><div class="ttname"><a href="class_colecao_vazia.html">ColecaoVazia</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:87</div></div>
+<div class="ttc" id="class_instrutor_nao_existe_html_a70ee6b62b6f52734ff7ebd0bc2a4fd2b"><div class="ttname"><a href="class_instrutor_nao_existe.html#a70ee6b62b6f52734ff7ebd0bc2a4fd2b">InstrutorNaoExiste::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:140</div></div>
+<div class="ttc" id="class_instrutor_nao_existe_html_a09b155c4b7535a20957eadf35d41bb0c"><div class="ttname"><a href="class_instrutor_nao_existe.html#a09b155c4b7535a20957eadf35d41bb0c">InstrutorNaoExiste::~InstrutorNaoExiste</a></div><div class="ttdeci">virtual ~InstrutorNaoExiste()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:138</div></div>
+<div class="ttc" id="class_aluno_nao_existe_html_a92d042e4b384b27ae9cd7006c088f7be"><div class="ttname"><a href="class_aluno_nao_existe.html#a92d042e4b384b27ae9cd7006c088f7be">AlunoNaoExiste::AlunoNaoExiste</a></div><div class="ttdeci">AlunoNaoExiste(string Str)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:167</div></div>
+<div class="ttc" id="class_instrutor_nao_existe_html_a0bee2c82f4dd3a54955870edbeb7208d"><div class="ttname"><a href="class_instrutor_nao_existe.html#a0bee2c82f4dd3a54955870edbeb7208d">InstrutorNaoExiste::InstrutorNaoExiste</a></div><div class="ttdeci">InstrutorNaoExiste(string Str)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:137</div></div>
+<div class="ttc" id="class_matricula_invalida_html_a8e5947282f40b5b4754814be82b596b8"><div class="ttname"><a href="class_matricula_invalida.html#a8e5947282f40b5b4754814be82b596b8">MatriculaInvalida::MatriculaInvalida</a></div><div class="ttdeci">MatriculaInvalida(string &amp;matricula)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:24</div></div>
+<div class="ttc" id="class_instrutor_nao_existe_html"><div class="ttname"><a href="class_instrutor_nao_existe.html">InstrutorNaoExiste</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:134</div></div>
+<div class="ttc" id="class_instrutor_ja_existe_html"><div class="ttname"><a href="class_instrutor_ja_existe.html">InstrutorJaExiste</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:119</div></div>
+<div class="ttc" id="_utilities_8h_html"><div class="ttname"><a href="_utilities_8h.html">Utilities.h</a></div></div>
+<div class="ttc" id="class_aluno_ja_existe_html_aa7b7fecfeb9a4f4a2e1532a2bcb541ca"><div class="ttname"><a href="class_aluno_ja_existe.html#aa7b7fecfeb9a4f4a2e1532a2bcb541ca">AlunoJaExiste::~AlunoJaExiste</a></div><div class="ttdeci">virtual ~AlunoJaExiste()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:153</div></div>
+<div class="ttc" id="class_input_esperado_era_int_html_a3c4d583997e2f34c4f48bd6e122af7d6"><div class="ttname"><a href="class_input_esperado_era_int.html#a3c4d583997e2f34c4f48bd6e122af7d6">InputEsperadoEraInt::~InputEsperadoEraInt</a></div><div class="ttdeci">virtual ~InputEsperadoEraInt()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:60</div></div>
+<div class="ttc" id="class_aluno_nao_existe_html"><div class="ttname"><a href="class_aluno_nao_existe.html">AlunoNaoExiste</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:164</div></div>
+<div class="ttc" id="class_colecao_vazia_html_af6e4233d2c4dabd02cd2c68fc48bdd6c"><div class="ttname"><a href="class_colecao_vazia.html#af6e4233d2c4dabd02cd2c68fc48bdd6c">ColecaoVazia::~ColecaoVazia</a></div><div class="ttdeci">virtual ~ColecaoVazia()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:91</div></div>
+<div class="ttc" id="class_matricula_invalida_html_acc1373e88c61a40296e338f12dbfd66e"><div class="ttname"><a href="class_matricula_invalida.html#acc1373e88c61a40296e338f12dbfd66e">MatriculaInvalida::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:27</div></div>
+<div class="ttc" id="class_aluno_ja_existe_html_a41eba983281e38d9a2b3797c085beb62"><div class="ttname"><a href="class_aluno_ja_existe.html#a41eba983281e38d9a2b3797c085beb62">AlunoJaExiste::AlunoJaExiste</a></div><div class="ttdeci">AlunoJaExiste(string Str)</div><div class="ttdef"><b>Definition:</b> Exceptions.h:152</div></div>
+<div class="ttc" id="class_matricula_invalida_html_a886f3e60375a7c799bc44f6206892c51"><div class="ttname"><a href="class_matricula_invalida.html#a886f3e60375a7c799bc44f6206892c51">MatriculaInvalida::~MatriculaInvalida</a></div><div class="ttdeci">virtual ~MatriculaInvalida()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:25</div></div>
+<div class="ttc" id="class_instrutor_ja_existe_html_a9dbe5d5748a4372c69d9648eaa090da9"><div class="ttname"><a href="class_instrutor_ja_existe.html#a9dbe5d5748a4372c69d9648eaa090da9">InstrutorJaExiste::~InstrutorJaExiste</a></div><div class="ttdeci">virtual ~InstrutorJaExiste()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:123</div></div>
+<div class="ttc" id="class_input_esperado_era_string_html_ad4fd82fb761999ce0ea401cc30bcfd90"><div class="ttname"><a href="class_input_esperado_era_string.html#ad4fd82fb761999ce0ea401cc30bcfd90">InputEsperadoEraString::~InputEsperadoEraString</a></div><div class="ttdeci">virtual ~InputEsperadoEraString()</div><div class="ttdef"><b>Definition:</b> Exceptions.h:76</div></div>
+<div class="ttc" id="class_aluno_ja_existe_html"><div class="ttname"><a href="class_aluno_ja_existe.html">AlunoJaExiste</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:149</div></div>
+<div class="ttc" id="class_matricula_invalida_html"><div class="ttname"><a href="class_matricula_invalida.html">MatriculaInvalida</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:21</div></div>
+<div class="ttc" id="class_input_esperado_era_int_html"><div class="ttname"><a href="class_input_esperado_era_int.html">InputEsperadoEraInt</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:55</div></div>
+<div class="ttc" id="class_input_esperado_era_int_html_a5716a0d2e06b87491181fe97c4799aaa"><div class="ttname"><a href="class_input_esperado_era_int.html#a5716a0d2e06b87491181fe97c4799aaa">InputEsperadoEraInt::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:62</div></div>
+<div class="ttc" id="class_viatura_ja_existe_html"><div class="ttname"><a href="class_viatura_ja_existe.html">ViaturaJaExiste</a></div><div class="ttdef"><b>Definition:</b> Exceptions.h:104</div></div>
+<div class="ttc" id="class_input_esperado_era_string_html_ad5667855fab08a530fcebb7e5eb0699f"><div class="ttname"><a href="class_input_esperado_era_string.html#ad5667855fab08a530fcebb7e5eb0699f">InputEsperadoEraString::what</a></div><div class="ttdeci">virtual const char * what() const </div><div class="ttdef"><b>Definition:</b> Exceptions.h:78</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b64df8b707319000bf7bc7860356c27d.html">Escola-de-Conducao</a></li><li class="navelem"><a class="el" href="dir_39d7d5164e00f2d4335f4917a47fbcc4.html">Escola de Conducao</a></li><li class="navelem"><a class="el" href="dir_979c226e6ed7b34b8884832ea7618bab.html">src</a></li><li class="navelem"><a class="el" href="_exceptions_8h.html">Exceptions.h</a></li>
+    <li class="footer">Gerado em Segunda, 11 de Novembro de 2013 23:47:46 para Escola de Conducao por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
+</body>
+</html>
